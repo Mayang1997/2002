@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+函数的返回值
+    + 理解两个词
+      1. 过程
+      2. 结果
+    + 例子: 把大象放冰箱
+      => 冰箱: 我们封装的功能, 我们封装的代码
+      => 过程: 调用函数的时候, 里面的代码在依次执行
+      => 结果: 我们调用函数以后, 能得到什么
+    + 一个函数的结果, 我们专业名称叫做 返回值
+      => 我们把一个函数的结果叫做这个函数的返回值
+      => 我们函数内部的返回值使用 return 来表示
+
+ 一个函数
+        <script>
+            function bingxiang(dw) {
+                // 过程
+                console.log('经过 10 分钟')
+                console.log('经过 20 分钟')
+                var str = '冰冰冰 ' + dw + ' 冰冰冰'
+
+                   /*  结果: 返回值
+                    该函数的返回值就是这个 str 的值 */
+                return str
+            }
+        </script>
+        <script>
+        /* 调用函数
+        当你调用一个函数的时候, 函数里面的代码会从上到下的执行一遍
+        函数的返回值, 我们直接在函数前面定义变量接收
+        result 接收到的内容就是 bingxiang 这个函数里面 return 的内容 */
+        var result = bingxiang('大象') 
+
+            console.log('result: ' + result)
+
+
+            //  result2 接收的就是一个被冰包围的 八爪鱼
+            var result2 = bingxiang('八爪鱼')
+            console.log(result2)
+
+
+        //  观察一下
+        var num = '10.234'
+        /* parseInt() 就是一个叫做 parseInt 的函数被调用了
+        并且传递了一个实参是一个 字符串 10.234
+        parseInt 函数里面处理了一下传递进来的实参, 并且返回了一个我处理后的结果
+        result 接收的就是数字 10
+        只不过这个 parseInt 是 JS 自带的一个函数, 不是我们自定义的一个函数 */
+        var result = parseInt(num)
+        </script>
+
+
+返回值ruturn 的第二个功能：
+
+return 的第二个功能
++ return 除了可以给函数一个返回值之外
++ return 第二个功能就是打断函数的继续执行
+  => 当函数内部的代码执行到 return 之后
+  => return 后面的所有代码都不在执行了
+  => 直接结束函数
++ 注意:
+  1. 函数内部的打断不是 break, 是 return
+
+  <script>
+    function fn(dw) {
+      console.log(1)
+      console.log(2)
+      console.log(3)
+
+      // 当代码遇到这个 return 的时候, 直接结束函数
+      // 连带打断函数, 并给出一个返回值
+      return 123
+
+      console.log(4)
+      console.log(5)
+    }
+
+    var res = fn()
+    console.log(res)
+
+  </script>
+
+    
+</body>
+</html>

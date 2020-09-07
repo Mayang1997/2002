@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 32px;
+            height: 33px;
+            background: url(./img/Actor01-Braver03.png) no-repeat;
+            background-position-x: 0px;
+            background-position-y: 0px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 放入图片的盒子 -->
+    <div></div>
+</body>
+<script>
+    // 人物行走
+    // 定义两个变量  分别为接收元素的变量 和 键码的变量 e.keyCode
+    var actor,key
+    // 定义一个接收 图片 X 方向值得变量,初始为 0 就是 图片中人物 上下左右 不动得状态
+    var count = 0,
+        time = 10,   // 定义一个开启定时器得变量， 没隔10次，开启一次定时器，相当于原来 16 毫秒开启定时器，现在160毫秒开启定时器
+        // 定义两个接收 绝对定位值 的变量 2 就是每次定时器开启定位 不断累积的数值
+        speedX = 2,
+        speedY = 2,
+        // 定义两个接收 定位 left 和 top 的值
+        x = 0,
+        y = 0
+
+    /*  
+        初始化函数
+        1： 获取元素
+        2： 给 document 添加按下 松开键的事件
+        3： 添加定时器
+    */
+    init()
+
+    function init(){
+        // 获取元素 
+        actor = document.querySelector('div')
+        // 按键事件 侦听 document 
+        // 给 document 创建侦听事件，并加上 按下键和松开键的事件
+        document.addEventListener('keydown',mouseHandler)
+        document.addEventListener('keyup',mouseHandler)
+        // 添加 定时器
+        setInterval(animetion,16)
+    }
+
+
+
+    // 事件回调函数
+    /* 
+        根据键码来判断 修改图片的位置
+    */
+    function mouseHandler(e){
+        // 当事件类型为 keydown 时，执行if分支
+        if (e.type === 'keydown'){
+            // 当 key 变量的值为 空 时， 进入if分支
+            if(!key){
+                // 跟据 e.keyCode 键码 来判定对应 swith 分支 对应的情况
+                // 37 38 39 40 分别对应键 为 左 上 右 下
+                switch (e.keyCode) {
+                    case 37:
+                        actor.style.backgroundPositionY = '-33px'  // 图片高 132px 通过背景定位改变相应的位置
+                        break
+                    case 38:
+                        actor.style.backgroundPositionY = '-99px'
+                        break
+                    case 39:
+                        actor.style.backgroundPositionY = '-66px'
+                        break
+                    case 40:
+                        actor.style.backgroundPositionY = '0px'
+                        break
+                }
+            }
+            // 将当前 的键码 赋值给 key ，这样一直 按下键 就只执行一次。 因为 这里 key 的值为true，不再满足 59行分支的条件
+            key = e.keyCode
+        } else{
+            // 当 事件类型为 keyup 时，将key 的值 重新赋值为 空
+            // 这样，在这里下一次按下键 又能执行 59行 分支
+            key = undefined
+            // 将图片的 位置 调整为 0
+            actor.style.backgroundPositionX = '0px'
+        }
+    }
+
+
+
+    // 定时器 回调函数
+    /* 
+        1：判断 key 变量的值 来决定是否执行开启定时器
+        2：创建 防抖 回调函数
+        3：创建 人物行走函数
+    */
+    function animetion(){
+        // 当 key 变量的值为空时，直接跳出,说明 keydown 事件未触发
+        if (!key) return
+        // 防抖 回调函数
+        chengeACtor()
+        // 人物行走 回调函数
+        actorMove()
+    }
+
+
+    // 防抖 回调函数
+    function chengeACtor(){
+        // 防抖 ：因为考虑不能进入太快，当前函数原来是16毫秒进入一次。
+        // 现在我们设置一个time，每10次进入一次，这样就造成每160毫秒进入一次，减缓图像改变速度
+        // 这就是防抖
+
+        // 初始次数不断减少，当减为0时，开启定时器
+        time-- 
+
+        if (time > 0) return
+        // 重新赋值 time 为10
+        time = 10
+        // 每开启一次定时器，让图片 的人物上下左右 变换位置
+        count++
+        // 当 count 大于3 时 将图片人物的动作 变成初始
+        if(count >3) count = 0
+        // 图片宽为 128  背景图片往左移动 就是为 负值
+        actor.style.backgroundPositionX = -count*32+'px'
+    }
+
+
+    //人物行走回调函数
+    function actorMove() {
+        // 当 key 有值时，就是 keydown 按下键事件已执行
+        // 根据key 的变量接收的 e.keyCode 键码来让人物在对应的方向走动，就是改变绝对定位的值
+        switch (key) {
+            case 37:
+                x -= speedX  // 背景图片 往左移动 为负值 ，每开启一次定时器，往左移动 2px
+                break
+            case 38:
+                y -= speedY  // 背景图片 往上移动 为负值
+                break
+            case 39: 
+                x += speedX  // 背景图片 往右移动 为正值
+                break
+            case 40: 
+                y += speedY  // 背景图片 往下移动 为正值
+        }
+        //  不断改变 定位的值 实现移动
+        actor.style.left = x + 'px'
+        actor.style.top = y + 'px'
+    }
+</script>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    js数据类型的转换：把一个数据类型转换成另外一个数据类型  (强制转换)
+        1：转换成数值类型：Number(需要转换的变量)
+            +   转换的是一个整体的内容
+                手字母大写 
+                能转换的只有数字
+                识别小数点
+            返回值： 当转换的是合法的数字，返回值就是为数字，输出检测的结果为number
+                    当转换的是不正规的数字 返回值为 NaN
+
+        <!-- <script>
+            // var n1 = '100'
+            // var result = Number(n1)  // 注意Number首字母大写 ，用typeof检测n1 是否转换成Number
+            // var result1 = typeof result
+            // console.log(result1)    // 检测的返回值为100 
+
+            // //简写方式
+            // var n2 = '100.123456'
+            // var result = Number(n2)
+            // console.log(typeof result)    // 识别小数点
+
+            // var n3 = 'nuu100'  
+            // var result = Number(n3) 
+            // console.log(result)
+        </script> -->
+
+
+    1.2：转换数值类型方法二：parseInt(需要转换的变量) 
+            +   词中 I 为大写
+                此方法转换的方法是一位一位的看，第一位不能转数字，直接NaN
+                当第一位能转数字的时候保留，看第二位，不能就截止，以此类推
+                不识别小数点
+
+        <!-- <script>
+            // var n4 = 'aaa111'
+            // var result = parseInt(n4)
+            // console.log(result)   //  返回值为NaN
+
+            var n5 = '100abcd'
+            var result = parseInt(n5)
+            console.log(result)
+
+            var n6 = '100.123'
+            var result =parseInt(n6)
+            console.log(result)
+        </script> -->
+
+
+    1.3:parseFloat方法
+            跟parseInt规则一样
+            认识小数点
+        <!-- <script>
+            // var n7 = '100.123456'
+            // var result = parseFloat(n7)
+            // console.log(n7)
+        </script> -->
+    
+    1.4非加法的运算
+        
+        <!-- <script>
+            // var s1 = 100
+
+            // var result = s1 - 0
+            // console.log(result)
+
+            // var result = s1 * 0
+            // console.log(result)
+
+            // var result = s1 / 1   //除以0等于Infinity  这是什么？
+            // console.log(result)
+
+            var s2 = '100a'
+            var result = s2 - 0
+            console.log(result)   // 等于nan
+        </script> -->
+
+    转换成string方法一 : String(需要转换的变量)
+        +   什么都可以转换 
+        <script>
+            var s5 = 123 
+            var result = String(s5)
+            console.log(typeof result)
+        </script>
+      
+    方法二
+        +   to String
+            除了undefiend和null不能转换,一旦转换就报错，
+            其他所有的都可以
+
+    转换成布尔 boolenad(需要转换的变量)
+        +   只有5个转换为false 其他所有的都为 true
+            1： NaN
+            2:  0
+            3:  ''  空字符串
+            4： undefiend
+            5:  null
+</body>
+</html>

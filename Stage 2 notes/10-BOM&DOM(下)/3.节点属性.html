@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    节点属性 - 每个节点都是一个对象，节点这种对象都有几个属性
+
+        1： nodeType - 表示节点的类型
+
+            1 表示这是一个元素节点
+            3 表示这是一个文本节点
+            8 表示这是一个注释节点
+
+        2： nodeName - 表示节点的名称
+
+            #text 表示这是一个文本节点
+            大写的标签名  表示这是一个元素节点
+            #comment 表示这是一个注释节点
+
+        3： nodevalue - 表示节点的值
+
+            文本节点 - 那一段文字
+            注释节点 - 注释的内容
+            元素节点 - null
+        
+        节点属性的用途： 从父元素中获取一堆子元素，要操作每个子元素，无法识别到底是那个子元素，需要判断 - 通过节点属性来判断，是什么节点
+
+
+
+        <div class="box">
+            盒子
+            <p>
+                段落
+                <b>文本加粗</b>
+            </p>
+            <!-- 这是注释 -->
+            <span>文本</span>
+        </div>    
+</body>
+        <script>
+            // 获取div 
+            var div = document.querySelector('.box')
+
+            // 获取第一个节点
+            var first = div.firstChild
+            console.log(first)
+            // 节点的类型 - nodeType
+            console.log(first.nodeType)  // 3 代表这是一个文本节点
+            // 节点的名称 - nodeName 
+            console.log(first.nodeName)  // #text 代表这是一个文本节点
+            // 节点的值 - nodevalue
+            console.log(first.nodeValue) // 节点的值 == 那一段文本
+
+            // 获取第一个元素节点
+            var firstElement = div.firstElementChild
+            console.log(firstElement)
+            // 节点的类型 - nodeType
+            console.log(firstElement.nodeType)  // 1 代表这是一个元素节点
+            // 节点的名称 - nodeName 
+            console.log(firstElement.nodeName)  // 大写的标签名 代表这是一个元素节点
+            // 节点的值 - nodevalue
+            console.log(firstElement.nodeValue) // 元素节点的值 == null
+
+            // 获取所有的子节点
+            var all = div.childNodes
+            console.log(all)
+            // 通过下标获取注释节点
+            var c = all[3]  
+            // 节点的类型 - nodeType
+            console.log(c.nodeType)  // 8 代表这是一个注释节点
+            // 节点的名称 - nodeName 
+            console.log(c.nodeName)  // #comment 代表这是一个注释节点
+            // 节点的值 - nodevalue
+            console.log(c.nodeValue) // 注释节点的值 == 注释的内容
+        </script>
+</html> 

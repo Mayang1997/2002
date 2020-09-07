@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    弹出层：
+        1: afert() 弹框 选择框
+        2：confirm()
+        3:prompt()  弹框 输入框
+        因为很多的方法，子对象他们的父对象都是window,所以通常省略window
+
+    window事件 - 语法 window.on事件类型 = function(){}
+        1：load - 加载 - 当页面说有的内容 (html结构，样式文件，图片资源，js文件) 加载完毕，再加载这个函数 - 可以将script写在head里面
+        2：resize - 当浏览器窗口发生改变的时候会触发这个事件
+        3：scroll - 当浏览器滚动条发生改变的时候会触发这个事件
+        注： 滚动过的距离
+            上下滚动过的距离
+                如果没有文档声明的时候使用 document.body.scrollTop,由文档声明使用document.documentElement.scrollTop  
+            左右滚动过的距离
+                document.documentElement.scrollleft  
+                document.body.scrollright
+                
+    浏览器窗口的大小：获取到可视区域的快度和高度
+        <script>
+            // window.innerWidth - 浏览器的宽度
+            console.log(window.innerWidth)
+            // window.innerWidth - 浏览器的高度
+            console.log(window.innerHeight)
+            //且包含滚动条的尺寸
+
+        </script>
+</body>
+</html>

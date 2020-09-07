@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // js中 this 在各个环境下的指向
+            
+            // TODO 1：普通函数中的this指向 ----> window
+            function fn(){
+                console.log(this) // ES5 this ----> window
+                console.log(this) // ES6 this----> undefined
+            }
+
+            // TODO 2：回调函数中的this指向(不包含事件回调函数) ----> window
+            var obj = {
+
+                a:function(fn){
+                    // 将obj下的 c 方法带入obj下 a 方法中，执行，完成回调
+                    fn()
+                },
+                b:function(){
+                    var arr = [1,2,3,4]
+                    arr.forEach(function(){
+                        // 在数组方法 foreach 的回调函数中，this的指向为window
+                        console.log(this)  // this --> window
+                    })
+
+                    // 定时器的回调函数中，this的指向为window
+                    setTimeout(function(){
+                        console.log(this)  // this --> window
+                    },1000)
+                },
+                c:function(){
+                    // 此回调函数的this为window
+                    console.log(this) // this --> window 
+                }
+            }
+            // 将obj下的 c 方法带入obj下 a 方法中
+            obj.a(obj.c)
+
+            // TODO 三：事件回调函数，任何事件回调函数，this的指向都是执行这个侦听事件的对象
+            document.addEventListener("click",clickHandler)
+            function clickHandler(){
+                console.log(this) // this --> document
+            }
+            var obj0={
+                a:function(){
+                    document.addEventListener("click",this.clickHandler)
+                },
+                clickHandler:function(){
+                    console.log(this) // this --> document
+                }
+            }
+            // TODO 四：对象方法中的this指向
+            /* 
+                在对象中：对象的属性如果使用this，那么this的指向为对象外部的this
+                        在对象的方法中，this的指向为对象本身
+            */
+            var a = 20
+            var obj1 = {
+                a:1,
+                b:this.a,   // b:20 - this的指向为 全局的a=20
+                c:function(){
+                    console.log(this) // 这里this的指向为对象 obj1本身
+                }
+            }
+            obj1.c()
+
+            //TODO 五：ES6 类中的this指向
+            class Box{
+                a = 1
+                static a = 3
+                // 静态属性的this只会去指向相对应的静态属性，不会指向动态方法
+                // 所以c = 3
+                // 当 静态属性 a 没有时，c = undefined
+                static c = this.a  // c = 3
+                b = this.a
+                constructor(){
+                    console.log(this)  // this --->实例化对象
+                }
+                play(){
+                    console.log(this)  // 谁执行 pily方法this就指向谁
+                    document.addEventListener("click",this.clickFunction)
+                }
+                clickFunction(e){
+                    console.log(this)
+                }
+            }
+            // 在ES6 的类中
+            /* 
+                有两种方法 ：
+                一：静态方法：就是在属性或者方法的前面写上 static ，静态方法的this指向为 类本身，不管是属性还是方法
+                二：动态方法：没有使用 static的属性或者方法都属于动态方法，通过构造函数 new出来调用
+                            动态方法的this指向就是谁 调用这个方法this指向就是谁，就是实例化对象               
+            */
+            // 实例化对象
+            var box = new Box()
+
+
+            // TODO 六：ES5 类种的 this指向
+            function Boxs(){
+                console.log(this) // 这里的this指向，就是实例化化对象 EsClass
+            }
+            Boxs.prototype.a = 1
+            Boxs.prototype.play = function(){
+                console.log(this)
+            }
+            Boxs.c = 10
+            Boxs.d = this.c
+            Boxs.run = function(){
+                console.log(this)
+            }
+
+            // 实例化对象 - 就是当前构造函数产生新的对象
+            var EsClass = new Boxs()
+            console.log(Boxs.d)
+            Boxs.run()
+
+
+            // TODO 七：call apply bind 的this指向
+            // 三个方法都是改变this的指向，应用某一个对象的方法，用另一个对象来代替当前对象
+            var obj2 = {
+                a:function(){
+                    console.log(this)
+                }
+            }
+            var o = {a:1}
+            obj2.a.call(o)  //  obj2下的a方法中的this执行被改变成 o 对象 - 立即执行
+            obj2.a.apply(o)  //  obj2下的a方法中的this执行被改变成 o 对象 - 立即执行
+            obj2.a.bind(o)  //  obj2下的a方法中的this执行被改变成 o 对象 - 不会立即执行
+            obj2.a.call(null) // 如果替代为对象是null,undefined,this被指向window
+
+
+            // TODO 八：箭头函数的this指向 - 指向为箭头函数外部的this
+            var obj3 = {
+                a:()=>{
+                    console.log(this)  // this指向 ---> window
+                }
+            }
+			obj3.a()
+			
+            var obj4 = {
+                a:function(){
+                    var o = {
+                        b:()=>{
+                            console.log(this)  // this指向 ---> obj4
+                        }
+                    }
+					o.b()
+                }
+            }
+			obj4.a()
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .div0
+        {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 30px;
+        }
+    </style>
+
+</head>
+<body>
+    <form action="http://localhost:4010" method="GET">
+        <label>User</label>
+        <input type="text" neme="user"><br>
+        <label>password</label>
+        <input type="password" name="password"><br>
+        <label>x</label>
+        <input type="text" neme="x"><br>
+        <label>y</label>
+        <input type="text" name="y"><br>
+        <button type="submit">提交</button>
+    </form>
+    <div class="div0"></div>
+
+    <script>
+        // 获取 form
+        var form = document.querySelector('form');
+        // 获取所有的input
+        var inputs = document.querySelectorAll('input');
+        // 事件侦听
+        form.addEventListener('submit',submitHandler);
+
+        function submitHandler(e){
+            // 阻止form表单的默认提交
+            e.preventDefault();
+            // 分别获取4个input的value值
+            var user = inputs[0].value;
+            var password = inputs[1].value;
+            var x = inputs[2].value;
+            var y = inputs[3].value;
+            // 讲获取的 value 组成一个地址字符串
+            var str = "http://localhost:4010?User="+user+"&password="+password+"&x="+x+"&y="+y;
+            // 讲地址当作参数通过ajax 发送道 服务端
+            ajax(str);
+        }
+
+
+        // ajax函数
+        function ajax(str){
+            // 创建ajax
+            var hxr = new XMLHttpRequest();
+            // 事件侦听
+            hxr.addEventListener('load',loadHandler);
+            // 通过什么形式发送
+            hxr.open("POST",str);
+            // 发送
+            hxr.send();
+        }
+
+
+        // 服务端发送回来的消息
+        function loadHandler(e){
+            var div0 = document.querySelector('.div0');
+            div0.innerHTML = this.response;
+        }
+    </script>
+</body>
+</html>

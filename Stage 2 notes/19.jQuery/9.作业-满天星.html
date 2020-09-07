@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+</head>
+
+<body>
+    <script>
+        var num = 1
+        init()
+        function init() {
+            
+            var div = $("<div></div>").appendTo("body").css({
+                width: 50,
+                height: 50,
+                background: "url(./img/x.jpg)",
+                position: "absolute",
+                borderRadius: "50%",
+            })
+            var time = Math.floor(Math.random() * 2000 + 500)
+            show(div, time)
+        }
+
+        function show(elem, time) {
+            
+            elem.fadeOut(time).fadeIn(time, function () {
+                $(elem).css({
+                    left: Math.floor(Math.random() * 1300),
+                    top: Math.floor(Math.random() * 500)
+                })
+                time =  Math.floor(Math.random() * 2000 + 500)
+                show(elem, time)
+            })
+            
+            num++
+            if (num > 20) return
+            init()
+        }
+    </script>
+</body>
+
+</html>

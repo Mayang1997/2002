@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    冒泡循环的封装： 
+    思路 ： 冒泡排序元素进行两两比较，那么大的就会与小的交换，然后在与下一个数字比教，直到跟所有的数字比较完
+        当数组的length 为 n 时 ，那么排序就会排 n - 1 次
+            例如： var arr = [5,4,3,2,1] 
+            第一次循环结果 ： 4 3 2 1 5    比较了4次
+            第二次循环结果 ： 3 2 1 4 5    比较了4次
+            第三次循环结果 ： 2 1 3 4 5    比较了4次
+            第四次循环结果 ： 1 2 3 4 5    比较了4次 得出 排好序得数组
+            结论： 需要完成一个冒泡排序，需要 n - 1次循环，每次循环比较 n - 1次 
+
+    冒泡代码封装：
+        <script>
+            function bubbleSort(arr) {
+                // 把所有的元素遍历出来 因为我们需要循环 n-1 遍 就可以得到排序结果 所以，当i < arr.length 时，会循环 n 遍，因为 从0 开始 ,需要 - 1
+                for (var i = 0;i < arr.length-1; i++) {
+                    // 每次循环，元素两两比较，需要比较n-1 次 所以在比较时arr.length也需要 - 1，其如果不减一 在分支条件判定时，arr[j]会找不到最后的arr[j + 1] 进行比较。 
+                    for (var j = 0 ; j < arr.length - 1; j++) {
+                        // 两两比较大小
+                        // arr[j + 1] 是条件 ，相邻的两个元素比较
+                        if (arr[j] > arr[j + 1]) {
+                            // 当arr[j] > arr[j + 1] 进行交换
+                            var max = arr[j]  // 设置中间变量 将大的值赋给中间变量
+                            arr[j] = arr[j + 1]  // 将小的值赋给 前一位的元素
+                            arr[j + 1] = max // 在将大的值赋值给小的元素 这样就进行两个元素交换了
+
+                        }
+                    }                  
+                }
+                // 这里所有的循环都结束了，得到返回值为 arr
+                return arr
+            }
+
+            // 实验 ：
+            var arr = [5,4,3,2,1]
+            var str = bubbleSort(arr)
+            console.log(str)
+        </script>
+
+    选择排序得封装：
+        选择排序：是先找最小值或者最大值，放到合适得位置，然后在剩下得数字中找最小值或者最大值，再排到合适得位置！
+        思路： 例如： var arr = [3,1,7,5]
+            第一次循环查找最小值结果：1 3 7 5 排序了 3 次 然后再剩下的3 7 5中查找比较
+            第二次循环查找最小值结果：1 3 7 5 排序了 2 次 然后再剩下的7 5中查找比较
+            第三次循环查找最小值结果：1 3 5 7 排序了 1 次 得出结果
+        总结：当数组得元素为 n 时，循环 n - 1次 ，第一遍排序找出最小值或者最大值，排到数组得最前面或者最后，位置固定，然后在剩余得数字中找 最小值或者最大值，所以下一次循环就是 n - (已经确定得最小值或者最大值)的基础上 再 - 1 ，相对冒泡排序来说，运行的代码量就会少很多。
+        选择排序得封装：
+        <script>
+            function selectionSort(arr) {
+                // for 遍历数组  arr.length - 1 是因为循环只需要 n - 1次
+                for (var i = 0; i < arr.length - 1; i++) {
+                    // j = i + 1 是因为选择排序的规律,找到一个最小值或者最大值就可以少查找一次，所以 j = i + 1 能满足
+                    for (var j = i + 1; j < arr.length; j++) {
+                    // arr[i] 就是说 当第一层循环遍历数字时候，i = 0 那么第二层 循环会执行 j < arr.length 次 ，但是此时  arr[i] 会一直是 arr[0] ,
+                    // 直到 arr[0] 与 if 判定中，除开arr[0] 其他的数字一一比较完 ，
+                    // arr[i] 才会发生变化 ，所以 if 里面的条件 arr[i] 是跟第一层的 i 一起发生变化的，并不是跟随第二层的变量一起改变
+                        if (arr[i] > arr[j]) {
+                            //一一比较，交换顺序,让小的往最前面走
+                            var min = arr[j]
+                            arr[j] = arr[i]
+                            arr[i] = min
+                            console.log(arr)
+                        }
+                    }
+                }
+                return arr
+            }
+            var arr = [7,9,2,6,4,8]
+            var str = selectionSort(arr)
+            console.log(str)
+        </script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+扩充： 将类似与数组的列表转成数组： 
+        语法：Array.from(类似于数组的列表) 转为数组
+            var arr=Array.from(类似于数组的列表);//ES6 的写法
+            var arr=Array.prototype.slice.call(类似于数组的列表);//ES5
+
+ES5数组的方法：
+
+    一 : indexOf(值) 通过一个值找对应的下标（第一次出现的位置）
+    二 ：lastIndexOf(值) 通过一个值找对应的下标（最后一次出现的位置）
+    三 : every 判断数组中是否每个元素都满足条件  - 返回 true/false 
+    四 ：some 判断数组中至少有一个是满足条件    - 返回 true/false 
+    五 ：filter 过滤数组元素 - 将数组中满足条件的元素组成一个新的数组返回
+    六 ：map 将数组中的值都交给一个函数区处理，处理后的新的值组成一个新的数组返回
+    七 ：forEach 专门用来遍历数组的，没有返回值
+    八 : reduce 归并，遍历数组，每次返回一个值，得出最后的结果 (求和)
+
+    注意大小写！！
+
+1：indexOf 语法 ： 数组.indexOf(值)
+        <script>   
+            // 驼峰命名法： 
+            //indexOf();
+            // 功能：在数组里查找某个元素的位置（第一次出现的位置）。
+            // 参数：
+            //     要查找的数 num
+            //     查找的起始位置，可选参数，如果不写，默认是从0开始查找
+            // 返回值：num在数组里的下标，如果说，num在arr里没有的话，返回的是 -1；
+
+        // 1）、一个参数的情况
+
+            // var arr =[12,23,34,45,56,12,23,34];
+            // console.log(arr.indexOf(23));//1
+            // console.log(arr.indexOf(56));//4
+            // console.log(arr.indexOf(100));//-1
+
+        // 2）、两个参数的情况
+            var arr =[12,23,34,45,56,12,23,34,23];
+            console.log(arr.indexOf(23,2));//6  
+            // arr.indexOf(23,2) 里的2 为下标 ，是几就在那个下边处查找后面的23的位置
+        </script> 
+2：lastIdexOf 语法 ： 数组.lastIdexOf(值)
+        <script>
+            //lastIndexOf();
+            // 功能：在数组里查找某个元素的位置（最后一次出现的位置）。
+            // 参数：
+            //     要查找的数 num
+            //     起始位置；
+            // 返回值：num在数组里的下标，如果说，num在arr里没有的话，返回的是 -1；
+
+        // 1）、一个参数的情况
+            var arr =[12,23,34,45,56,12,23,34,23,45];
+            console.log(arr.lastIndexOf(23));//8
+
+        // 2）、两个参数的情况
+
+            console.log(arr.lastIndexOf(23,3));//1
+            console.log(arr.lastIndexOf(23,7));//6
+            // arr.lastIndexOf(23,3)  里的 3 是在下标 0 - 3 的范围里查找最后的元素
+            // 注意：lastIndexOf, 不是从右朝左，是找最后一个
+        </script>
+3：every 语法： 数组.every(function(值,下标,数组本身) {
+                返回一个条件即可
+                }) 
+        <script>
+            var arr = [60,70,80,90,100]
+            // 判断数组中每个值是否都大于50
+            // i 为值
+            // v 为下标
+            // a 为自定义数组
+            var resule = arr.every(function(v,i,a){
+                return v>50
+            })
+            console.log(resule) // true
+            // 这三个参数中 第二个跟第三个可以省略
+        </script>
+4：some 语法： 数组.some(function(值,下标,数组本身) {
+                返回条件
+                }) 
+        <script>
+            var arr = [60,70,80,90] 
+            // 判断数组中是否有大于100的值
+            var resule = arr.every(function(v,i,a){
+                return v>100
+            })
+            console.log(resule) // false
+            //只有有一个元素满足条件，就是true 如果都不满足就是 false
+            // 这三个参数中 第二个跟第三个可以省略
+        </script>
+5：filter 语法： 数组.fliter(function(值,下标,数组本身) {
+                返回条件
+                }) 
+        <script>
+            var arr = [10,60,15,20,90,50,40] 
+            // 将数组中大于30的值放在一起
+            var resule = arr.fliter(function(v,i,a){
+                return v>30
+            })
+            console.log(resule)
+            // 这三个参数中 第二个跟第三个可以省略
+        </script>
+6：map 语法 ：数组.map(function(值,下标,数组本身) {
+                处理的逻辑
+                }) 
+        <script>
+            var arr = [10,60,15,20,90,50,40] 
+            // 将数组中的每个值都加一，并返回
+            var resule = arr.map(function(v,i,a){
+                v += 1
+                return v
+            })
+            console.log(resule)
+            // 这三个参数中 第二个跟第三个可以省略
+        </script>
+7：forEach 语法 ：数组.forEach(function(值,下标,数组本身) {
+                遍历以后的操作
+                }) 
+        <script>
+            var arr = [10,60,15,20,90,50,40] 
+            // 遍历数组arr
+            var resule = arr.forEach(function(v,i,a){
+                // 遍历后打印 
+                console.log(v)
+            })
+            // 这三个参数中 第二个跟第三个可以省略
+        </script>
+8：reduce 语法：数组.reduce(function(prev,next) {}) 
+    数组.reduce(回调函数(累积值,元素,下标,数组){},初始值)
+    如果reduce没有设置初始值，累计值是数组的第0位元素，遍历从下标1开始
+    如果reduce设置了初始值，累积值就是从这个初始值开始，遍历从下标0开始
+        <script>
+            var arr = [100,200,300]
+           /*  var resule = arr.reduce(function(prev,next){
+                console.log(prev + '------' + next )
+            })  */
+            // next是从第二个元素开始的所有个元素
+            // prev第一次是第一个元素，第二次是开始是这个函数的返回值
+            // 案例 ： 归并可以用来求数组的和
+            var resule = arr.reduce(function(prev,next){
+                return prev+next
+            })
+            // 第一次：prev = 100， next = 200  返回值 prev+next = 300
+            // 第二次：prev = 300，next = 300  返回值 prev+next = 600
+        </script>
+</body>
+</html>

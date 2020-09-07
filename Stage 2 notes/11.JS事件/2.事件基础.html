@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>  
+    <button id="btn">按钮</button>
+</body>
+<script>
+    // 事件基础 ： 
+
+        // 1 ：给DOM元素添加一个事件侦听（监听）,只能收到对应事件类型的消息
+
+        // 语法：DOM元素.addEventListener(事件类型,事件回调函数,是否捕获时执行)
+
+            // 事件侦听addEventListenerd的参数： 
+                // 1：事件类型 - 必须是字符串，可以设置为任意字符串，但是部分字符串是系统事件类型
+                // 2: 事件回调函数 - 指向一个函数，当收到事件时执行该函数，如果没有收到不执行函数，写侦听事件时不执行函数
+                //     注意1：事件回调函数 - 有且仅有一个参数 为 e  - event对象
+                //     注意2：e 是一个事件对象,侦听事件收到消息时获得的事件对象
+
+                // 3：是否捕获时执行 - 默认值是false，在冒泡时执行，捕获时不执行 / 如果设置为true，在捕获时执行
+
+            // 创建一个侦听事件 , 事件类型为 点击 click ,回调函数为clickHandler ,默认 冒泡
+            document.addEventListener('click',clickHandler)
+
+            // 事件回调函数的参数  MouseEvent - 鼠标事件
+            function clickHandler(e) {
+                console.log(e)  
+            }
+
+
+        // 2：事件侦听 & 抛发  必须 先侦听 在抛发
+        // 事件侦听语法 ： 事件侦听对象.addEventListener(事件类型,事件回调函数,是否捕获时执行)
+        // 创建事件对象语法：var 接受事件对象变量 = new Event(事件类型)  指创建一个事件对象
+        // 抛发事件语法： 事件侦听对象.dispatchEvent(接受事件对象变量)
+        /* 
+            注意：
+                1：事件分两种 ： 系统抛发事件 /  自定义抛发事件
+                2：侦听 和 抛发的对象 是同一个
+                3：侦听 和 抛发的事件类型 完全相同
+                4：事件回调函数不能使用return 返回值，但是可以return 跳出
+        */
+
+        // 侦听事件
+        document.addEventListener('奥里给',customHandler)
+        // 创建一个事件对象 
+        var evt = new Event('奥里给')
+        // 抛发事件
+        document.dispatchEvent(evt)
+        // 事件回调函数
+        function customHandler(e) {
+            console.log(e)
+        }
+
+
+        // 3 ：事件原理：
+        //  事件原理三阶段 
+                // 一阶段：捕获 由外到内
+                // 二阶段：目标 到达目标
+                // 三阶段：冒泡 由内到外
+        // 阻止冒泡语法： e.stopPropagation()  兼容写法 ：e.cancelBubble=true;
+        // 阻止默认事件行为：e.preventDefault()   //阻止默认事件行为
+
+        // 4 ：删除事件 ： 语法 - 侦听对象.removeEventListener(事件类型,事件回调函数)  IE8 以上支持
+        // 删除事件的兼容写法
+        // attachEvent 仅IE8及以下支持    事件类型   "on"+type   没有捕获、冒泡阶段选项
+        // 获取dom元素
+        var btn = document.querySelector('#btn')
+        // 侦听事件
+        btn.addEventListener('click',clickHandler1)
+        // 事件回调函数
+        var num = 0
+        function clickHandler1(e){
+            num++
+            console.log('当num > 3 得时候删除事件')
+            if (num>3){
+                // 删除事件
+                e.currentTarget.removeEventListener('click',clickHandler1)
+            }
+        }
+        // 注意：
+        // 当元素的事件不再使用时，必须删除，否则会造成内存堆积，侦听事件都会被存储在堆中
+        // 当元素被删除了，也必须删除该元素的所有事件
+
+
+        // javascript 高内聚低耦合
+        var obj={
+                a:function(){
+                    document.addEventListener("b",this.b);
+                },
+                b:function(e){
+                    var num=e.num+10;
+                    var evt=new Event("a");
+                    evt.num=num;
+                    document.dispatchEvent(evt);
+                }
+            }
+        var obj1={
+                a:function(){
+                    document.addEventListener("a",this.b);
+                    var evt=new Event("b");
+                    evt.num=2;
+                    document.dispatchEvent(evt);
+                },
+                b:function(e){
+                    console.log(e.num);
+                }
+            }
+                
+        obj.a();
+        obj1.a();
+</script>
+</html>

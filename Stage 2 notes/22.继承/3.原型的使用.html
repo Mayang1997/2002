@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>    
+        // TODO 原型 
+        // 作用：改函数的所有实例都可共享原型对象上的属性和方法
+        /*  
+            函数：函数在js中是一等公民 - 既是一个值，也是一个类型，还可以是一个对象
+            1：任何函数天生自带一个属性 prototype，指向一个对象
+            2：任何对象都自带一个属性 __proto__ ,指向的也是一个对象
+
+            new构造函数出来的对象的__proto__属性指向的对象和构造函数的prototype指向的对象是同一个
+            对象在访问属性和方法时，先访问自己的，如果没有就往距离自身最近的上一层原型找
+         */
+
+        // 函数
+        function Person(){
+
+        }
+        console.dir(Person)
+        console.log(Person.prototype)
+
+        // 对象
+        var obj = new Person()
+        console.dir(obj)
+        console.log(obj.__proto__)
+
+        // new构造函数出来的对象的__proto__属性指向的对象和构造函数的prototype指向的对象是同一个
+        console.log(Person.prototype === obj.__proto__) // true 说明这两个对象是同一个 - 这个对象叫原型
+
+        // 原型的属性和方法
+        function Pers(name,age,gander){
+            this.name = name;
+            this.age = age;
+            this.gander = gander;
+        }
+        // 给原型上绑定方法 - prototype
+        Pers.prototype.eat = function(){
+            console.log("能吃")
+        }
+
+        // 实例对象 能访问到原型上的属性和方法
+        var zs = new Pers("张三",14,"男")
+        // 调用原型上的方法
+        zs.eat()
+
+
+    // TODO 原型链
+        // 作用：维护原型链
+        // 创建一个构造函数
+        function Fn(name,age,gander){
+            this.name = name;
+            this.age = age;
+            this.gander = gander;
+        }
+        // 在原型上绑定方法
+        Fn.prototype.pay = function(){
+            console.log("奔跑")
+        }
+
+        // 实例对象
+        var ww = new Fn("王五",18,"女")
+
+        console.log(ww.__proto__) // 实例对象 ww 的原型
+        console.log(ww.__proto__.__proto__) // 实例对象 ww 的原型的原型
+        console.log(ww.__proto__.__proto__.constructor) // 实例对象 ww 的原型的原型的原型  - ƒ Object() { [native code] }
+        // 这样形成的一条链式结构就是叫做原型链
+        console.log(ww.__proto__.__proto__.__proto__) // 实例对象 ww 的原型的原型的顶层链 - null
+        /* 
+            访问一个对象中的方法和属性时，先在对象中查招，如果没有找到就去原型找，原型没有就在往上层原型找
+            当找到原型的顶层原型叫做 null ，也没有找到，就返回undefined 
+        */
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // ES6面向对象
+
+    // 类 的构造函数
+    /* 
+        1： 构造函数 - 就是 new 类名  实例化对象时执行的函数
+        2： 所有类中的构造函数都叫 constructor  
+            - 当我们在 new 类名 时，就是自动执行了 constructor 这个函数
+        3： 实例化的对象 与当前对象的 类 相等
+        4： 在js 中，构造函数有且仅有一个，并且任何构造函数的名字固定 constructor
+        5:  如果在实例化对象时，不需要初始化执行一些内容时，可以默认不写,可以认为类名与构造函数相等
+        6:  在类中 this 就是 执行当前函数或者属性的对象
+    */
+    
+    // 类的 静态方法 和 动态方法
+    /* 
+        静态方法 
+        1： 在类中，被 static 设置的属性或者方法都是静态的，必须通过类来调用
+        2： 类创建好后，静态方法就已经是全局了。可以在任何地方调用，且不会自动销毁
+        3： 静态方法与实例化对象一点关系没有
+        4： 静态方法中，禁止使用 this
+        动态方法
+        1： 动态方法需要通过实例化对象来调用
+    */
+
+    // 创建类
+    class Box{
+        hand = 1;
+        // 构造函数
+        constructor(_a,_b){
+            console.log(_a,_b)
+        }
+    }
+    // 当实例话对象时，自动执行构造函数
+    // 实例化对象，并给构造函数传入参数
+    var box = new Box(5,6);  // 5 6
+
+    // 构造函数 constructor === 类名
+    // 数组
+    var arr=[1,2,3];
+    console.log(arr.constructor===Array);  // true
+    // 时间对象
+    var date=new Date();
+    console.log(date.constructor===Date);  // true
+    // 字符串
+    var str="aaaa";
+    console.log(str.constructor===String);  // true
+    // 布尔
+    var bool=true;
+    console.log(bool.constructor===Boolean);  // true
+
+
+   //  静态方法
+
+   class statc{
+        static num = 0;
+        static run(){
+            statc.num++
+            console.log('奔跑');
+        }
+        static tosty(){
+            console.log('生活')
+        }
+   }
+   // 静态方法必须通过类来调用
+   statc.run()
+   console.log(statc.num)
+   statc.tosty()
+</script>
+</html>

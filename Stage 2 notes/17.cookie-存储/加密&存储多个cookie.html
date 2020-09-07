@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- js加密文件 -->
+    <script src="./js/md5.js"></script>
+</head>
+<body>
+    <script>
+        // 如何加密存储
+        // 如何多个内容存储
+        // 如何读取多个数据
+
+
+        // 一：加密  -
+            var name = "gaoyang";
+            var password = "gaoyang110" 
+            // 设置加密
+            password = hex_md5(password);  // 单层加密
+            console.log(password) // 加密后的密码:fba229895263fa2b41f888471d364c46
+            password = hex_md5(hex_md5(hex_md5(hex_md5(password))))  // 多层加密
+            console.log(password)  // 7d494234ad01e1c7906fc1464a2cd7a7
+
+
+        // 二: 存储多个cookie
+        // 设置数据对象
+        var obj = {
+            user:"gao",
+            age:23,
+            sex:"男"
+        }
+
+        // 存储多个内容函数
+        // 参数: obj - 数据对象  / data - cookie过期时间
+        function setCookie(obj,date){
+            // 遍历 参数1 - obj
+            for (var prop in obj){
+                // 存储
+                // 三目判断: 当date为真时,设置过期时间,反之为临时存储
+                document.cookie = prop+"="+obj[prop]+(date ? ";expires="+date.toUTCString() : "")
+            }
+        }
+        // 键值对形式存储
+        function setCookie1(key,value,date){
+                document.cookie=key+"="+value+(date ? ";expires="+date.toUTCString() : "")
+        }
+
+        // 设置过期时间
+        var date = new Date();
+        date.setFullYear(2021)
+        setCookie(obj,date)
+        // 获取cookie值
+        console.log(document.cookie);   // a=6; user=gao; age=23; sex=男
+
+        // 利用数组的方法将获取到的 cookie 转换成 对象
+        // reduce - 归并
+        function getCookie(){
+            // 分割 cookie 数据 - 返回一个数组
+            // value 初始值为 {}
+            return document.cookie.split("; ").reduce((value,itme)=>{
+                // 分割 数组中每个元素
+                var arr = itme.split("=");
+                // 三目判断:当arr[1] 为 数值时,为false 执行Number(arr[1]),反之执行?后代码
+                value[arr[0]]=isNaN(arr[1]) ? arr[1] : Number(arr[1]);
+                return value
+            },{})
+        }
+        
+        var res = getCookie()
+        console.log(res)
+    </script>
+</body>
+</html>

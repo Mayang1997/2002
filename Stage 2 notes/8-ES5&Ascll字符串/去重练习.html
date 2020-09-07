@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 作业：去重
+    思路：遍历数组每个元素,利用选择排序的方法，改变条件也可以是实现去重，前一个数字不等下一个数字就往新数组输入，相等就不输入
+    
+    <script>
+        function deWeight(arr) {
+            // 遍历数组
+            for (var i = 0;i < arr.length -1 ;i++) {
+                //二层循环 
+                for (var j = i + 1; j < arr.length;j++) {
+                    if (arr[i] == arr[j]) {
+                        arr.splice(j,1)  // 运用选择排序，当i=0 时，if分支判断里的 arr[i]等于arr[0],arr[0]需要跟数组中除开自己的所有元素比较一遍，只要相等都会被直接删除，再进行i=1的循环
+                        j-- // j-- 为了抵消被 arr.splice(j,1) 删除的位置
+                    }
+                }  
+            }
+            return arr
+        }
+        var arr = [1,1,3,5,5,6,6,6,6,6,6,6,9,1,2,3,6,7,2,4,7,8]
+        var res = deWeight(arr)
+        console.log(res)
+    </script> -->
+    
+    
+    <script>
+        var a = [1,3,5,6,6,8,9,7,2,3,1]
+        var str = norept(a)
+        console.log(str)
+         function norept(arr){
+            var index = []  // 定义一个新的数组接受去重后的值
+            for (var i = 0 ; i < arr.length ;i++) {
+                // 判断arr[i],是否存在index中，当arr[i] 经过isExist函数的逻辑处理后，存在index中，得到true值，不存在得false
+                if (isExist(index,arr[i]) !== true) {
+                    // 输入到新数组中
+                    index.push(arr[i])
+                }
+            }
+            return index
+        }
+
+        // 判断一个数字再数组中是否存在
+        // 思路：遍历数组，然后再让数字跟数组中的所有元素一一比较，存在得到 true 不存再得 false
+        function isExist(arr,b){
+            for (var i = 0;i < arr.length;i++) {
+                if (arr[i] == b) {  
+                    return true
+                } 
+            }
+            return false  
+        }
+    </script>
+
+    <script>
+        // 去重
+        // 利用indexOf的特性  通过一个值找对应的下标（第一次出现的位置）找不到对应的下标 返回 -1
+        function getNum(arr){
+            // 定义一个空数组
+            var arr1 = []
+            // 遍历数组
+            for (var i = 0; i < arr.length; i++){
+                // 判定： indexof 在arr1 数组中 通过 arr[i]元素 找到对应的下标 是否存在
+                if (arr1.indexOf(arr[i]) === -1){
+                    // 只要在数组arr1中 arr[i]  不存在，indexOf(arr1[i])就返回 -1
+                    // 输入到 数组 arr1 中
+                    arr1.push(arr[i])
+                }
+            }
+            return arr1
+        }
+
+        var arr = [1,5,6,8,9,7,8,5,6,2,3,3,6,6,4,5,4,4]
+        console.log(getNum(arr))
+    </script>
+    
+</body>
+</html>

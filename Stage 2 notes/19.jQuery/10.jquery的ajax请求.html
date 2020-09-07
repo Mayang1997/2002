@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+
+</head>
+<body>
+
+
+    <script>
+        // jquery 的 ajax请求
+
+            // TODO 一：使用 $.get 方法来发送一个请求
+            /* 
+                参数一： 请求地址 
+                参数二： 请求时携带的参数 
+                参数三： 请求成功的回调 
+                参数四： 返回的数据类型 
+            */
+            // 1: 不带参数执行get方式
+            $.get("http://localhost:4010?a=3&b=4",function(data,success,xhr){
+                console.log(data)
+            })
+            // 2: 带参数执行get方式
+            var obj = {a:30,b:20,c:15}
+            $.get("http://localhost:4010",obj,function(data,success,xhr){
+                console.log(data,success,xhr)
+            })
+            // 使用jquery的插件封装get方法   - juqery.extend 封装方法
+            $.extend({
+                // 封装函数的三个参数
+                /* 
+                    1：url 是请求发送的地址
+                    2：data 是发送给服务器的参数
+                    3：fn 是接收到数据的回调函数
+                */
+                get1:function(url,data,fn){
+                    // 有的时候data参数不会填写，那么就是判断第二个参数的构造函数是否为函数，这样第二个参数就是接收到数据的回调函数
+                    if(data.constructor === Function){
+                        // fn 变量等于 data
+                        fn = data
+                    }
+                    // 当data 参数是字符串时，那么就讲字符串拼接到url的？后面
+                    if(data.constructor === String){
+                        // 判断 url 的地址后面是否携带 ？
+                        url = url.indexOf("?")> -1 ? url+data : url+"?"+data
+                    }else if(data.constructor === Object) {
+                        // 当 data参数携带的数据为对象时，这种情况就把对象变成a=1&b=2这种字符串
+                        // 定义一个接受数据的变量
+                        var str = ''
+                        // 遍历对象 data
+                        for(var prop in data){
+                            str+= prop+"="+data[prop]+"&"
+                        }
+                        // 删除数据的最后一个 & 
+                        str = str.slice(0,-1)
+                        // 最后将数据填写在 url 的后面
+                        url = url.indexOf("?")> -1 ? url+str : url+"?"+str
+                    }
+                    // 创建ajax请求
+                    var xhr = new XMLHttpRequest()
+                    // ajax侦听时间
+                    // readystatechange 事件：当readyState的状态发生改变时，会触发这个事件
+                    xhr.addEventListener("readystatechange",function(){
+                        // readyState：ajax状态码 - 0~4的阶段，当状态等于4时，表示响应内容已经解析完毕，可以在客户端使用了
+                        // xhr.status：ajaxHTTP状态码：200代表请求成功
+                        // 当readyState为 4 且 status为 200 时，表示响应已就绪，请求成功
+                        if(xhr.readyState===4 && xhr.status===200){
+                            // response：服务端返还的内容
+                            fn(xhr.response,"success",xhr);
+                        }
+                    })
+                    // 以什么方式发送请求
+                    xhr.open("GET",url)
+                    //发送
+                    xhr.send()
+                }
+            })
+            // 调用封装的 get方法
+            $.get1("http://localhost:4010?d=65&g=36",function(data,success,xhr){
+                console.log(data)
+            })
+
+
+
+            // TODO 二：使用 $.post 方法来发送一个请求
+            /* 
+                参数一： 请求地址 
+                参数二： 请求时携带的参数 
+                参数三： 请求成功的回调 
+                参数四： 返回的数据类型 
+            */
+           // 2: 带参数执行post方式
+            var obj1 = {a:8,b:9,c:10}
+            $.post("http://localhost:4010",obj1,function(data){
+                console.log(data)
+            })
+            // 使用jquery的插件封装post方法   - juqery.extend 封装方法
+            $.extend({
+                // 封装函数的三个参数
+                /* 
+                    1：url 是请求发送的地址
+                    2：data 是发送给服务器的参数
+                    3：fn 是接收到数据的回调函数
+                */
+                post1:function(url,data,fn){
+                    // 定义一个接受数据的变量
+                    var str;
+                    if(data.constructor === Function){
+                        // fn 变量等于 data
+                        fn = data
+                    }
+                    // 当 data 参数是字符串时，将data赋值给str
+                    if(data.constructor === String){
+                        str = data        
+                    }else if(data.constructor === Object) {
+                        // 当 data参数携带的数据为对象时，这种情况就把对象变成a=1&b=2这种字符串
+                        str = ''
+                        // 遍历对象 data
+                        for(var prop in data){
+                            str+= prop+"="+data[prop]+"&"
+                        }
+                        // 删除数据的最后一个 & 
+                        str = str.slice(0,-1)
+                    }
+                    // 创建ajax请求
+                    var xhr = new XMLHttpRequest()
+                    // ajax请求侦听事件
+                    // readystatechange 事件：当readyState的状态发生改变时，会触发这个事件
+                    xhr.addEventListener("readystatechange",function(){
+                        // readyState：ajax状态码 - 0~4的阶段，当状态等于4时，表示响应内容已经解析完毕，可以在客户端使用了
+                        // xhr.status：ajaxHTTP状态码：200代表请求成功
+                        // 当readyState为 4 且 status为 200 时，表示响应已就绪，请求成功
+                        if(xhr.readyState===4 && xhr.status===200){
+                            // response：服务端返还的内容
+                            fn(xhr.response,"success",xhr);
+                        }
+                    })
+                    // 以什么方式发送请求
+                    xhr.open("POST",url)
+                    //发送
+                    xhr.send(str)
+                }
+            })
+            // 调用封装好的 post 请求
+            var obj2 = {a:1997,b:10,c:13}
+            $.post1("http://localhost:4010",obj2,function(data){
+                console.log(data)
+            })
+
+
+
+            // TODO 三：使用getJSON()方法  -  加载json文件
+            /*      
+                参数一： 请求地址 
+                参数二： 请求时携带的参数 
+                参数三： 请求成功的回调函数
+            */
+            $.getJSON("./a.json",function(data,status,xhr){
+                /* 
+                    请求成功回调函数的参数
+                    参数1：json的数据
+                    参数2：HTTP请求状态 - success 成功
+                    参数3：返还的数据类型
+                */
+                console.log(data)
+                console.log(status)
+                console.log(xhr)
+            })
+            // TODO 四：使用getScript()方法  -  加载Script文件
+            /* 
+                getScript(url,callback) 方法使用 AJAX 的 HTTP GET 请求获取和执行 JavaScript 
+                参数1：url:待载入 JS 文件地址。 
+                参数2：callback:成功载入后回调函数。
+            */
+            $.getScript("./js/a.js",function(data){
+                console.log(data)
+                fn()
+            })
+
+
+            // TODO 五：综合发送ajax请求方式 $.ajax()
+            // 使用 $.ajax 方法 只接受一个参数，是一个对象，这个对象对当前的请求进行所有的配置 
+            /* $.ajax({ 
+                url: './ajax',      // 必填，请求的地址 
+                type: 'GET',        // 选填，请求方式，默认是 GET（忽略大小写） 
+                data: {},           // 选填，发送请求是携带的参数 
+                dataType: 'json',   // 选填，期望返回值的数据类型，默认是 string 
+                async: true,        // 选填，是否异步，默认是 true 
+                success () {},      // 选填，成功的回调函数 
+                error () {},        // 选填，失败的回调函数 
+                complete() {},      //请求完成后的回调函数，无论成功与失败 
+                beforeSend() {},    //发送请求前可以修改XMLHttpRequest对象的函数，例如添加自定义 HTTP头。 
+                //在beforeSend中如果返回false可以取消本次ajax请求。XMLHttpRequest对象是惟一的参数。 
+                cache: true,        // 选填，是否缓存，默认是 true 
+                context: div,       // 选填，回调函数中的 this 指向，默认是 ajax 对象 
+                status: {},         // 选填，根据对应的状态码进行函数执行 
+                timeout: 1000,      // 选填，超时事件
+                contentType:"application/x-www-form-urlencoded"  // 发送给php的post请求时的请求头
+            }) */
+            // 发送一个 $.ajax 请求
+            $.ajax({
+                url:"http://localhost:4010?l=666&k=999",
+                success:function(res){
+                    console.log(res)                   
+                }
+            })
+
+
+
+            // TODO 六:发送一个jsonp请求
+            // 百度地址：       var str= "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=&json=1&p=3&sid=22084_1436_13548_21120_22036_22073&req=2&csor=0&cb=callback";
+            // 使用 $.ajax 方法也可以发送 jsonp 请求 
+            // 只不过 dataType 要写成 jsonp
+            
+           /*  var baidu = {
+                sug:function(data){
+                    console.log(data)
+                }
+            }
+            $.ajax({
+                url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
+                dataType:"jsonp",
+                data:"wd=yang&json=1&p=3&sid=22084_1436_13548_21120_22036_22073&req=2&csor=0",
+                jsonp:"callback",   // 
+            }) */
+            // 通过jquery的ajax方法设置datatype和jsonp就可以完成jsonp通信
+    </script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="ids">
+        <!-- dom 是 文档对象模型 -->
+        <div class="box">文本</div>
+        <p>文本</p>
+        <div class="box" name="1"></div>
+        文本 属性
+    </div>
+    <script>
+        // dom 操作
+    // 1： 获取标签的方法
+        console.log(document) // document
+        console.log(document.documentElement) // 获取html标签
+        console.log(document.body) // 获取body标签
+        console.log(document.head) // 获取head 标签
+        console.log(document.title) // 获取title 标签
+
+        // 获取有 id 的标签的dom方法时，必须使用 document 调用 getElementById
+        console.log(document.getElementById('ids'))  // 通过id
+
+        //getElementsByTagName这个方法除了可以使用document以外，还可以使用元素调用
+        console.log(document.getElementsByTagName('div'))  // 通过标签
+
+        console.log(document.getElementsByClassName('.box'))  // 通过class名获取
+        console.log(document.getElementsByName('1'))  // 通过name名来获取
+        console.log(document.querySelector('.box')) // 通过css选择器来获取
+        console.log(document.querySelectorAll('div'))  // 通过css选择器来获取 所有的标签
+
+        // 总结 ： 通过 id  和 name 获取标签只能使用 document 调用，
+        //      通过标签名,class名，css选择器都可以通过父元素来调用方法，获取子元素的标签
+
+
+
+    // 2：节点的类型 nodeType & 节点名 nodeName & 节点值 nodeValue
+        var ids = document.getElementById('ids') 
+        var nodes = ids.childNodes // 获取 ids 下的子节点
+        console.log(nodes)   
+        console.log(nodes[0].nodeType)  // 文本节点类型  3
+        console.log(nodes[0].nodeName)  // 文本节点名  #text
+        console.log(nodes[0].nodeValue) // 文本节点值  就是文本内容，空格也是文本节点
+
+        console.log(nodes[1].nodeType)  // 注释节点类型  8
+        console.log(nodes[1].nodeName)  // 注释节点名  #comment
+        console.log(nodes[1].nodeValue) // 注释节点值  就是注释内容
+
+        console.log(nodes[3].nodeType)  // 元素节点类型  1
+        console.log(nodes[3].nodeName)  // 元素节点名  大写的标签名
+        console.log(nodes[3].nodeValue) // 元素节点值  null
+
+
+    // 3：获取节点 
+        var ids = document.querySelector('#ids') // 获取父元素
+
+        console.log(ids.childNodes) // 获取 ids 下的所有子节点
+        console.log(ids.children)  // 获取 ids 下的所有子元素节点
+        
+        console.log(ids.firstChild)  // 获取 ids 下的第一个子节点
+        console.log(ids.firstElementChild) // 获取 ids 下的第一个子元素节点
+        
+        console.log(ids.lastChild) // 获取 ids 下的最后一个子节点
+        console.log(ids.lastElementChild) // 获取 ids 下的最后一个子元素节点
+
+        console.log(ids.nextSibling)  // 下一个兄弟节点
+        console.log(ids.nextElementSibling)  //   下一个兄弟元素节点
+
+        console.log(ids.previousSibling)  // 获取上一个兄弟节点
+        console.log(ids.previousElementSibling)  // 获取上一个兄弟元素节点 // 不只是相同的标签，不同的也可以
+
+        console.log(ids.parentNode)  // 获取父节点
+        console.log(ids.parentElement)  // 获取父元素节点
+
+
+    // 4：节点的操作 - 增删改查
+        // 节点操作 - 增
+        // 1：创建元素节点：document.createElement(字符串的标签名)
+        // 2：创建文本节点： document.createTextNode("文本")  相当于创建了一个文件节点对象，直接可以将这个文本节点对象插入在任何需要的位置
+        // 3：追加：父容器.appendChild(子元素);  将子元素插入在父容器的尾部
+        // 4：给标签添加文本： 父容器.textContent = '你要添加的内容'
+        // 5：插入标签：父容器.insertBefore(要插入的元素，插入在谁的前面)
+        /* 
+            6：复制元素：元素.cloneNode(深度布尔值) 要用新的变量接收
+            6.1：cloneNode(深度布尔值)  
+                1：深度布尔值==false  浅复制   仅复制元素，不复制内容和子元素
+                2：深度布尔值==true  深复制  可以将元素和元素里面的内容及子元素都复制进去
+        */
+        var div1 = document.createElement('div')  // 增加 标签
+        document.body.appendChild(div1)
+
+        // 追加：父容器.appendChild(子元素);  将子元素插入在父容器的尾部
+        var span = document.createElement('span')
+        div1.appendChild(span)  // 将 span 标签放在 div1 标签中
+        span.textContent = '你好'
+
+        // 插入标签  在 div1 中，插入一个 b 标签到 span 便签前
+        var b = document.createElement('b')
+        // 插入书写方式一：
+        div1.insertBefore(b,span)
+        // 插入书写方式二：
+        div1.insertBefore(b,div1.lastElementChild)
+
+        // 创建文本节点：document.createTextNode("文本") 
+        // 放在 div1 的 b 标签中
+        var text = document.createTextNode('我是创建好的文本节点')
+        // 将创建好的文本节点插入在 div1 中 第一个元素节点前
+        div1.insertBefore(text,div1.firstElementChild)
+        console.log(div1)
+
+        // 复制元素 元素.cloneNode(深度布尔值)
+        var b1 = b.cloneNode(false)   // 浅复制
+        var b2 = b.cloneNode(true)    // 深复制
+        console.log(b1,b2)
+
+        // 节点操作 - 删
+        // 1: 元素.remove();   元素自身删除
+        // 2: 页面标签.remove();   // 指从DOM树上删除
+        // 3：父容器.removeChild(子元素); 父容器删除子元素  
+        // 4：快速清除所有子元素： 元素.innerHTML = ""  
+        document.body.appendChild(b1)
+        b1.remove()  // 删除 b1 元素
+
+        var dl = document.createElement('dl')
+        document.body.appendChild(dl)
+        dl.appendChild(b2)
+        dl.removeChild(b2)   // 删除再 dl 中 的 b2 元素
+        // 注意这样是 无法删除干净  需要 b2 = null
+        document.body.appendChild(b2)   // 这行代码证明 b2 没有删除干净，缓存还在
+        b2 = null   // 当 b2 被赋值为 null 时 b2 就是完全删除干净，无法再调用
+        // document.body.appendChild(b2)  // 在这里 b2 无法被调用 ,并且报错
+
+        // 节点操作 - 改
+        // 父容器.replaceChild(新的元素，要替换的元素)
+        var input = document.createElement('input')
+        document.body.replaceChild(input,dl)
+
+
+    // 5：DOM元素(标签)属性的操作
+        // DOM元素概念
+        // 任何一个DOM元素，有两种属性，一个是对象属性，一个是标签属性
+        //      1：把写在标签上的属性称为标签属性
+        //      2：任何一个DOM元素都是对象模型，都可以自主的添加设置对象的属性和值
+
+        // DOM 元素属性的操作 - 增删改查
+        // 1：元素的属性  -  增 - 元素.setAttribute(属性名,属性值)
+        // 1.1：单属性的添加方式：如表单的 checked 属性 ，设置时：属性名('checked','checked') 或者('checked','')
+        // 注意：属性名的命名不能使用驼峰式命名，通常命名时使用-区分两个单词:toggle-target ， 属性值不能出现大写，并且必须是字符串
+        var div0 = document.createElement('div')
+        document.body.appendChild(div0)
+        div0.setAttribute('渣渣辉','一刀999')  // 给元素添加属性
+        div0.setAttribute('class','999')  // 属性2
+
+        // 2：元素的属性 - 删 - 元素.removeAttribute(属性名)
+        div0.removeAttribute('渣渣辉')  // 删除属性 渣渣辉
+
+        // 3：元素的属性 - 改 - 改其实就是增加属性的操作，当属性不存在，就是增，当属性存在，再就是再原基础上修改他
+        div0.setAttribute('class','666666')
+
+        // 4:元素的属性 - 获取（查看）属性值 - 元素.getAttribute(属性名)
+        console.log(div0.getAttribute('class'))
+
+        // 扩充知识1 ：DOM元素都是对象模型，对象属性并不会显示在标签上(如：a 标签的 href 属性，img 的 src 属性)
+        // 扩1案例 ：1: img.src = '你要放入的图片地址'  2: a.href = '你要放入的图片地址' 3: div.a = 10 - 给 div 添加属性，名为 a 值为 10
+        // 扩2：DOM元素都是object，所以设置属性都是按照对象属性来设置，当遇到标签属性值和对象属性值冲突时，以对象属性值为准
+        // 扩2案例：
+        var ck=document.querySelector("input")
+        ck.setAttribute("checked","")  // input 添加属性 checked ，input设置checked时，就是为true == 选中
+        ck.checked=false  // 当标签属性值和对象属性值冲突时，以对象属性值为准，此时checked 就是为 false == 不选中
+
+    
+    // 6：标签样式的操作
+        // 1：标签样式 - 增
+        // 方法1: 通过增加属性的方法增加 行内 （注意行内）样式 元素.setAttribute(属性名,属性值)
+        div0.setAttribute("style","width:50px;height:50px;background-color:red")
+        // 方法2： - 元素.style.你要添加的样式名 = '样式值'
+        div0.style.margin = '5px'
+
+        // 2：标签样式获取 
+        console.log(div0.style.width)  // 只能获取到 行内样式 ，无法获取到内部和外部的样式
+        // 万能获取法：getComputedStyle(元素)   不管是 行内，内部，外部的样式都能获取
+        console.log( getComputedStyle(div0).width)
+
+        // 3 :获取元素的矩形边界限范围 （IE8以后才有的方法）
+        // 语法：元素..getBoundingClientRect()   
+        // IE 兼容方法：元素.currentStyle.样式属性
+        var res = div0.getBoundingClientRect()
+        console.log(res)
+        // 此方法也是对象模型，属性共有 八个，分别为以下属性
+        /*{
+            width,  // offsetWidth
+            height, // offsetHeight
+            left,   // 最左边到可视窗口的距离
+            top,    // 最顶部到可视窗口的距离
+            right,  // left+width 最右边到可视窗口的距离
+            bottom, // top+height  最下面到可视窗口的距离
+            x,      // left  坐标X轴
+            y       // top   坐标Y轴
+        }
+        */
+
+
+    // 7 :元素 与 页面的宽高 和 偏移量 ，滚动宽高
+            // 元素宽高语法：// 元素.clientWidth  客户宽高
+                        // 元素.clientHeight
+
+                        // 元素.offsetWidth   偏移宽高
+                        // 元素.offsetHeight
+
+                        // 元素.scrollWidth   滚动宽高
+                        // 元素.scrollHeight
+                // 注意：以上所有的宽高，基于元素被加入到DOM渲染树后，也就是被添加在页面中以后，才可以获取
+                // 注意 1：offsetLeft、offsetTop，定位后元素相对父容器的距离
+                //      2：scrollLeft，scrollTop,元素内的滚动条位置
+
+            // 页面宽高语法：  以如上一样，但是开头为 body 或者 html 标签元素
+                // body 标签： document.body   
+                // html 标签： document.documentElement     
+
+            console.log(document.body.clientHeight,document.body.clientWidth)  // 内容宽高度 宽度与可视宽度一致，高为内容撑开的高度
+            console.log(document.documentElement.clientWidth,document.documentElement.clientHeight)  // 可视宽高 （包含默认的margin - 16px）
+            console.log(document.body.scrollWidth,document.body.scrollHeight)  // 有滚动条时，内容宽高
+
+            document.documentElement.scrollLeft // window窗口的滚动条位置获取和设置
+            document.documentElement.scrollTop 
+    </script> 
+</body>
+</html>

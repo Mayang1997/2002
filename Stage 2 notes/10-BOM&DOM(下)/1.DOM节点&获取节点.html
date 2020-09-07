@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    节点 - 组成整个html流程的说有步骤
+            相当于是所有标签，文本，属性，注释构成了整个网页 - 将构成网页的每一个部分内容都看作是一个节点
+    
+            整个网页是由很多节点组成的
+
+    节点(标签，文本，属性，注释)  /  元素节点(标签)
+
+        获取节点的方法：
+            获取节点：
+                1：所有子节点： childNodes
+                2：第一个子节点： firstChild
+                3: 最后一个子节点： lastChild
+                4: 上一个兄弟节点： previousSibling
+                4: 下一个兄弟节点： nextSibling
+                5：父节点: parentNode
+                6: 属性节点：attributes
+            获取元素的节点： (重要)
+                1: 所有子元素节点： children
+                2: 第一个子元素节点： firstElementChild
+                3: 最后一个子元素节点： lastElementChild
+                4: 上一个兄弟元素节点：previousElementSibling
+                5: 下一个兄弟元素节点：nextElementSibling
+                6: 父元素节点: parentElement
+            
+    <div class="box">
+        盒子
+        <p>段落<b>文本加粗</b></p>
+        <span>文本</span>
+    </div>
+    <script>
+
+        // 获取标签下的 所有 子节点 - 语法：元素.childNodes
+        // 先获取div 
+        var div = document.querySelector('.box')
+        var res = div.childNodes
+        console.log(res)  // 5个节点 - 也就是说 box 是由5个节点组成的
+    
+        // 通常条件下，文本节点，基本没什么用，重要的是标签(元素节点)
+    
+        // 获取标签下的子元素节点(子标签) 语法：元素.childNodes
+        var res1 = div.children
+        console.log(res1)  //  两个节点
+
+        // 获取第一个子节点 语法：元素.firstChild
+        var res2 = div.firstChild
+        console.log(res2)  
+
+        // 获取第一个子元素节点  语法：元素.firstElementChild
+        var res2 = div.firstElementChild
+        console.log(res2)   
+
+        // 获取最后一个子节点 语法：元素.lastChild
+        var res2 = div.lastChild
+        console.log(res2)   
+
+        // 获取最后一个子元素节点  语法：元素.lastElementChild
+        var res2 = div.lastElementChild
+        console.log(res2)   
+
+    </script>
+</body>
+
+</html>

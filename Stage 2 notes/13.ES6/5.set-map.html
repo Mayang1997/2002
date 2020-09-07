@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+    // 数据类型
+    // 数组数据类型
+    var arr = [2,4,5,9,8,6,3]
+    // 对象数据类型
+    var obj = {a:2,b:3,c:4}
+
+    // 数组数据类型与对象数据类型的区别
+    /* 
+        数组数组类型:
+        1: 数组无名有有值
+        2: 根据下标记录数据,按照顺序记录
+        3: 如果需要遍历查找某个数据,需要遍历整个数组,查找数据,耗时长
+        4: 插入,删除,添加元素 - 因为数组是紧密结构, 耗时长
+        5: 数组的元素可以重复,无法让元素唯一
+        6: 数组有关联关系,可以通过自身前后找到上下数据
+        7: 数组可以知道当前遍历到什么位置
+    */
+    /* 
+        对象数据类型:
+        1: key:value   键值对,必须有名有值
+        2: 对象可以直接通过键名获取值,不需要遍历,速度块
+        3: 键名是唯一,有相同键名会覆盖,但是值并不是唯一
+        4: 如果查找值,任然需要遍历整个对象,耗时长
+        5: 插入,删除,增加元素 - 因为对象本身是一个松散型结构,所以插入增加等操作 速度非常快
+        6: 因为松散结构,不具备关联关系
+        7: 对象没有长度,无法知道当前遍历到那个位置
+    */
+
+
+// set 数据类型 - 是一个没有顺序,没有重复元素的 列表 ,个数据之间没有关联
+    // 语法: var 变量名 = new Set(数据类型)
+    var set = new Set([1,2,3,4,5,6,7]);   // 列表容器,没有下标
+    console.log(set)
+
+    // Set 的增删查操作 
+    // 增 - set.add(value)   value - 值
+    console.log(set.add(8));  
+
+    // 查看值
+    console.log(set.has(6)); // 判断有没有这个值   true
+
+    // 删除 - set.delete(value)
+    set.delete(3);
+    console.log(set);
+    // 快速清除整个列表 set.clear()
+    set.clear();
+    console.log(set);
+    
+
+    // 利用 set 的特性 去重 
+    // 定义一个有重复的数组
+    var arr = [2,5,3,6,8,5,2,6,6,4,8,9,2,3,7];
+    // 利用 set 数据类型的特性 去重后,在重新转为数组,因为set 是列表
+    var arr = Array.from(new Set(arr));
+    console.log(arr);
+
+    // 遍历 set 数据结构
+    // 通过下标来获取 set 数据的值 是不行的
+    // 通过 for ... of 遍历
+    var set0 = new Set([2,5,6,7,8])
+    for(let value of set0){
+        console.log(value);
+    }
+
+    // 数组方法 forEach
+    set0.forEach(function(key,value,set){
+        console.log(key,value,set);
+    })
+
+ 
+    // WeakSet
+    // 弱引用列表类型  只能添加对象类型数据
+    var oset = new WeakSet();
+    var obj = {};
+    // 
+    oset.add(obj);
+    console.log(oset.has(obj));  // true  obj存在 oset中
+
+
+
+// Map 数据类型 - 是有长度的键值对类型 
+    var map = new Map()
+
+    // Map 的增删查操作
+    // 增 - map.set(key:value) 
+    map.set('name','Map');
+    map.set('age',20)
+    console.log(map,map.size);    // size 长度
+    // 查 - 判断属性是否在 map 中
+    console.log(map.has('name'));   // true
+    // 删 - map.delete(key)
+    map.delete('age');
+    console.log(map);
+    // 快速清除所有属性 map.clear();
+    map.clear();
+    console.log(map);
+
+    // 遍历 Map
+    var map0 = new Map()
+    map0.set('name','jake');
+    map0.set('age',30)
+
+
+    // for (var value of map0){
+    //     console.log(value);
+    // }
+
+    // 将 map0 中的每个属性转换成 数组 - map0.entries()
+    for (var value of map0.entries()){
+        console.log(value);
+    }
+
+    // 遍历 map0 的 属性名 - map0.keys()
+    for (var porp of map0.keys()){
+        console.log(porp);
+    }
+    
+    // 遍历 map0 的 值 - map0.values()
+    for(var value of map0.values()){
+        console.log(value);
+    }
+
+    // forEach方法遍历 map0 的键名 和 值
+    map0.forEach(function(prop,value){
+        console.log(prop,value);
+    });
+
+
+
+    // 弱引用键值对数据
+    var c =new WeakMap();
+
+</script>
+</html>

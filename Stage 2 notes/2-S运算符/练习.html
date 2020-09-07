@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 判断是否偶数或者奇数的方法：
+        方法一： -->
+
+        <!-- <script>
+            //取余的结果要么是0，要么是1
+            var num = 9
+            // if (num % 2 === 0) {
+            //     console.log('偶数')   
+            // } else {
+            //     console.log('奇数')
+            // }
+
+            if (num % 2 === 1) {
+                console.log('奇数')
+            } else {
+                console.log('偶数')
+            }
+        </script> -->
+
+        <!-- 判断偶数&奇数
+
+        <script>
+            var num = 10 
+            // if (num % 2 === 0) {
+            //     console.log('偶数')
+            // } else {
+            //     console.log('奇数')
+            // }
+
+            if (num % 2 === 1) {
+                console.log('奇数')
+            } else {
+                console.log('偶数')
+            }
+        </script> -->
+
+        判断成绩案例:
+
+        <!-- <script>
+            var num = 55
+            // if (num >= 90 && num <= 100 ) {
+            //     console.log('成绩为A')
+            // } else if (num >= 80 && num <=89) {
+            //     console.log('成绩为B')
+            // } else if (num >= 70 && num <= 79) {
+            //     console.log('成绩为C')
+            // } else if (num >= 60 && num <= 69) {
+            //     console.log('成绩为D')
+            // } else if (num <= 59) {
+            //     console.log('成绩为E')
+            // }
+
+
+            if (num >= 90 && num <=100) {
+                console.log('成绩为A')
+            } else if (num >= 80 && num <= 89) {
+                console.log('成绩为B')
+            } else if (num >= 70 && num <= 79) {
+                console.log('成绩为C') 
+            } else if (num >= 60 && num <= 69) {
+                console.log('成绩为D')
+            } else if (num <= 59){
+                console.log('成绩为E')
+            }
+        </script> -->
+
+        方法二:判断成绩  前提变量的值在0-100之间
+        <!-- <script>
+
+            var num = 95
+            if (num >= 90) {
+                console.log('成绩为A')
+            } else if (num >= 80) {
+                console.log('成绩为B')
+            } else if (num >= 70) {
+                console.log('成绩为C')
+            } else if (num >= 60) {
+                console.log('成绩为D')
+            } else if (num <= 59) {
+                console.log('成绩为D')
+            }
+
+        </script> -->
+
+        判断是闰年还是平年:
+            条件:   知道一下闰年的条件
+                    1. 年份是 4 的倍数
+                    2. 并且不能被 100 整除
+                    3. 年份能被 400 整除
+
+        <!-- <script>
+            // !== 不全等 当两边数据类型不一样的时侯,之间为true,当两边数据类型一样且数值相等就是false
+            // 在运算表达式中,同时使用了 && 和 || 那么运算的顺序为 先且后或
+                
+            var year = 2021
+            // if (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) {
+            //     console.log(year + ' 年,是闰年')
+            // } else {
+            //     console.log(year + '年, 不是闰年')
+            // }
+
+            if (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) {
+                console.log(year + '年, 是闰年')
+            } else { 
+                console.log(year + '年 , 不是闰年')
+            }
+        </script> -->
+
+        判断数字范围:
+         条件:让一个数字在 10 与 20 之间
+            那么它 必须大于10 且 小于 20
+        <!-- 在比较运算符中,结果只有 true和false -->
+            <script>
+                var num = 11
+                if (num > 10 && num <20 ) {
+                    console.log(num +'在 10与 20 之间')
+                }
+                // 如果不写 && 那么条件 10 < num < 20 会出错 因为,在比较时是先比较10 < num 得到的结果 为true ,(true的值为1) ,在进行与20的比较,结果为 true 会会执行条件后的代码 反之 num为小于1的值,那么先进行计算10 < num 结果为false (false值为 0) ,在比较20 结果为 true 代码会执行
+            </script>
+
+        
+</body>
+</html>

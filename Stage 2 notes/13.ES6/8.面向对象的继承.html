@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+    <script>
+        // 继承 extends - 语法: class 子类 extends 超类
+        // 超类 - 子类的父类  super
+
+        // 继承所有的动态方法和静态方法，包括构造函数
+        /* 
+            继承后的类,方法有三种处理
+            1\完全继承  不需要重写这个方法,自动就有,超类的方法执行什么,这个类就会执行什么
+            2\重写覆盖  只需要在这个类中重写这个方法就可以覆盖继承过来的内容
+            3\在原方法中增加新的内容   重新该方法,并且执行super.方法名这样就可以执行超类方法,后面可以自己添加
+        */
+
+        // 有一个需求
+        // 创建一个对象，有求和，不能有求积
+        // 创建一个对象，有求和，求积
+        class A{
+            a=0;
+            b=0;
+            static abc=10;
+            constructor(_a,_b){
+                this.a=_a;
+                this.b=_b;
+            }
+            sum(){
+                this.a++;
+                this.b++;
+                console.log(this.a+this.b);
+            }
+            run(){
+                console.log("aaaaa");
+            }
+        }
+
+        // 继承
+        class B extends A{
+            // 在js中静态属性和方法也可以继承
+            c=0;
+            constructor(_a,_b,_c){
+                // 如果继承后，写构造函数必须写
+                super(_a,_b);//超类的构造函数，执行了父类的构造函数，并且传参进入
+                this.c=_c;
+            }
+            count(){
+                console.log(this.a*this.b);
+            }
+            // 因为继承后有sum的方法了，如果这样写，就相当于将这个sum的方法重写覆盖
+            // 不会再执行超类的sum方法，而只执行当前sum方法
+            sum(){
+                this.a+=2;
+                this.b+=2;
+                console.log(this.a+this.b);
+            }
+            // 既可以执行超类中原有的run方法，又可以在这个基础上增加自己新内容
+            run(){
+               super.run();//执行了超类的run方法
+               console.log("bbbb");
+            }
+        }
+
+        // 实例化对象
+        let o1=new A(3,5);
+        // o1.sum();
+        // o1.run();
+
+        let o2=new B(6,7,10);
+        // o2.sum();
+        // o2.count();
+        // console.log(B.abc);
+        o2.run();
+    </script>
+</html>

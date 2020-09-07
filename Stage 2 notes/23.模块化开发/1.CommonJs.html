@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        // 模块化开发 commonjs - 基于node.js得方法
+
+        // 模块基础写法
+        // 1：
+        /* 
+            优点：直接调用
+            缺点：容易造成变量污染
+        */
+        function a(){
+            console.log(this.a)
+        }
+        function b(){
+            console.log(this.b)
+        }
+        a()
+        b()
+        
+        // 2:
+        /* 
+            优点：变量不会被直接污染，并且易于分类描述内容
+            缺点：会暴露所有成员，内部状态可以被外部改写。
+        */
+        var obj = {
+            a:function (){
+                console.log("aaa")
+            },
+            b:function (){
+            
+            },
+            c:10
+        }
+        obj.a()
+        // 修改内部得属性
+        obj.a = 100
+        console.log(obj.a)
+
+
+        // 3:闭包
+        /* 
+            优点：外部代码无法读取到里面的_num变量，保证了变量不被污染
+        */
+        var obj0 = (function(){
+            var _num = 3
+            return {
+                a:function(){
+                    console.log(_num)
+                },
+                b:function(){
+
+                }
+            }
+        })();
+
+        obj0.a()
+
+        // 4: 放大模式
+        var Utils=(function(){
+            var c=10;
+            return {
+                a:function(){
+
+                },
+                b:function(){
+
+                }
+            }
+        })()
+        // 给源对象 Utils 放大
+        var obj2 = (function(){
+            Utils.d = function(){
+
+            }
+            return Utils
+        })(Utils)
+        // 查看 obj2 对象
+        console.log(obj2)  // 添加了d方法
+
+
+        // 5：宽放大模式
+        /* 
+            如果module没有定义或者没有加载进入，这时候我们可以在带入参数的时候给参数时判断是否存在，
+            不存在给一个空对象，与"放大模式"相比，＂宽放大模式＂就是"立即执行函数"的参数可以是空对象。
+        */
+        var obj3 = (function(){
+            Utils.e = function(){
+
+            }
+            return Utils
+        })(Utils || {})
+        console.log(obj3)  // 添加了d方法
+    </script>
+</body>
+</html>

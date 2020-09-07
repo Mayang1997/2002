@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    利用循环得到有规律的数字：
+
+    <script>
+        var num = 1
+
+        // while 循环的小括号里放的是条件 大括号中放置的是当判定条件满足时执行的代码
+        while (num <= 7) {
+            console.log(num)
+            // 如果不设置变量的自身发生改变，那么只要判定条件为 true 那么它会执行，执行完后变量会再次进行判定，当再次判定的结果为 true 会继续执行 ，没有尽头。
+            // 设置了变量的自身发生改变，直到不满足判定将不再执行
+            num++  //  让自身发生改变，就不会死循环
+        }
+    </script>
+
+    求和案例：1+2+3+4.......+100
+
+    <script>
+
+        var n = 1  // 循环要用的判定变量 
+
+        var resule = 0  // 叠加变量
+
+        while (n <= 100) {
+            resule += n 
+                // n在不断的进行判定循环执行 直到100 ，resule也叠加了100次
+            n++ 
+        }
+
+        //打印结果
+        console.log(resule)
+    </script>
+
+
+    do while 语法：
+
+    <script>
+        var n2 = 66
+        
+        do {
+            console.log(n2)  
+            n2++  
+        } while(n2 <=50)    // do while 循环会先不管条件，先执行一次
+    </script>
+
+    案例 ：你爱不爱我?
+
+    <script>
+        
+        do {
+            var resule = confirm('鼠标左键确定得到我的心')  // confirm 选项框 确定为true 取消为 false
+        } while (resule === false)
+
+    </script>
+
+    for 循环语句一 ： 
+        for (条件) {执行代码}
+    
+        <script>
+            // 分号是要将初始化 条件 和 自身改变分隔
+            for (var i = 1 ; i <= 5 ; i++) {
+                console.log(i)
+            }
+        </script>
+
+    for 循环语句二： 
+
+        <script>
+
+            var u = 1 
+            for (; u <= 6; u++) {
+                console.log(u)
+            }
+        </script>
+
+        案例： 水仙花:三次自幂数
+        
+        <script>
+            for (var v = 100;v <= 999; v++){
+                //找到100 - 999 之间的所有数字
+
+                //拆开每一个数字
+                var a = parseInt(v / 100)
+                var b = parseInt(v % 100 / 10)
+                var c = v % 10
+
+                var resule = a * a * a + b *b *b + c *c *c 
+                //水仙花 就是三个数字三次方之和 为abc
+                if (resule === v) {
+                    console.log(v + '是水仙花数字')
+                }
+            }
+        </script>
+        案例： 打印 1-100之间被7整除的数字
+        <script>
+
+            for (var d = 1;d >0 && d <= 100; d++) {
+                if (d % 7 === 0) {
+                    console.log(d + '是7的倍数')
+                }
+                
+            } 
+        </script>
+
+        案例：打印1000-200之间所有的闰年：
+
+        <script>
+            for (var f = 1000;f >=1000 && f <= 2000; f++) {
+                if (f % 4 === 0 && f % 100 !== 0 || f % 400 === 0) {
+                    console.log(f + '年是闰年')
+                }
+            }
+        </script>
+
+        案例：九九乘法表
+        <br>
+        <script>
+            for (var g = 1;g <= 9; g++) {
+                for (var f = g; f <= 9; f++){
+
+                    document.write('<span>' + g +'*'+ f +'=' + g * f +'&nbsp;<span>' )
+                }
+
+                document.write('<br>')
+            }
+        </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul{
+            /* 设置过渡 */
+            transition: all 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <ul id="menu">
+        <li>北京
+            <ul>
+                <li>海淀</li>
+                <li>昌平
+                    <ul>
+                        <li>沙河</li>
+                        <li>回龙观</li>
+                        <li>龙泽</li>
+                        <li>定福皇庄</li>
+                        <li>天通苑</li>
+                    </ul>
+                </li>
+                <li>朝阳</li>
+                <li>东城</li>
+                <li>西城</li>
+            </ul>
+        </li>
+        <li>河北</li>
+        <li>江西</li>
+        <li>湖南</li>
+        <li>新疆</li>
+    </ul>
+
+</body>
+<script>
+    // 事件委托 ：将所有的子元素的侦听事件全部委托交给外层的父元素，就叫委托事件
+
+    // 初始化函数
+    init()
+
+    // 获取元素
+    // 创建侦听事件  - 委托给父元素
+    function init(){
+        // 获取元素
+        var menu = document.querySelector('#menu')
+        // 创建侦听事件
+        menu.addEventListener('click',clickHandler)
+    }
+
+    // 事件回调函数 - 有且只有一个参数 e 
+    function clickHandler(e){       
+        // 在事件回调函数中，this 就是侦听对象
+        // e.target 才是真实点击的对象
+
+        // 当我们点击的是 真实目标是 ul 的时候 直接返回出去
+        if (e.target.nodeName !== "LI") return
+        // 只有点击的真实目标对象不是 ul 就执行以下代码
+        if(e.target.firstElementChild){
+            // 当真实目标对象下的bool属性值 为空时 就是为false，！false 取反为 true 执行
+            if (!e.target.bool){
+                e.target.firstElementChild.style.display = 'none'
+            }else{
+                //  当真实目标对象下的bool属性值 为true时  执行
+                e.target.firstElementChild.style.display = 'block'
+            }
+            // 每点击一次 更换bool值 实现 隐藏&显示功能
+            e.target.bool = !e.target.bool
+        }
+    }
+</script>
+</html>

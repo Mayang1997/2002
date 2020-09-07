@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    for 遍历 和 for... in 的区别：
+        1：for...in 这种循环，变量是字符串 
+            所以，for...in就专门用来遍历对象，对象的键都是字符串
+            因为数组也为对象，所以for  in 也能遍历数组
+
+        2：for  遍历出来的，都是数字
+
+        总结： 遍历对象时，就使用for...in循环
+              遍历数组时，就使用for循环
+
+    <input type="button" value="测试" onclick="fn()">   
+    <!--onclick="fn()"  鼠标点击事件，触发函数的执行  -->
+
+    循环遍历数组： for & for ... in
+    
+    <script>
+        // 从学习完函数后，咱们写代码，尽量都写在函数里，
+        //    因为函数里代码执行是可控的。你想让它什么时候执行就什么时候执行，你想让它执行多少次，就是多少次
+        
+        // for 循环遍历数组
+        function fn(){
+            var arr = [12,23,34,45,56]; // 这是一个字面量方式创建的数组
+            
+            // 把数组的所有元素过一遍   
+            for(var i=0;i<arr.length;i++){
+                console.log(arr[i]);
+            }
+        
+            // 普通的 for 循环
+            // 把数组的从第一个到倒数第二个元素过一遍，（不要最后一个元素）
+            for(var i=0;i<arr.length-1;i++){
+                console.log(arr[i]);
+            }
+        
+        }          
+        </script>
+
+        for...in 循环遍历数组：
+
+        <script>
+            function fun() {
+                var arr = [1,2,3,4,5,6]
+                for (var i in arr) {
+                    console.log(arr[i])  // i 为 获取数组数据的变量
+                }
+            }
+        </script>
+
+for in 循环和普通for循环的区别：
+
+    <input type="button" value="用for in循环遍历数组" onclick="fn1()" />
+    <input type="button" value="用普通for循环遍历数组" onclick="fn2()" />
+    <input type="button" value="用for in循环遍历对象" onclick="fn3()" />
+</body>
+</html>
+
+<script>
+    // for in 循环和普通for循环的区别
+
+    // 1、在循环数组时
+    //     for in 循环给循环变量赋值为 字符串类型，for in循环必须把所有的元素要循环一遍，
+    //     普通的for循环给循环变量赋值为 数字类型，普通的for的循环，可以控制循环哪些元素。更加灵活
+    // 2、循环对象：
+    //     for in循环可以循环对象
+    //     普通for循环，没法直接循环对象。  
+    // 3、其实啊（扩展）：
+    //    用forin循环数组时，就是把数组当作了对象处理，下标就是键（键就是属性名；）。
+    //    再其实啊，浏览器在处理数组时，会（可以）把它当作对象
+    // 
+    //     如：这个数组 var arr = [12, 23, 34, 45, 56];
+    //      当作对象后，就是这：
+    //      arr={
+    //             "0":12,
+    //             "1":23,
+    //             "2":34,
+    //             "3":45,
+    //             "4":56,
+    // }
+
+    function fn1() {
+        var arr = [12, 23, 34, 45, 56];
+        //扩展： for in 循环遍历数组时，是把数组当做对象处理的。
+        for (var i in arr) {
+            console.log(arr[i]);
+        }
+    }
+
+    function fn2() {
+        var arr = [12, 23, 34, 45, 56];
+        for (var i=0;i<arr.length;i++) {
+            console.log(arr[i]);
+        }
+    }
+
+    // 扩展：用for in循环遍历对象。
+    function fn3(){
+        var cat = {
+            "name":"咪咪",
+            "sex":"公",
+            "age":2
+        }
+        // 用for in循环遍历对象。
+        for(var i in cat){
+            console.log(cat[i]);
+        }
+    }
+
+
+</script>

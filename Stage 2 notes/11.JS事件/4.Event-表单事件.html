@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="#">
+        <input type="text" id="in1">
+        <select>
+            <option>+</option>
+            <option>-</option>
+            <option>*</option>
+            <option>/</option>
+        </select>
+        <input type="text" id="in2">
+        <span class="sum"></span>
+    </form>
+  
+    <form action="#" id="form2">
+        <input type="text" name="user">
+        <input type="password" name="pass">
+        <input type="submit">
+        <input type="reset">
+    </form>
+</body>
+<script>
+    // Event事件 - 常见事件
+    /*
+    一 : 鼠标事件
+        click ：点击事件
+        dblclick ：双击事件
+        contextmenu ： 右键单击事件
+        mousedown ：鼠标左键按下事件
+        mouseup ：鼠标左键抬起事件
+        mousemove ：鼠标移动
+        mouseover ：鼠标滑入事件
+        mouseout ：鼠标滑出事件
+        mouseenter ：鼠标移入事件
+        mouseleave ：鼠标移出事件
+    二 ：键盘事件
+        keyup ： 键盘抬起事件
+        keydown ： 键盘按下事件
+        keypress ： 键盘按下事件
+
+    三 ：表单事件
+        change : 表单内容改变事件
+        input : 表单内容输入事件
+        blur : 表单失去焦点
+        focus： 表单获取焦点 */
+
+
+    // 应用 1 ：change - 表单事件 - 当失焦时，判断元素的内容有没有改变 - 表单得内容：value属性
+        /* var in1 = document.querySelector('#in1')
+        // 侦听事件
+        in1.addEventListener('change',changeHandler)
+        function changeHandler(e){
+            console.log(in1.value)
+        } */
+
+        // change案例-计算器
+        var form = document.querySelector('form')
+        form.addEventListener('change',changeHandler)
+
+        function changeHandler(e){
+            var sum = this.lastElementChild
+            sum.textContent = getSum()
+        }
+
+        function getSum(){
+            switch (form.children[1].value) {
+            case "+":
+                return Number(form.children[0].value) + Number(form.children[2].value);
+            case "-":
+                return form.children[0].value - form.children[2].value;
+            case "*":
+                return form.children[0].value * form.children[2].value;
+            case "/":
+                return form.children[0].value / form.children[2].value;
+            }
+        }
+
+
+    // reset submit    只能针对form表单   
+    // 阻止默认事件行为： e.preventDefault()  - 表单的提交，超链接的跳转都可以阻止，不继续跳转
+    var form2=document.getElementById("form2");
+         form2.addEventListener("submit",submitHandler);
+         form2.addEventListener("reset",submitHandler);
+
+         function submitHandler(e){
+             e.preventDefault() //阻止默认事件行为
+            //  表单的提交，超链接的跳转都可以阻止，不继续跳转
+            // 阻止表单的重置
+            //  console.log(e.type)
+         }
+
+
+    /* // select   这是针对输入文本框和多行文本框的事件     
+    // 选择输入框的文本时触发事件
+    // in1.selectionStart   选择起始位置
+    // in1.selectionEnd    选择的结束位置
+
+        var  in1=document.getElementById("in1");
+        in1.addEventListener("select",selectHandler);
+
+
+        function selectHandler(e){
+        console.log(in1.selectionStart,in1.selectionEnd);
+        in1.value=in1.value.slice(in1.selectionStart,in1.selectionEnd)
+        } */
+
+
+    //  resize  重新设置大小
+        // rem
+
+        /* window.addEventListener("resize",resizeHandler);
+         function resizeHandler(e){
+            
+            //   屏幕宽度   screen.availWidth
+            // 视口宽度 document.documentElement.clientWidth
+            var scale=document.documentElement.clientWidth/screen.availWidth;
+            document.documentElement.style.fontSize=100*scale+"px";
+         } */
+
+    //  scroll  当滚动条改变时，窗口的滚动条改变侦听document
+        // 如果是元素内的滚动条位置改变，侦听元素就可以
+
+        /* document.addEventListener("scroll",scrollHandler);
+
+
+         function scrollHandler(e){
+            console.log(document.documentElement.scrollTop)
+         } */
+
+
+    
+</script>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 案例 -->
+    <form>
+        <label>商品ID</label><input type="text" name="ids"><br>
+        <label>商品名称</label><input type="text" name="goodsName"><br>
+        <label>商品单价</label><input type="text" name="price"><br>
+        <label>商品数量</label><input type="text" name="num"><br>
+        <button type="submit">添加到购物车</button>
+    </form>
+
+
+    <script>
+        // storage  存储器
+        /* 
+            两种方法都是必须要用字符串存储 - 使用服务器打开
+            语法: localStorage/sessionStorage.属性名 = "值"
+            语法2: localStorage.setItem("属性名","值")
+            一: localStorage  - 长期存储,永久保存
+                方法: 1: 清除某一个数据 - localStorage.removeItem("属性名")
+                     2:清除所有 - localStorage.clear()
+            二: sessionStorage  - 临时存储,浏览器关闭数据丢失
+            特点:只对当前窗口关闭前有效，即使同一个文件，同一个浏览器，窗口不同数据不共同
+        */
+
+        // localStorage存储器
+        // localStorage.name="xietian";
+        console.log(localStorage.name);
+        // 语法一
+        // localStorage.name = "gao";
+        // 获取
+        // console.log(localStorage.name)
+        // 语法二
+        localStorage.setItem("age",23)
+        // 获取
+        console.log(localStorage.getItem("age"))
+        //清除所有
+        localStorage.clear()
+
+
+        // sessionStorage 临时存储
+        sessionStorage.name = "yue"
+        console.log(sessionStorage.name)
+
+
+        // 案例 - 购物车提交到整合到另外一个页面
+        // 首先我们需要存储一个 localStorage 数据,为一个空数组字符串
+        // 存储完成后 删除localStorage 数据,因为是永久保存
+        localStorage.shoppingList = JSON.stringify([])
+        
+        var form = document.querySelector("form")
+        // 事件侦听
+        form.addEventListener("submit",submitHandler)
+        
+        // 侦听事件回调函数
+        function submitHandler(e){
+            // 阻止表单默认提交方式
+            e.preventDefault();
+            // FormData对象:从客户端向服务端提交数据，通过用的就是Form表单，FormData其实就是Form表单向服务端提交的“数据”。
+            var fd = new FormData(form);
+            // 创建一个 空对象
+            var obj = {};
+            // 遍历表单发送的 fd 数据
+            for(let value of fd){
+                obj[value[0]]=value[1];
+            }
+            // 
+            var arr = JSON.parse(localStorage.shoppingList);
+            console.log(arr);
+            // 将 obj 插入到arr的末尾
+            arr.push(obj);
+            // 
+            localStorage.shoppingList = JSON.stringify(arr);
+        }
+    </script>
+</body>
+</html>

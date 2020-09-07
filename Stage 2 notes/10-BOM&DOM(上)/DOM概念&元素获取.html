@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="var" class="aaa">测试</button>
+    <div class="aaa" name="box">测试</div>
+</body>
+<script>
+    // DOM  - document object model  文档对象模型
+    //     操作文档的一整套方法 - 文档 - html
+    //     document时一个对象，是dom的顶级对象，属于window的一个对象，并且可以说是最出 色的
+
+    // DOM元素的获取 
+    //     事件 - 给谁的事件 - 标签 - id可以直接代表这个标签
+    //     直接获取它，不要使用id名 
+    /* var.onclick = function(){
+        console.log(123) 
+    } */      //  会报错 不能使用关键字
+
+    // DOM方法：
+    //     1： 根据id名来获取标签
+    // 语法 ：document.getElementById(类名)  注意：括号中是字符串
+    var a = document.getElementById('var')
+    console.log(a)  // 获取到的是一个对象
+
+    //     2：根据类型获取标签 
+    // 语法 ：document.getElementsByClassName(类名)  注意：括号中是字符串
+    var b = document.getElementsByClassName('aaa')
+    console.log(b)
+    // 类名的获取方式，获取的都是一个集合，要得到具体的标签需要取下标
+    console.log(b[0])  // 当前页面第一个满足这个类型的元素，下标就是0 下一个就是1
+
+    //     3：根据标签名来获取
+    // 语法 ：document.getElementsByTagName(标签名)  注意：括号中是字符串
+    var c = document.getElementsByTagName('button')
+    console.log(c)  // 集合
+    console.log(c[0])   // 获取当前页面第一个
+
+    //     4：通过name属性值来获取标签
+    // 语法 ：document.getElementsByName(name属性的值)  注意：括号中是字符串
+    var d = document.getElementsByName('box')
+    console.log(d)  // 集合
+    console.log(d[0])   // 获取当前页面第一个
+
+    //     5: 通过css选择器来获取标签  最常用
+    // 语法：document.querySelector(css选择器)
+    var e = document.querySelector('.aaa')  
+    console.log(e)   // 得到的是第一个满足css选择器的元素
+
+    //     5.1：通过css选择器来得到所有满足css选择器的元素
+    // 语法：document.querySelectorAll(css选择器)
+    var f = document.querySelectorAll('.aaa')
+    console.log(f)
+
+</script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    进制转换的方法：
+        toString - 语法：num.toString(你想转换的进制)  - 转成其他进制并以字符串的方式返回
+        parseInt - 语法：parseInt(被想转换的数据,将这个数据当成是多少进制)  - 可以再字符串转换成数字的时候把字符串当成多少机制转换成十进制
+
+        <script>
+            // toString 方法 不能将数据转化成十进制，因为平时使用的数字就是十进制
+            var a = 110 
+            var res = a.toString(2)  // 转换成二进制
+            console.log(res)
+
+            var res = a.toString(8)  // 转换成八进制
+            console.log(res)
+
+            var res = a.toString(16)  // 转换成十六进制
+            console.log(res)
+
+            // parseInt方法可以将其他进制转化成十进制
+            var a = '10010'
+            var res = parseInt(a,2)  // 将 a 数据当作 2 进制的数字转换成10进制
+            console.log(res)
+
+            var res = parseInt(a,8)  // 将 a 数据当作 8 进制的数字转换成10进制
+            console.log(res)
+
+            var res = parseInt(a,16)  // 将 a 数据当作 16 进制的数字转换成10进制
+            console.log(res)  
+        </script>
+
+</body>
+</html>

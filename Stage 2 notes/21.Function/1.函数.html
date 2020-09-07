@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        // 创建构造函数
+        // 语法：var fn = new Function(参数1，参数2...,构造函数语句块)
+        // 构造函数产生函数实例： 可以在Function() 得括号中，加入需要添加得参数以及语句块
+
+        // 创建构造函数
+        // 注意：前面得参数都是函数得参数，最后一个参数一定是函数得语句块,参数要用""包裹
+        var fn = new Function("a","b","c","console.log(a+b+c)")
+        // 执行函数
+        fn(3,4,5)  // 12
+
+
+        // TODO 一： 函数的删除 
+            // 1：全局函数  
+            function fn(){
+                console.log("我是全局函数")
+            }
+            // 全局函数必须要使用 函数 = null 才可删除
+            fn = null   //删除函数
+            // fn()  // 在这里调用函数 报错 - fn is not a function 说明已经被删除
+
+            // 2：对象里的函数  - 使用 delete 删除，在删除之前也必须设置null清空
+            var obj = {
+                a:function(){
+                    console.log("我是对象中得函数")
+                }
+            }
+            // 属性和函数断开引用关系，并且将堆中函数清空，但是该属性没有被删除，属性仍然存在
+            // 先清空函数
+            obj.a = null  // 清空函数后属性还在
+            // 删除属性
+            delete obj.a
+            console.log(obj)   // 在这里 obj 已是一个空对象
+
+        
+        // TODO 二：函数的参数
+            // 1：无限参数 ，当不设置形参时，函数都参数都报存在 arguments 列表中
+            function fun(){
+                console.log(arguments)
+            }
+            fun(1,2,5,9,8)
+            // 使用扩展符 ...语法接受无限的参数
+            function fun0(...arg){
+                console.log(arg)  // 返回一个数组，参数都放置在这个数组中
+            }
+            fun0(12,5,9,6,7)
+
+            // 2: 参数默认值 ES6
+            /* 
+                设置参数默认值
+                1：设置参数时，如果没有填入改参数，那么该参数为设置的默认值
+                2：设置参数时需要注意，必填参数写在最前面，默认值参数卸载后面
+                3：先后顺序要根据参数填入的必填性来设置顺序
+            */
+            function fun1(a,b=3,c=5){
+                console.log(a,b,c)  // 8 3 5
+            }
+            // 未设置默认值参数，参数的值未默认
+            fun1(8) 
+
+            // 2.1：对象填入默认参数值
+            /* 
+                1: 这种是利用解构赋值来填写参数,填参的方式不注重参数的先后顺序
+                2: 缺点是参数必须是对象，而且对象的属性名必须和函数参数中的属性相同
+            */
+            function fun2({a=1,b,c=5}){
+                console.log(a,b,c)  // 100 10 5
+            }
+            fun2({b:10,a:100})
+
+            // ES5的arguments
+           function fn0(){
+               console.log(arguments); //参数列表
+               console.log(arguments.callee); //当前函数，为了解决匿名函数的调用问题
+               console.log(arguments.callee.caller); //调用当前函数外的函数      
+           }
+           fn0()
+    </script>
+</body>
+</html>

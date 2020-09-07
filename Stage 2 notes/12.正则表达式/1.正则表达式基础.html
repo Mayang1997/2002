@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+</body>
+<script>
+    //  正则表达式：是一个描述字符模式的对象,ECMAScript的RegExp类表示正则表达式。而string和RegExp都定义了使用正则表达式进行强大的模式匹配和文本检索与替换的函数
+    //  查找、替换，通常用作验证，截取，隐藏，编码
+
+// 一 ： 正则表达式的创建方式
+    // 1: 字面量创建方式  语法： var reg = /正则表达式/修饰符
+    // 修饰符：
+    // 1： g 全局查找
+    // 2： i 不区分大小写
+    // 3： m 多行匹配
+
+    var reg = /ab/g
+
+    // 2：构造函数方式创建
+	// 参数1：正则表达式内容
+	// 参数2: 修饰符
+    var reg = new RegExp('ab','g')
+
+    var str = 'abCdefcg'
+    console.log(str.search(/c/i))  // 找到字符串中的 C search 方法：找到对应的字符返回下标，没有返回 -1
+    console.log(str.replace(/c/gi,'z'))   // 将字符串中 的 c （加上修饰符gi，就是全局查找，不区分大小写），替换成 z  
+    console.log(str.replace(/[ac]/gi,'z'))  // 将中括号中 满足对应字符的符号，替换成 z
+
+
+// 二 ：正则表达式的相关方法  (不常用)
+    
+    // 方法一 test ：查看字符串中是否右满足正则表的式的内容，返回值：右满足就返回布尔值 true 没有就返回 false
+    // 语法：表达式.test('字符串')
+    var r = /abc/
+    console.log(/abc/.test('abcdef'))  // 字符串有满足正则表达式的内容，返回 true
+
+    // 与 indexOf 方法的对比
+    var str1 = 'acjdfdfCCCdasads'
+    if (str1.indexOf('sa') > -1){
+        console.log('这个字符串有 sa 字符')
+    }
+    if (/sa/.test(str1)){
+        console.log('这个字符串有 sa 字符')
+    }
+
+
+    // 方法二 ：exec  - 查找字符串中是否有满足正则表达式的内容，返回值 一个数组 index是下标，没有找到就返回null
+    console.log(/sa/.exec(str1))   // 12
+
+// 常用方法：字符串方法
+    var str2 = 'abcdeacfghjac'
+    // 1：替换 - replace   语法：字符串.replace(表达式,你要替换的内容)
+    console.log(str2.replace(/a/,'z')) // 将 a 转换成 z  ,单字替换
+    console.log(str2.replace(/c/g,'k'))  // 全局多个替换
+    console.log(str2.replace(/[bd]/g,'l'))  // 全局多个字符替换
+    // 重构 
+    console.log(str2.replace(/[bd]/g,function(itme,index){
+        // replace 有两个参数，第一个是查找到的字符，第二个就是查找到的字符对应的下标
+        // 这个函数 的 return 结果就是将查找到的字符 替换成返回值
+        if (itme === 'b') return 'x'
+        if (itme === 'd') return 'y'
+    }))
+    
+
+    // 2：查找返回数组 - match  返回值：将字符串中满足满足表达式的组成一个数组返回
+    // 语法：字符串.match(表达式)
+    console.log(str2.match(/a/))  // 单字查找   返回到一个数组中
+    console.log(str2.match(/a/g)) // 多个查找   全部返回到一个数组中
+
+
+    // 3: 查找元素，返回下标  - search 
+    // 语法：字符串.search(表达式)
+    console.log(str2.search(/a/))  // 只能找到一个正在表达式的下标
+
+
+    // 4: 分割数组 - split
+    console.log(str2.split(/a/))
+    var str3 = "ab?c=3&da=4&bcd=5"
+    console.log(str3.split(/[?&]/g).slice(1))
+</script>
+</html>

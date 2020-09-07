@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    js的数据类型：
+        一： 定义变量存储的是属于什么样的类型
+            js数据类型分两类：
+            +  基本数据类型
+                1: 数值类型 Number Number Number Number Number
+                2: 字符串类型 String String String String String 
+                3: 布尔类型 Boolean Boolean Boolean Boolean 
+                4：空  Undefiend Undefiend Undefiend Undefiend
+                5: 空  Null Null Null
+            +  引用数据类型(复杂数据类型/地址数据类型)
+                1: Object 对象 OBJECT Object 
+                2: Array 数组 Array 
+                3: Function 函数
+
+        1:数值类型：当定义变量的类型为 数字 时
+            那么这个变量存储的就是数值类型的数据
+
+        <script>
+            var num = 1000   //数值类型
+            var Num = 10000
+            var nUm = 100000
+            var nuM = 1000000
+        </script>
+
+        1.1: 变量存储的数字类型：
+            当变量 赋值 就是 = 的右边以 0b开头 存储的为 二进制
+            0开头  八进制
+            0x开头 十六进制
+            十进制  没有前缀
+            
+            科学计数法： 10e2  表示 10 * 10的二次方
+
+            <script>
+                var s1 = 10e5   // 10 * 10的5次方 =  1000000
+                var s2 = 100e10   // 10 * 10的10次方   = 1000亿 数字超大
+                var Chenjin = 6e6  // =666666
+            </script>
+
+        1.2: 字符串类型 ：
+            当定义变量，等于被 单引号 或者 双引号 包裹的内容，那么这个变量就叫字符串类型
+            js中一切被 单引号 或者 双引号 包裹的内容都叫做字符串
+
+            <script>
+                var s3 = '你好 11点的月亮'
+                var s4 = '你好 12点的月亮'
+                var s5 = '你好 凌晨11点的吉安 好冷'
+                var s6 = '22 : 55 : 57'
+                var s7 = '201239'
+            </script>
+
+        1.3: 布尔类型：
+            在计算机的世界是一个非真既假的
+            布尔类型就是表示 真 或 假
+            true 表示为真 计算机存储为 1    true true true 
+            false 表示为假 计算机存储为 0    false false
+           布尔类型只有这两个值
+           
+           
+           <script>
+               var s8 = true   //  真   值：1
+               var s9 = false  //  假   值：0
+           </script>
+        
+        1.4: Undefiend 空  定义这个变量没有值
+        1.5：Null 有值 变量为空值    
+           1.4和1.5的区别：  白色和无色透明的区别
+
+        <script>
+            var Un 
+            var Nu = Null
+        </script>
+
+        注意： 类型严格区分大小写！！！！！！！！！
+</body>
+</html> 

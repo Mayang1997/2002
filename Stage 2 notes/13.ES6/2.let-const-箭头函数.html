@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 50px;
+            height: 50px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+</body>
+<script>
+    // let - ES6 
+    // var - 过时  但是还能用,可以与 let 混用
+
+    // let 的注意事项:
+    // 1: let 是有作用域的,let定义的变量不会放在 window下作为属性,解决于 window 对象属性的冲突问题
+    let a = 3
+    console.log(window.a) 
+    function fu(){
+        let a = 3
+        console.log(window.a)  // undefined
+    }
+
+    // 2: 所有写在 {} 中 let 定义的变量,它的作用域只限于 {} 中,外部是无法调用的
+    let c = 3
+    if (c > 0){
+        let b = 10
+        a += b
+        console.log(a,b)
+        // 在这里可以调用,b 且a也可以
+    }
+    // console.log(a,b)  // 在这里无法调用 b 并且报错
+    
+    // 3: 当 {} 嵌套时,内部 let 定义的可以调用外部,外部无法调用内部
+    for (let i =0; i < 3; i++){
+        // console.log(i,f)  // 在这里调用f 报错
+        if(i > 1){
+            let f = 10
+            i += f
+            console.log(i,f)
+        }
+    }
+
+
+    // const 常量 
+    // 常量的规则 : 
+    // 1: 一般作为初始值，或者永久不需要改的值来使用
+    // 2:目的是为了阻止因为其他使用者改变该值，或者自己不小心改变
+    // 3:常量定义时，必须全部字母大写，用下划线区分
+
+    // const EVENT = 'aaaaa'   // 常量无法被删除
+
+
+
+
+    // 箭头函数 - 所有的箭头函数都是 匿名函数
+    var fn = ()=>{}    // 等同于 var fn = function(){}
+    
+    // 箭头函数的规则: var fn = ()=>{}
+    // 1: 参数:   当参数只有一个时,可以省略 ()不写
+    //           当参数有两个或者两个以上,需要写在 () 中
+    var fn = itme=>{}  // 参数为 一个
+    var fn = (itme0,itme1)=>{}   // 参数为多个
+
+
+    // 2:  => 将参数与函数体 区分 ,意思是将参数带入函数中
+    //    {} 函数语句块 如果函数语句块不加 {},并且只有一句,意味着使用 return 返回这句话
+    var fn = (a,b)=>a+b
+    
+    // 调用
+    console.log(fn(5,6))  // 11
+
+
+
+    // 结构函数 
+</script>
+
+<script>
+        // 箭头语法可以改变箭头函数内 函数this 的指向
+
+        // 重要  !!!
+        /* 
+            this 的在不同函数的区分
+            1: 在对象的 函数 中, this 代表 对象本身
+            2: 在事件侦听 函数 中, this 代表 侦听事件的对象
+            3: 在 回调函数 中, this 的指向就是 window
+            4: 在箭头 函数 中的this ,代表箭头含函数外的this 指向
+        */
+
+
+        // 箭头语法可以改变箭头语法函数内this指向
+
+        
+        /* var obj={
+            color:"blue",
+            init:function(){
+                var div=document.querySelector("div");
+                div.a=this;
+                div.addEventListener("click",this.clickHandler);
+            },
+            clickHandler(e){
+                console.log("aaaa");
+                // 事件函数中this指向的是侦听的对象
+                console.log(this.a.color);
+            }
+        } */
+
+      /*   var obj={
+            color:"blue",
+            init:function(){
+                var div=document.querySelector("div");
+                // div.a=this;
+                // console.log(this.color);
+                // div.addEventListener("click",function(e){
+                //     console.log(this);//this 侦听事件的对象
+                //     console.log(this.color);//div下面没有color
+                // });
+                // 外面这里this是什么，箭头函数中this就是什么
+                // div.addEventListener("click",e=>{
+                //     console.log(this);
+                //     console.log(this.color);
+                //     console.log(e.currentTarget);
+                //     // 使用箭头函数后，this被重新指向到当前箭头函数外的this指向
+                // })
+
+                div.addEventListener("click",e=>{
+                    this.clickHandler(e);
+                });
+                // 在对象中尽量不要使用对象赋值的变量，使用this来替代当前对象
+                // 因为赋值的变量变量会改变
+                // 但是如果使用this，会牵扯到一系列因为使用环境不同而this被重新指向的方法
+                // 这样就会产生冲突问题，所以我们使用箭头函数可以将this指向对象的this，
+                // 覆盖原来函数中特有的this指向
+
+
+                var arr=["red","blue","green"];
+                // arr=arr.filter(function(item){
+                //     console.log(this);
+                //     // 任何回调函数执行后，this都会被指向window
+                //     return item!==this.color;
+                // });
+                arr=arr.filter(item=>{
+                    // 因为使用箭头函数 this被重新执行到函数外的this了
+                    // 不在指向原来的window了
+                    return item!=this.color;
+                })
+                console.log(arr);
+            },
+            clickHandler(e){
+                console.log("aaaa");
+                // 事件函数中this指向的是侦听的对象
+                console.log(this.color);
+            }
+        }
+
+
+        obj.init();
+
+        var obj1=obj;
+
+        obj={a:1,b:2};
+
+        console.log(obj); */
+
+
+
+        var div=document.querySelector("div");
+        div.addEventListener("click",clickHandler);
+
+        function clickHandler(e){
+            // console.log(this);//div
+            var arr=["blue","red","green"];
+            // arr.forEach(function(item){
+            //     if(item==="blue"){
+            //         // window
+            //         // this.style.backgroundColor=item;
+            //     }
+            // });
+            arr.forEach(item=>{
+                if(item==="blue"){
+                    //this--->div
+                    this.style.backgroundColor=item;
+                }
+            })
+        }
+
+</script>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    循环语句的控制： 打断循环 break
+
+    <script>
+
+        for (var a = 1;a <= 8; a++) {
+
+            // 当希望在第6次就停止循环时，需要使用break 关键字 
+            if (a === 6) {
+                break     //当a全等于6时，停止循环，后面的代码也不再执行
+            }
+            console.log('第' + a + '次')
+        }
+    </script>
+
+    循环语句的跳过： continue  跳过某次循环
+    <script>
+        for (var b = 2;b <= 8; b++) {
+            if (b === 5) {
+                continue  // 当b全等于5是，此次循环的后的代码不执行，直接进行b++，
+            }
+            console.log('第' + b + '次')
+        }
+    </script>
+
+    求和100以内的偶数：
+
+    <script>
+
+        var resule = 0
+        for (var c = 1; c <= 100; c++) {
+            if (c % 2 === 0) {
+                // console.log(c)
+                resule += c
+            }       
+        }
+        console.log(resule)
+    </script>
+
+    方法二：
+    <script> 
+
+        var resule1 = 0
+        for (var d = 2 ; d <= 100; d += 2) {
+            resule1 += d
+        }
+        console.log(resule1)
+    </script>
+   
+    打印三角形：
+    <br>
+    <script>
+        for (var f = 1 ; f <= 9 ; f++) {
+            for (var g = 1 ; g <= f ; g++) {
+                document.write('*&nbsp;')
+            }
+            document.write('<br>')
+        }
+    </script>
+
+    判断数字是否是质数： 质数：除自身和1之外都不能被整除
+
+    <script>
+        var h = 7  // 判断7是否质数
+
+        var flge = true // 给一个假设 
+
+        // 找到除自身和1的之间的数字进行判定
+        for (var i = 2; i <= h-1 ; i++) {
+
+            if (h % i === 0) {
+                flge = false
+
+                break  // 当 h % i === 0 时 ，执行flge = false ，说明它就不是质数了，因为它的值已经重新赋值为false了，所以，在最下面分支判断时，就是打印出来
+
+                //  当h取余2不全等于0 时，那么就不会执行flge = false ，继续判定，如果h是质数，那么它在分支语句 if 的判定中一次都不可能执行 flge = false ，所以，根据js的加载顺序时自上而下的，那么 当h 全部判定都是为 false时 ，那么 flge 等于 true 的值不会改变，所以在经过最下面的分支判断时，当 flge的值还是true 那么就可以判断 h 是一个质数！ 反之就不是
+            }
+        }
+
+
+
+        if (flge) {
+            console.log(h + '是质数')
+        } else {
+            console.log(h + '不是质数')
+        }
+    </script>
+
+    
+</body>
+</html>

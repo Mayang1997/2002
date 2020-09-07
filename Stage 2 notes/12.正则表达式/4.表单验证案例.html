@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="http://www.163.com" method="GET">
+        <input type="text"><span></span><br>
+        <input type="text"><span></span><br>
+        <input type="text"><span></span><br>
+        <input type="submit">
+    </form>
+</body>
+
+<script>
+    // 获取form 元素
+    var form = document.querySelector('form')
+    // 将form 表单中的所有 input 获取,并转换成数组
+    var list = Array.from(document.getElementsByTagName('input'))
+    // 删除最后一个 提交按钮
+    list.pop()
+    // 定义一个空数组接收表单未验证 的值
+    var arr = []
+    // 初始化时候,让每个 文本框都是未通过验证的,都是false
+    for (var i = 0; i < list.length; i++){
+        arr.push(false)
+    }
+
+    // 侦听form 添加 提交和输入事件
+    form.addEventListener('submit',formHandler)
+    form.addEventListener('input',formHandler)
+
+
+    // 事件回调函数
+    function formHandler(e){
+        // 当 事件类型是 输入事件时 - input
+        if (e.type === 'input'){
+            // 先获取我们当前点击的 文本框 是数组中的第几个
+            // 通过 indexOf 方法 在根据 e.target 我们点击的真实目标,获取下标
+            var index = list.indexOf(e.target)
+            
+            // 执行验证,带入当前是第几个文本框,和这个文本框的内容
+            var bool = getVerify(index,e.target.value)
+
+            // 通过getVerify 函数后,bool 被赋值, 根据 bool 的值来判断本次文本框的内容是否输入正确
+            if(bool){
+                // 如果输入正确,让在本次文本框后面的 span 便签添加内容和改变颜色
+                e.target.nextElementSibling.textContent = '正确'
+                e.target.nextElementSibling.style.color = 'green'
+            } else {
+                // 如果输入错误,让在本次文本框后面的 span 便签添加内容和改变颜色
+                e.target.nextElementSibling.textContent = '错误'
+                e.target.nextElementSibling.style.color = 'red'
+            }
+            // arr 数组有三个元素,都是false 且下标为 0,1,2
+            // index 是list 数组中,对应本次点击的哪一个 文本框的下标
+            arr[index] = bool
+        } else if (e.type === 'submit' && arr.indexOf(false) === -1){
+            // 这个条件,只有当点击的是 提交按钮,并且 在 arr 数组中没有 false,才执行
+        } else {
+            // 当未通过表单验证,就点击 submit  就阻止默认事件行为,无法提交
+            e.preventDefault()
+            console.log('请输入正确后提交')
+        }
+    }
+
+    // 验证文本框回调函数
+    function getVerify(index,value){
+        switch(index) {
+            case 0:
+                // case 0 为 当index 为0 时,就是为点击的第一个文本框
+                // 带入文本框的内容,如果满足表达式 /^\w{8,16}$/  那么返回 true ,不满足返回 false
+                // /^\w{8,16}$/  === /\w/  === [a-zA-Z0-9_] 在 8 ~ 16 位之间
+                return /^\w{8,16}$/.test(value)
+            case 1:
+                return /^(?=\D+\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,16}$/.test(value)
+            case 2:
+                return /^1\d{10}$/.test(value)
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    一、 JavaScript的数据类型
+            1、基本类型
+            string,number,null,undefined,boolean
+
+            2、复杂类型（对象类型，引用类型）
+            对象（键值对），数组等等
+
+        内存分区：
+            一：栈区 ： 存放的数据是 -- 局部变量，变量
+            一：堆区 ： 存放的数据是 -- new出来的数据
+            一：全局静态区 ：存放的数据是 -- 全局变量
+            一：只读区 ：存放的数据是 -- 常量和代码
+
+    二：基础数据的赋值和复杂数据类型的赋值
+
+            基础数据类型的赋值：
+            var a = 10;
+            var b = a;
+                b = 20;
+            
+            console.log(a);//10      被赋的是b的值，并没有改变a的变量，因为数据存放在不同的位置
+            console.log(b);//20
+
+
+            复杂数据类型的赋值：赋的是地址 因为复杂数据类型的数据是new出来的
+
+        
+    三： 总结：
+        基本类型：
+            在内存中，值存在栈区中，比较的时候，比较值，辅值是将值复制一份，传到另一个变量中
+        复杂类型：
+            在内存中，值存在堆区中，值的地址，存在栈区中，比较的时候，比较的是值地址，赋值的时候，是将地址复制了一份传到另一个变量中。所以是公用一个地址，修改任意一个变量的值就是修改另一个变量的值。
+
+                <script>
+                    function fn(){
+    
+                        var arr1 = [12,23,34];
+                        var arr2 = arr1; //把arr1里存储地址赋给arr2。
+
+                        arr2[0] = 100;     //当arr2被赋值为arr1 ，那么arr2的地址也变成了arr1 的地址，所以当改变arr2的元素，也是改变arr1的元素。
+
+                        console.log(arr1);//100,23,34
+                        console.log(arr2);//100,23,34
+
+                    }
+
+                    fn();
+                </script>
+    
+    三：不同数据类型的比较 
+                
+            基础数据类型比较的是值 ！ 
+
+            复杂数据类型比较的是地址 ！
+
+            <script>
+                // 2、引用类型的赋值(赋的是地址)
+
+                function fn(){
+                    
+                    var arr1 = [12,23,34];
+                    var arr2 = [12,23,34]; 
+
+                    console.log(arr1==arr2);//false, 因为这个比较的是地址。
+                    // 见内存示意图：06引用类型比较的内存示意图.png
+
+                    // arr1 不等于 arr2
+                }
+
+                fn();
+            </script>
+            
+</body>
+</html>

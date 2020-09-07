@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .div0{
+            width: 200px;
+            height: 200px;
+            background-color: orange;
+            /* position: relative; */
+        }
+        .div1
+        {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            margin: 50px;
+            /* position: absolute;
+            left: 50px;
+            top:50px; */
+        }
+        p{
+            height: 3000px;
+        }
+    </style>
+</head>
+<body>
+    <p></p>
+    <div class="div0">
+        <div class="div1"></div>
+    </div>
+    <script>
+
+        /* 
+            click     点击
+            dblclick   双击
+            mousedown   按下
+            mouseup     松开
+            mousemove   移动
+            mouseover   滑入
+            mouseout     滑出
+            mouseenter   进入
+            mouseleave   离开
+            contextmenu  右键菜单
+         */
+
+
+        var div0=document.querySelector(".div0");
+        var div1=document.querySelector(".div1");
+
+        // div0.addEventListener("click",clickHandler);
+        // 点击实际上是由mousedown和mouseup两个事件组成
+        // click只能针对左键点击
+        // mousedown和mouseup还可以针对鼠标的左中右键完成监听
+        // div0.addEventListener("mousedown",clickHandler);
+        // div0.addEventListener("mouseup",clickHandler);
+        // div0.addEventListener("mousemove",clickHandler);
+    
+        // 鼠标事件 MouseEvent
+        function clickHandler(e){
+            console.log(e);
+        }
+
+
+        /* 
+            e下面的属性
+                target   目标元素，实际被点到元素
+
+                currentTarget  侦听元素，进入该事件函数时的侦听目标，
+                也就是谁执行addEventListener方法，默认和this完全相同
+                
+                srcElement 目标元素，实际被点到元素与target完全相同
+
+                坐标数据 鼠标坐标
+
+            // 点击的元素位置相对可视窗口左上角位置
+                clientX: 96
+                clientY: 89
+
+            // 如果目标元素没有定位 相对页面左上角位置
+            // 如果目标元素点位，则是相对目标元素左上角
+                layerX: 33
+                layerY: 15  
+
+            // 相对目标对象的左上角位置
+                offsetX: 5
+                offsetY: 6
+
+            // 点击位置相对页面的左上角位置
+                pageX: 114
+                pageY: 124
+
+
+            // 移动偏移坐标，主要用在mousemove事件
+            // 相较于上一次移动点的坐标，x正数向右，负数向左，y正数向下，负数向上
+                movementX: 0
+                movementY: 0
+
+                // 点击位置相对屏幕左上角位置
+                screenX: 1006
+                screenY: 298
+
+            // 这个与clientX和clientY相同，这个新出
+                x: 116
+                y: 124
+
+                button   buttons   which
+                 0         1         1       左键
+                 1         4         2       中键
+                 2         2         3       右键
+
+
+                preventDefault()   取消默认事件
+                returnValue=false   IE中取消默认事件
+         */
+
+    </script>
+</body>
+</html>

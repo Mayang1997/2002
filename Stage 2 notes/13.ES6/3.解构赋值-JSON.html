@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 一：解构赋值
+
+    // 分析解构赋值的功能
+        /* 
+        解构赋值
+            1：赋值，按照顺序分别赋值给对应下标的变量
+            2：将变量的值进行交换
+            3：赋予参数初始值，这个方法在 ES5 中不允许，在ES6中可以使用
+            4：对象解构赋值是按照属性名来解构赋值的，跟顺序无关，没有该属性就没法解构赋值
+            4.1: 对象解构必须按照 结构 来 解构，当属性有重名，可以在属性名：新属性名来解构
+            5:可以解构一些属性出来
+            6：当在对象中入如果方法有，this，将无法解构这种方法
+        */
+
+    // 1：赋值解构  按照顺序，分别赋值给前面对应下边的变量
+    var [a,b] = [1,2];
+    console.log(a,b);  // 1 2
+
+    // 2：解构 - 交换
+    var a = 3;
+    var b = 4;
+    [a,b] = [b,a];  
+    console.log(a,b);   // 4 3
+    
+    // 3：给函数的参数赋予初始值 - 当参数设置了初始值，且没有给这个参数传参，那么它默认等于初始值
+    function fn(a,b=5){
+        console.log(a,b);
+    }
+    // 调用 1: 给参数都赋值
+    fn(4,5);  // 4 5
+    // 调用 2：只传入一个参数 , b 默认等于 5
+    fn(4);   // 4 5
+
+    // 4：对象解构赋值
+    var {a,b} = {a:6,b:9};
+    console.log(a,b); // a=6 b=9
+    // 当属性重名
+    var {a,b:{a:a1}} = {a:1,b:{a:2}}
+    console.log(a,a1); // 1 2
+
+    // 5:解构字符串
+    var str = 'asdsdasd';
+    let {length} = str;
+    console.log(length);   // 8
+
+    // 6 ：解构方法
+    let {random,max,min} = Math;
+    console.log(random()); // 随机数
+    console.log(max(3,6,8));  // 求最大值  8
+    console.log(min(1,5,2)); // 求最小值 1
+
+
+    // 二：JSON 
+        /* 
+            JSON 的功能和特征
+            特征
+            1：JSON 是一种字符串格式
+            2：JSON 的特征就是 所有的属性名都是用双引号包裹起来，并且外层必须是 单引号包裹
+            功能
+            1：将 JSON 格式字符串转化成 对象 。 语法：JSON.parse(JSON 格式字符串)
+            2：将 任何对象包括数组 转化成 JSON 格式字符串 。 语法:JSON.stringify(任何对象包括数组)
+            3：可以运用 JSON 复制对象包括数组，且是深复制
+
+        */
+
+        // 创建 JSON 格式字符串
+        var str = '{"a":1,"b":2,"c":{"d":3,"f":4}}';
+        // 将 JSON 格式字符串 转换成 对象
+        console.log(JSON.parse(str));  // 一个对象
+        // 将 任何对象包括数组 转化成 JSON 格式字符串 
+        var arr = [2,4,5,6,8];
+        console.log(JSON.stringify(arr));  
+</script>
+</html>

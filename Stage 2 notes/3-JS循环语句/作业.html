@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        span{
+            display: inline-block;
+            width: 130px;
+            height: 30px;
+            border: 1px solid #000;
+            text-align: center;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 作业1：求和 20！ -->
+
+    <script>
+        var a = 2
+        var resule = 1
+        while (a <= 20) {
+            resule *= a
+            a++
+        }
+        console.log(resule)
+        
+    </script>
+
+    <!-- 作业2：99乘法表 -->
+
+    <script>
+        for (var b = 9;b <=9 && b>=1; b--) {
+            for (var c = b;c <= 9 && c>=1; c++) {
+                document.write('<span>' + b + ' * ' + c + ' = ' + b * c + '&nbsp;</span>')
+            }
+            document.write('</br>')
+        }
+    </script>
+</body>
+</html>

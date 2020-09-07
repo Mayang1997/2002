@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 重构shift 方法
+        function shifts(arr) {
+            var length = arr.length-1
+            var num = arr[0]
+            for (var i = 0; i <= length ; i++){
+                arr[i] = arr[i+1]
+            }
+            arr.length = length
+            return num
+        }
+
+        var arr = [3,1,2,3,4,5]
+        console.log( shifts(arr))
+        console.log(arr)
+    </script>
+
+    <script>
+        // 重构 push 方法
+        function pushs(arr,imte){
+            // 让数组增加一个空元素
+            var length = arr.length++
+            arr[length] = imte
+            return arr
+        }
+        var arr = [1,2,3,4,5]
+        console.log( pushs(arr,5,6))
+    </script>
+
+    <script>
+        // 重构 every 方法
+        function everys(arr,fn) {
+            // 遍历数组
+            for (var i = 0 ; i< arr.length; i++){
+                // 定义变量接收 回调函数的 布尔值
+                var bool = fn(arr[i],i,arr)
+                // 只要是接受的布尔值为 false 时
+                // 就执行 分支 并且结束循环
+                if (!bool) return false
+            }
+            // 当 数组中的每一个元素都满足回调函数的判定 就返回结果 true
+            return true
+        }
+
+        var arr = [2,6,8,9,4,5,7,3]
+        console.log( everys(arr,decide) )
+
+        // 回调函数
+        function decide(itme,index,arr){
+            return itme>6
+        }
+    </script>
+
+   <script>
+
+       // 重构 reduces 方法
+       // arr 数组
+       // fn 函数
+       // initValue 累计值，初始值
+        function reduces(arr,fn,initValue){
+
+        var i=0;
+        if(initValue===undefined){
+            initValue=arr[0];
+            i=1;
+        }
+        while(i<arr.length){
+            initValue=fn(initValue,arr[i],i,arr);
+            i++;
+        }
+        return initValue;
+    }
+   </script>
+</body>
+</html>

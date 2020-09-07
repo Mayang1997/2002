@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    JS 的三大构成：
+    1： ECMAScript  
+        是js的语法 像当于规范，且严格区分大小写
+    2:  BOM （浏览器对象模型）
+        是一套操作浏览器的属性和方法
+        操作滚动天滚动，浏览器地址栏的改变
+    3： DOM （文档对象模型）
+        是一套操作页面元素的属性和方法
+        操作 元素 的样式，是否存在页面，通过 事件 操作和用户进行交互
+    js的核心就是通过 js 的语法 来操作浏览器和页面元素，使页面发生动画效果。
+
+
+    js三大书写位置：行内式，嵌入式，外链式
+    1： 行内式
+        两种方式：a标签和非a标签
+        + a标签：直接写在a标签的 herf 属性中，要写js声明：JavaScript:;  <br> 
+
+        <a href="javascript:alert('你好，世界')"> 点击一下</a>    一段js代码，一个提示框
+        <a href="javascript:alert('123.1hello world')">点击一下</a>
+       + 非a标签：添加点击的能力 onclick = 点击 写在标签后 语法：
+        <div onclick="alert('你好，代码。')">单击鼠标</div>
+        <p onclick="alert('我是一个行内式js代码,点击我加载')">点击一下试试</p>
+    
+    2： 内嵌式：一般写在head末尾或者body末尾 语法： <script></script> 加载顺序是自上而下？
+
+        <script>
+            alert('我是一个内嵌式js代码，且是一个弹框，页面打开自动加载')
+        </script>
+        <script>
+            alert('你好，锦哥.')
+        </script>
+        
+    3： 外链式：使用script标签的src属性，链接js文件：
+        
+        <script src="./dome.js"></script>
+</body>
+</html>

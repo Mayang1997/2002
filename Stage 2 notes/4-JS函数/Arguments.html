@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+          arguments
+            + 每一个函数里面天生自带一个变量, 叫做 arguments
+              => 当你在函数里面的时候, 不需要任何定义
+              => 直接就可以使用这个变量
+              => 一个数据的集合, 保存了所有的实参
+              => 你传递一个实参, 这里面就有一个数据
+              => 你传递十个实参, 这里面就有十个数据
+    
+          arguments 的使用
+            + 我们管 arguments 叫做 伪数组 或者 类数组
+            + 有一个 length 属性, 值是这个 arguments 的长度
+              => 这个 arguments 里面由多少个数据
+              => 这个 arguments 的 length 就是几
+              => 在 JS 语法里面, 除了数字中, 点 统一翻译成 的
+            + arguments 里面是按照顺序把所有的实参排列好
+              => 我们管这个顺序叫做 索引 或者 下标
+              => 索引和下标是一个官方的名字, 其实就是数据的序号
+              => **索引 或者 下标 是 从 0 开始的**
+              => 按照 +1 的顺序递增
+            + 我想从 arguments 里面获取某一个数据
+              => 通过索引(下标/序号) 来获取数据
+              => 当我获取 arguments 里面的 第 0 个的时候, 就是拿到 10
+              => 使用索引
+                -> arguments[索引], 表示你要获取 arguments 里面该索引的数据
+                -> 索引位置, 你写数字几, 就表示你要拿到第几个实参
+                -> 注意: **从 0 开始数数**
+        */
+    
+        function fn() {
+          // 函数内部天生自带的变量
+          console.log(arguments)
+          console.log(arguments.length) // 打印 arguments 的 长度
+    
+          console.log(arguments[0]) // 打印 arguments 这个集合里面的序号排在 0 的数据
+          console.log(arguments[1])
+        }
+    
+        // 本次调用的时候传递了两个实参, 那么 arguments 里面就有两个数据
+        fn(10, 20)
+    
+        // 本次调用的时候传递了三个实参, 那么 arguments 里面就有三个数据
+        // fn(100, 200, 300)
+      </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+          循环语句的控制
+            + 我们再我们需要的时候, 直接打断循环, 或者不执行循环的某一次
+            + 例子: 假如本身循环要执行 10 次
+              => 我们可以再 第五次 的时候, 打断, 后面的不要了
+              => 我们可以再执行到 第五次 的时候, 不要这一次了, 直接执行 第六次
+              => 1 2 3 4     6 7 8 9 10
+    
+          控制循环的关键字
+            1. break
+              + 当再循环里面的时候, 只要代码执行了 break
+              + 那么立即结束循环, 跳到循环外面
+            2. continue
+              + 当在循环里面的时候, 只要代码执行了 continue
+              + 就结束循环的本次, 直接进入下一次
+            + 这两个关键字不能作为变量名
+        */
+    
+        // 1. break
+        // for (var i = 1; i <= 10; i++) {
+        //   console.log('我吃的第 ' + i + ' 个包子')
+        //   if (i === 5) {
+        //     // 表示我已经吃了五个包子了, 吃不了了
+        //     // 后面的 6 7 8 9 10 我就不吃了
+        //     break
+        //   }
+        // }
+    
+        // 2. continue
+        for (var i = 1; i <= 10; i++) {
+    
+          if (i === 5) {
+            // 这个包子我不吃了, 我直接跳过去吃下一个包子
+            // continue 后面的代码就不执行了, 直接去到 i++
+            continue
+          }
+    
+          console.log('我吃的第 ' + i + ' 个包子')
+        }
+    
+      </script>
+</body>
+</html>

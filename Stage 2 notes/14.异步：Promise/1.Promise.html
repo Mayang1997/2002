@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+</head>
+<body>
+	
+</body>
+	<script>
+		// Promise 异步
+		/* 
+			一：Promise 的概念
+				1：是一个对象，是用来处理异步操作和回调函数的
+				2：Promise有三种状态：pending（进行中），resolved（完成），rejected（失败）。
+				2.1：只有异步返回的结构可以改变其状态
+				3：Promise的回调函数下有两个参数，都是回调函数：第一个参数resolved，第二个参数rejected，
+				4：Promise的then 方法：promise对象中用来执行回调函数的方法
+				4.1：then方法接受两个参数，第一个是成功的resolved的回调，另一个是失败rejected的回调
+				4.2：第二个失败的回调参数可选。并且then方法里也可以返回promise对象
+				5：在 promise 中 resolve和reject，只能被调用一次，不能同时调用
+		*/
+		/* 	二：Promise的Api(方法)
+				1、Promise.resolve()    		// 返回一个Promise对象,状态为resolve
+				2、Promise.reject()				// 返回一个Promise对象,状态为rejected
+				3、Promise.prototype.then()
+				4、Promise.prototype.catch()    // 发生错误的回调函数
+				5、Promise.all()  		// 所有的都有完成，相当于 且
+				6、Promise.race()  		// 完成一个即可，相当于 或
+		*/
+
+	// promise 的原理
+		
+
+		
+	// promise 状态只能被执行一次
+		var pms = new Promise(function(resolve,reject){
+			// 1：在 promise 中 resolve和reject，只能被调用一次，不能同时调用
+			// 2：当执行resolve或者reject时，这个Promise当中状态就会被修改
+			resolve(4) // 只执行第一个，后面的不执行
+			reject(3)
+			resolve(2)
+			reject(1)
+		})
+		// 调用 promise - then方法
+	// catch 方法：是promise中执行 promise发生错误时的方法
+		pms.then(function(num){
+			console.log(num)  // 4
+		}).catch(function(num){
+			console.log(num)
+		})
+
+
+	// Promise.resolve() 方法：直接执行Promise的resolve方法，并且传入参数
+		Promise.resolve(3).then(function(num){
+			console.log(num);
+		})
+
+
+	// Promise.reject() 方法：直接执行Promise的reject方法，并且传入参数
+	// catch 方法：是promise中执行 reject函数的方法
+		Promise.reject(1).catch(function(num){
+			console.log(num);
+		})
+
+
+	// Promise的参数和调用
+		var p = new Promise(function(resolve,reject){
+			var i = 3;
+			if(i>3){
+				// resolve 表示正确完成时执行的函数
+				resolve();
+			}else{
+				// reject 表示错误时执行的函数
+				reject();
+			}
+		})
+		// 调用 promise 下的两个回调函数 - then 方法
+		p.then(function(){
+			// 当正确时执行
+			console.log('执行resolve回调函数');
+		},function(){
+			// 当错误时执行
+			console.log('执行reject回调函数');
+		})
+
+
+	// promies处理 图片加载事件
+		// 创建函数
+		function loadImage(src){
+			// 创建一个 pormies 异步对象
+			var p = new Promise(function(resolve,reject){
+				// 创建图片
+				var img = new Image()
+				// 给 img 添加 load事件 和 error事件，由promies 回调函数返回结果
+				img.onload = function(){
+					// 当正确时，执行resolve
+					resolve(img);
+				} 
+				img.onerror = function(){
+					// 当错误时，执行reject
+					reject(src);
+				}
+				// 给img 添加地址 - 在这里为同步代码
+				img.src = src;
+			})
+			// 返回这个 promies 对象
+			return p;
+		}
+		// 调用函数 - 得到 promies 对象
+		loadImage('./img/3-.jpg');
+
+		// 查看 结果，为 promies 对象
+		console.log(loadImage('./img/3-.jpg'));
+
+		// 调用 pormies 下的两个回调函数 - then 方法
+		// 在调用 promies 下的两个回调函数中如果不用return返回其他内容，会自动返回一个空的 promies 对象
+		var res = loadImage('./img/3-.jpg').then(function(img){
+			// 当load事件加载完成时，图片的宽度就能获取到
+			console.log(img.width);  // 1024
+			// 在这里如果不用return返回其他内容，会自动返回一个空的 promies 对象，反之返回return值
+			// 返回加载完 3 图片后，加载 4 图片
+			// return loadImage('./img/4-.jpg')  // 当return 返回return值
+		},function(src){
+			// 当图片加载失败，执行reject
+			console.log(src);
+		})
+		// 当在 resolve 中不使用 return 返回空 promies 对象
+		console.log(res);  
+
+
+	// promies 连缀式写法：结合loadImage函数
+		// then调用 return 返回下一次的结果
+		loadImage('./img/5-.jpg').then(function(img){
+			console.log(img.width,img.src)
+			return loadImage('./img/6-.jpg');
+		}).then(function(img){
+			console.log(img.width,img.src)
+			return loadImage('./img/7-.jpg');
+		}).then(function(img){
+			console.log(img.width,img.src)
+			return loadImage('./img/8-.jpg');
+		}).then(function(img){
+			console.log(img.width,img.src)
+			return loadImage('./img/9-.jpg');
+		}).then(function(img){
+			console.log(img.width,img.src);
+		})
+
+
+	// 预加载案例一：promies.all()方法 - 结合 loadImage 函数
+		// 定义一个空数组接收图片
+		var arr = [];
+		for(var i = 3;i < 80;i++){
+			var p = loadImage('./img/'+i+'-.jpg');
+			arr.push(p);
+		}
+		// arr 数组中放置了 77 个 promies 对象
+		// console.log(arr);
+
+		// promise.all() 方法：将Promise对象数组按照顺序异步全部完成后再then的第一个函数中，传入完成结果
+		Promise.all(arr).then(function(list){
+			list.forEach(itme=> {
+				console.log(itme.width);
+				// document.body.appendChild(itme)
+			});
+		})		
+	// Promise.race() 方法：将Promise对象数组中最先执行完成的内容通过后面then传入
+		Promise.race(arr).then(function(img){
+			console.log(img);
+		})
+	
+	// 预加载案例二：生成器函数方法 - 结合 loadImage 函数
+		function* fn(){
+			var arr = [];
+			for(var i = 3;i < 80;i++){
+				yield loadImage('./img/'+i+'-.jpg').then(function(img){
+					arr.push(img)
+				})
+			}
+			return arr
+		}
+		// 遍历生成器函数
+		for(var prop of fn()){
+			console.log(prop)
+		}
+
+
+	// 阻塞式同步案例
+	// 预加载案例三：async 异步  await 等待
+		// 1: fun 这个函数使用async 表示这个函数是一个异步函数
+		// 2: 这个函数中就可以使用await ，await作用就是让异步变为同步等待。异步变成了阻塞式等待
+		// 3: async函数中的await后面只能跟的是Promise对象
+		// 4: async函数执行后返回的是一个Promise对象
+		async function fun(){
+			// await 将异步转化成同步
+			await loadImage('./img/9-.jpg').then(function(img){
+				console.log(img.width,img.src)
+			});
+			await loadImage('./img/10-.jpg').then(function(img){
+				console.log(img.width,img.src)
+			});
+			await loadImage('./img/11-.jpg').then(function(img){
+				console.log(img.width,img.src)
+			});
+		}
+		// 调用函数
+		fun()
+
+		// 预加载
+		// 创建一个异步函数
+		async function fun0(){
+			// 定义一个空数组接受图片
+			var arr = [];
+			for(var i = 3;i < 80;i++){
+				await loadImage('./img/'+i+'-.jpg').then(function(img){
+					arr.push(img)
+				})
+			}
+			return arr
+		}
+		// 调用函数
+		var res0 = fun0()
+		res0.then(function(list){
+			console.log(list)
+		});
+	</script>	
+</html>

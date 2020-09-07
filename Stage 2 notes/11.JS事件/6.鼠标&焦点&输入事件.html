@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 鼠标事件样式 */
+        #div1{
+            width: 200px;
+            height: 200px;
+            background-color: orange;
+        }
+        #div2{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+
+        /* 焦点事件样式 */
+        input{
+            transition: all 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <!--  鼠标事件 -->
+    <div id="div1">
+        <div id="div2"></div>
+    </div>
+
+    <!-- 焦点事件 -->
+    <form action="#">
+        <input type="text" class="in1">
+        <input type="checkbox">
+        <input type="checkbox">
+        <select >
+            <option>aaa</option>
+            <option>bbb</option>
+            <option>ccc</option>
+            <option>ddd</option>
+        </select>
+        <a href="#">超链接</a>
+    </form>
+
+    <!-- 节流 -->
+    <input type="text" class="input">
+</body>
+<script>
+    // 鼠标事件
+    // 1：mouseover 滑入 mouseout 滑出    
+    // 2：mouseenter 移入 mouseleave 移出
+    // 1 & 2 的区别：1 是有冒泡的 ，可以收到子元素的滑入和滑出 。 2 是不冒泡的，只能收道当前容器的移入和移出
+    var div1 = document.querySelector('#div1')
+    div1.addEventListener('mouseover',mouseHandler)   // 滑入
+    div1.addEventListener('mouseout',mouseHandler)    // 滑出
+    div1.addEventListener('mouseenter',mouseHandler)  // 移入
+    div1.addEventListener('mouseleave',mouseHandler)  // 移出
+
+    // 事件回调函数
+    function mouseHandler(e){
+        console.log(e.type)
+    }
+
+
+    // 右键菜单事件  contextmenu 
+    document.addEventListener('contextmenu',contextHandler)
+
+    function contextHandler(e){
+        e.preventDefault()   // 阻止默认事件行为  阻止了右键菜单的事件
+    }
+
+
+    // 焦点事件 ：主要用于表单元素，以及超链接,使用点击或者tab可以切换汇聚焦距
+    // focus 汇聚焦距
+    // blur 失去焦距
+    var in1 = document.querySelector('.in1')
+    in1.addEventListener('focus',focusHandler)
+    in1.addEventListener('blur',focusHandler)
+
+    function focusHandler(e){
+        console.log(e.type)
+    }
+
+    // 给元素创建侦听事件
+    var checkboxs = document.querySelectorAll('[type=checkbox')
+    for (var i = 0; i < checkboxs.length ; i++){
+        checkboxs[i].addEventListener('focus',focusHandler)
+    }
+    var select = document.querySelector('select')
+    var a = document.querySelector('a')
+
+    select.addEventListener('focus',focusHandler)
+    a.addEventListener('focus',focusHandler)
+
+    function focusHandler(e){
+        if (e.type === 'focus'){
+            e.target.style.outline = '1px solid purple'
+            e.target.style.outlineOffset = '0px'
+        }else if (e.type === 'blur'){
+            e.target.style.outline = '1px solid rgba(255,0,0,0)'
+            e.target.style.outlineOffset = '5px'
+        }
+    }
+
+
+    // input - 输入事件主要用于文本框和多行文本框的输入  input一般用于表单验证
+    var input = document.querySelector('input')
+    input.addEventListener('input',inputHandler)
+
+    function inputHandler(){
+        console.log(e)
+        // 这三个属性只有Input事件才有
+            // e.isComposing: false   是否使用输入法
+            // e.data: "s"  当前本次输入的内容
+            // e.inputType: "insertCompositionText" 输入类型
+    }
+
+</script>
+<script>
+    // 应用： 节流 - 表单验证
+    var input1 = document.querySelector('[class=input]')
+    // 创建 input 输入侦听事件
+    input1.addEventListener('input',inputHandler) 
+
+    // 定义一个布尔值  -- 开关
+    var bool = false
+    function inputHandler(e){
+        // 当布尔值为 true 存在时，返回出去 
+        if (bool) return
+        // 创建延迟定时器
+        var ids = setTimeout(function(){
+            // 5000 毫秒清除延迟定时器
+            clearTimeout(ids)
+            bool = false
+            console.log(input1.value)
+        },5000)
+        bool = true
+    }
+
+
+    // 定义一个布尔值  开关 
+    function inputHandler(e){
+        // 当bool 为 true 时 返回出去，不触发事件
+        if(bool) return
+        // 延迟定时器 - 节流 - 将大量的事件行为，延迟到延迟的时间后在触发
+        var ids = setTimeout(function(){
+            // 删除当前触发事件的 定时器
+            clearTimeout(ids)
+            // 从新赋值 bool 为false
+            bool = false
+            console.log(input1.value)
+        },3000)
+        // 当事件未触发，bool的值 赋值 为true
+        bool = true 
+    }
+
+
+
+    // 节流 
+    // 定义一个变量  开关 
+    var bool = false
+    function inputHandler(){
+        // 当 bool 值为 true时 跳出
+        if(bool) return
+        // 定义一个延迟定时器
+        var ids = setTimeout(function(){
+            // 500 毫秒后 清除延迟定时器
+            clearTimeout(ids)
+            // 将 bool 赋值为 false  这样下次触发事件能再一次进入新的定时器
+            bool = false
+        },500)
+        //  当事件未触发，bool的值 赋值 为true
+        bool = true 
+    }
+</script>
+</html>

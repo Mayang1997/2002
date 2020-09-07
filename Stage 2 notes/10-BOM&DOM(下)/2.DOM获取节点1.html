@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <p>文本</p>
+        <b class="text" name="txt" id="box">加粗</b>
+        <span>文本</span>
+    </div>
+
+    <script>
+        // 获取 b 标签
+        var b = document.querySelector('b')
+
+        // 获取上一个兄弟节点 语法： 元素.previousSibling
+        var res = b.previousSibling
+        console.log(res)
+
+        // 获取下一个兄弟节点  语法： 元素.nextSibling
+        var res = b.nextSibling
+        console.log(res)
+
+        // 获取上一个兄弟元素节点 语法： 元素.previousElementSibling
+        var res = b.previousElementSibling
+        console.log(res)
+
+        // 获取下一个兄弟元素节点 语法： 元素.nextElementSibling
+        var res = b.nextElementSibling
+        console.log(res)
+
+        // 获取父节点 语法：元素.parentNode
+        var res = b.parentNode
+        console.log(res)
+
+        // 获取父元素节点 语法：元素.parentElement
+        var res = b.parentElement
+        console.log(res)
+
+        // 获取属性节点  语法：元素.attributes
+        var res = b.attributes
+        console.log(res)
+    </script>
+</body>
+</html>

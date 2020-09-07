@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    <script>
+        //TODO 一：闭包
+        /* 
+            闭包的概念：
+                1：必须要有两个函数，A函数的内部返回一个B函数
+                2：在A函数的外部有变量引用这个B函数
+                3：B函数的内部访问着A函数内部的局部变量
+                以上三点缺一不可
+            闭包的有缺点：
+                优点：
+                    1：可以把一些变量放在函数里面，不会污染全局，长期存储
+                    2：变量不被销毁
+                缺点：会造成内存泄漏
+        */
+
+        function A(){
+            var s = 10  // 此变量被保存，不被销毁
+            return function B(){
+                // B函数中引用着A函数的变量
+                console.log(s)
+            }
+        }
+        // 获取返回的B函数
+        var B = A()
+        // 执行
+        B()
+
+
+        //TODO 二: 闭包的用途
+        // 1: 防止变量污染 
+        var Utils = (function(){
+            var num = 20
+            return {
+                a:function(){
+                    num++;
+                    console.log(num)
+                }
+            }
+        })();
+        // 全局的变量 num 与 闭包的 num 不冲突
+        var num = 50
+        Utils.a()  // 21
+
+
+        // 2: 闭包用于私有存储
+        function abc(_b,_c){
+            this.a++
+            this.b = _b
+            this.c = _c
+            return this   // bind改变指向后，此时这里的this为 obj
+        }
+        var obj = {a:10}
+        // 在普通函数中，this的指向为 window
+        // 通过bind方法绑定对象，改变this的指向为该绑定的对象
+        var res = abc.bind(obj)
+        console.log(res(30,50))  // a: 11 b: 30 c: 50
+    </script>
+</body>
+</html>

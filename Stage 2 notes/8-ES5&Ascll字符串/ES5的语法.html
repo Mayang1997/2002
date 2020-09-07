@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+ES5的语法
+
+    ES5JavaScript有三部分构成：ECMAS，BOM, DOM
+    ES:ECMAScript的缩写，说的就是JavaScript的基本语法（也就是现在一直学习的这个知识）
+    ES5就是ES的第五个版本，是公认的兼容性最好的版本
+
+    ES5的语法新增的语法 
+
+    一：严格模式
+
+        使用严格模式的好处：
+            1： 消除js语法不合理的地方  被人诟病一个地方的就是作用域的繁琐
+            2： 增加代码运行速度
+        
+        严格模式的使用：
+            直接在代码或者函数的最开始的位置写加上一段代码 “use strict”
+
+        严格对代码的要求：
+            1：不允许省略var关键字来定义变量
+            2：不允许函数的参数重名
+            3：不允许函数中的this关键字指向全局
+                
+            <script>
+                // 严格模式下的作用域：
+                // 一： 针对整个script 脚本使用
+                "use strict";  //当前script脚本都使用严格模式       
+            </script>          
+            <script>
+                // 二：针对单个函数 
+                // 2、针对一个函数的：写在函数的第一行
+                function fn(){
+                    "use strict"; //当前函数使用严格模式
+                }
+                function fn2(){
+                    // 当前函数不使用严格模式
+                }
+            </script>
+            三： 针对整个js文件 ： 单个js文件：在js文件里尽量使用自运行函数，即整个js文件的代码都放在自运行函数里
+                (function(){
+                   "use strict";
+                   })();
+
+    
+        <script>
+        "use strict"; //对于老版本浏览器来说，就是个普通的字符串，不会出错，
+                        // 新版本浏览器，看到了这个字符串后，就知道，该用严格模式了
+    
+        //1、以前没有严格模式时，var关键字，可以写，也可以不写。这个有点随意（灵活）;
+        //                不写var关键字，默认(预解析)按照全局变量处理
+        //  严格模式下必须写上var关键字
+        
+    
+    
+        function fn(){
+            var a = 100;//在以前的标准模式下，可以不写var关键字，默认(预解析)按照全局变量处理
+            console.log(a);
+        }
+    
+        function fn2(){
+            console.log(a);
+        }
+    
+        fn();
+        fn2();   
+
+        // 严格模式下，不允许使用with关键字
+
+
+        // 以前的with关键字可以省去重复的对象的书写
+
+        // document.write();
+        // document.write("hi<br/>");
+        // document.write("hello<br/>");
+        // document.write("你好<br/>");
+
+        // with(document){
+        //     write("hi<br/>");
+        //     write("hello<br/>");
+        //     write("你好<br/>");
+        // }
+    </script>
+        
+       
+  
+</body>
+</html>

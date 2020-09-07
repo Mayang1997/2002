@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 表单内容 -->
+    <input type="text">
+    <input type="password">
+    <select>
+        <!-- <option value="1">山东省</option>
+        <option value="2">山东省</option>
+        <option value="3">山东省</option>
+        <option value="4">山东省</option> -->
+
+        <!-- 有value就获取value 没有就是下拉框的内容 -->
+        <option>山东省</option>
+        <option>山东省</option>
+        <option>山东省</option>
+        <option>山东省</option>
+    </select>
+    <button id="btn">测试</button>
+    <script>    
+        btn.onclick = function (){
+            var text = document.querySelector('[type="text"]')  // 获取文本框 
+            // 表单元素的内容都是有value来获取
+            console.log(text.value)
+            
+            console.log(document.querySelector('[type="password"]').value)   // 获取文本框 的内容
+            
+            console.log(document.querySelector('select').value)   // 获取下拉菜单 的内容 有value就获取value 没有就是下拉框的内容
+        }
+      
+    </script>
+    <div class="box">盒子</div>
+</body>
+<script>
+    //元素属性操作
+
+    var box = document.querySelector('.box')  // 使用css选择器获取元素
+    console.log(box)
+
+    // 给box增加一些属性  
+    // 语法：DOM元素.setAttribute(属性名,属性值)
+    box.setAttribute('style','color:red')
+    box.setAttribute('name','渣渣辉')
+    // 修改属性的值
+    // 相当于在重新设置
+    box.setAttribute('name','一刀9999')
+    // 删除某个属性
+    // 语法：DOM元素.removeAttribute(属性名)
+    box.removeAttribute('name')
+    // 查询属性的值
+    // 语法：DOM元素.getAttribute(属性名)
+    box.getAttribute('style')
+
+    /* 
+    设置属性：setAttribute()
+    删除属性：removeAttribute()
+    获取属性：getAttribute()
+    */
+</script>
+<script>
+    var box = document.querySelector('.box')
+    // 内容操作 -  设置/获取
+
+    // DOM元素.innerHTML - 属性  -  可以设置/获取  当前标签内部 带有标签的内容
+    // DOM元素.innerText - 属性  -  可以设置/获取  当前标签内部 文本内容
+    // DOM元素.innerHTML - 属性  -  可以设置/获取  包含当前标签的带标签的内容
+
+    // 1 ：
+    console.log(box.innerHTML)  // 获取标签内的内容 
+    box.innerHTML = '文字'  // 设置标签内的内容
+    box.innerHTML = '<b>文字</b>'  // 给内容加标签
+
+    // 2 ：
+    console.log(box.innerText)  // 获取标签内的内容 
+    box.innerText = '内容'  // 设置标签内的内容
+    box.innerText = '<b>文字</b>'  // 不能给内容加标签  不会解析标签
+
+    // 3 ：
+    console.log(box.outerHTML)  // 获取标签内的内容 
+    box.outerHTML = '<b>文字</b>'  // 会替换原标签
+</script>
+</html>

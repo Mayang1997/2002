@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="http://localhost:4010/a.php" method="POST">
+        <input type="text" name="msg">
+        <button type="submit">提交</button>
+    </form>
+
+
+    <script>
+        // XSS攻击
+        /* 
+            1、必须是同一个域当中页面的表单提交，必须有文本内容提交
+            2、提交的内容需要被放置在页面中，例如评论等内容
+            3、在提交的文本中出现script标签，并且这个标签没有被替代，直接放入在页面中
+            4、这个页面可以被所有用户查看到
+            5、这个script标签具备一定的盗窃cookie特征
+        */
+        // 解决方案: 提交页面时将script标签去除提交
+        // 通过插入图片的超链接，点击是执行JavaScript脚本方式的XSS攻击,需要将JavaScript脚本替换
+
+
+        // 在同一域下的 cookie 的数据
+        document.cookie = "user=a";
+
+        // 解决方法
+        var form=document.querySelector("form");
+            var input=document.querySelector("input");
+            form.addEventListener("submit",submitHandler);
+
+        function submitHandler(e){
+            var str=input.value;
+            input.value=str.replace(/<script>(.*?)<\/script>/ig,"$1");
+        }
+    </script>
+</body>
+</html>

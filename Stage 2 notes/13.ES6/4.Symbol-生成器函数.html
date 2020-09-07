@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 50px;
+            height: 50px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <button>run</button>
+    <button>wrak</button>
+    <button>paly</button>
+    <div></div>
+</body>
+<script>
+    // 数据类型 
+    /* 
+        数值类型 字符串类型 布尔类型 undefined null   - 基础类型
+        Object  - 复杂类型
+        Symbol  - 唯一类型
+    */
+
+    // Symbol 得功能和特性
+    /* 
+    
+        1： 不能用于任何运算
+        2： 唯一性
+    */
+
+    let a = Symbol('a');
+    let b = Symbol('abc')
+    console.log(a); 
+    // 获取Symbol 得 字符串
+    function getSymbol(s){
+        return s.toString().match(/^Symbol\((.*?)\)$/)[1];
+    }
+
+    // 打印结果
+    console.log(getSymbol(a));
+    console.log(getSymbol(b));
+
+
+    // 开关
+    let bool = true;
+    // 定义一个接收常量的值
+    let state = "";
+    // 定义常量
+    const RUN = "run";
+    const WRAK = 'wrak';
+    const PALY = 'paly';
+    // Symbol 案例：去除魔术字符串
+    // const RUN = Symbol('run');
+    // const WRAK = Symbol('wrak');
+    // const PALY = Symbol('paly');
+
+    // 获取所有的 按钮
+    var btns = Array.from(document.querySelectorAll('button'));
+    var div = document.querySelector('div');
+    // 给每个按钮添加侦听事件
+    btns.forEach(itme=>{
+        // 箭头函数  (参数)=>{函数语句块}
+        itme.addEventListener('click',clickHandler);
+    })
+    // 侦听 div
+    div.addEventListener('click',divClickHandler);
+    // 
+    setInterval(animation,1000);
+
+    // div 事件侦听回调函数
+    function divClickHandler(e){
+        // state = Symbol('run')
+        state = "run";
+        // console.log(state)
+    }
+
+    // 事件回调函数
+    // 当点击按钮时，将 Symnol 的值赋值给 state
+    function clickHandler(e){
+        // 定义一个下标变量，接收点击当前按钮时第几个
+        var index = btns.indexOf(this);
+        // 三目嵌套判断  
+        state = index === 0 ? RUN : (index === 1 ? WRAK : PALY);
+        bool = !bool;
+        // console.log(state);
+    }
+
+    // 定时器
+    function animation(){
+        if(bool) return
+        // 判断 state 的 值，区分常量
+        switch (state){
+            case RUN:
+                console.log('run');
+                break;
+            case WRAK:
+                console.log('wrak');
+                break;
+            case PALY:
+                console.log('paly');
+                break;
+        }
+        bool = true;
+    }
+
+
+
+    // 生成器函数 语法：function* 函数名(参数){函数语句块}
+    // yiele  -  类似与断点
+    function* fn(a,b){
+        yield a;
+        a++;
+        yield a;
+        yield b;
+        b++;
+        yield b;
+        let s = a + b;
+        return s
+    }
+
+    var res = fn(5,6);
+    console.log(res)   // res 是这个生成器函数
+    // 获取 每一步 yield 的结果
+    var value = res.next();
+    // 第一步 yield 的结果 
+    console.log(value);  // value = 5  done(done表示函数未执行完) = false
+    // 第二个 yield 结果
+    console.log(res.next());   // 6   a++ 后的结果
+    // 第三个
+    console.log(res.next());  // 6  b=6
+    // 第四个
+    console.log(res.next());  // 7  b++
+    // 第五步 return
+    console.log(res.next());  // 13  s   done = true 函数执行完
+
+    // for...of 遍历生成器函数
+    // 并没有遍历出 return s
+    var res0 = fn(6,9);
+    for(var porp of res0){
+        console.log(porp);
+    }
+</script> 
+</html>

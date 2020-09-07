@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+
+    <!-- 作业一
+    <script>
+        function fn(a,b) {
+            
+            for (var f = a; f <= b ; f++){
+                
+                var flge = true
+                for (var i = 2; i < f ;i++) {
+                    if (f % i === 0) {
+                        flge = false
+                        break
+                    }
+                    //  不要在这打印数字，因为第一层循环每次都会全部打印，第二层循环就会一遍遍的判定，两个数字之间有多少个就判定多少次，所以在这里就会存储打印很多的判定的不是 % i === 0  的数字 ，当全部执行完后，这里掺杂着不是质数的数字，除自身和1外整除之间的数字==0 ，比如15，15例外，它既有被赋值false又有没有赋值依然为true的， 所以当二层循环结束到第三次分支结构 ，数字被赋值为false的就会被检测，同样15也被有赋值为false的，所以能判定区分是否为质数
+                    
+
+                }
+                if (flge) {
+                        console.log(f + '是质数')
+                    }
+            }
+        }
+
+        fn(10,20)
+    </script> -->
+
+    <!-- 作业2： 
+<br> -->
+    <script>
+        function fun(a,b) {
+            for (var g = a;g <= b; g++) {
+               
+                for (var d = a; d <= g; d++){
+                    document.write('<span>' + g +'*'+ d +'=' + g * d +'&nbsp;<span>' )
+                }
+                document.write('<br>')
+            }
+        }
+
+        fun(2,8)
+    </script>
+
+    作业3 ： 找出两个数字的最大公约数和最大公倍数
+    <script>
+        // 最大公约（因数）数的概念：
+        // 12  18
+        // 12 ----》1   
+        
+        // 12 11 10 9 8 7 6     
+        
+        var t = fn(24,32);
+        console.log(t);
+        
+        function maxconvention(n1,n2){
+            // 1、保证n1<=n2;
+            var temp;
+            if(n1>n2){
+                temp = n1;
+                n1 = n2;
+                n2 = temp;
+            }
+            // 循环求两个数的最大公约数
+            for(var i=n1;i>=1;i--){
+                if(n1%i==0 && n2%i==0){
+                    return i;
+                    break;
+                }
+            }
+            // return 1;
+        }
+        
+        
+        
+        // fn();
+        // // 
+        // function fn(){
+        //     var n1 = 12;
+        //     var n2 = 18;
+        //     for(var i=n1;i>=1;i--){
+        //         if(n1%i==0 && n2%i==0){
+        //             console.log(i);
+        //             break;
+        //         }
+        //     }
+        // }
+        
+        // 解决程序的思路，有两大类
+        // 第一类：就是按照计算机的思路，直译过来的：
+                // 可阅读性很好
+        // 第二类：按照数学的思路，转换过来的
+                // 看上去很巧妙，但是可阅读性不好。
+                
+    </script>
+</body>
+</html>

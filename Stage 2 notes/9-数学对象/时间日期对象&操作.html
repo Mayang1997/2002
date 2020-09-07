@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    时间日期对象  - js提供了一个专门用来创建日期对象的构造函数 Date
+        new Date()  这是一个对象 Object
+
+    获取时间的四个方法：
+    1：var date = new Date()   获取的是本地时间
+    2：var date = new Date('年月日时分秒的字符串')  
+    3：var date = new Date(年,月,日,时,分,秒)  
+    4：var date = new Date(时间戳)  
+    
+    获取/设置日期时间对象语法：
+
+        1:获取时间 -  对象.getFullYear()   - 获取年
+        2:设置时间 -  对象.setFullYear(值)   - 设置年
+
+    <script>
+        //时间日期对象  
+        var date = new Date()   // 获取当前本地时间
+        console.log(date) // Fri Mar 20 2020 12:12:12 GMT+0800 (本地时间)
+
+        // 今天的日期时间 - GMT+0800
+        // 时间是有时区 - 东八区
+        // 世界标准时间上加 8 小时  
+        // 格林威治/格林尼治时间  -  以 1970.1.1 00：00：00 开始计算
+
+        //通过时间日期对象来获取当前时间
+        var year = date.getFullYear()  // 年
+        console.log(year)
+        var month = date.getMonth()+1  // 月 ：获取的月份比当前月份小1
+        // 变成中喜欢从0开始计算数字，1~1d2月份，使用0~11来描述
+        console.log(month)
+        var d = date.getDate()  // 日
+        console.log(d)
+        var week = date.getDay()  //获取星期  从0开始  0就是星期日 1是星期1
+        console.log(week);      
+        var hour = date.getHours()  // 时
+        console.log(hour)
+        var minute = date.getMinutes()  // 分
+        console.log(minute)
+        var second = date.getSeconds()  // 秒
+        console.log(second)
+        // 输出时间
+        document.write('现在时北京时间：'+year+'年'+ month+'月'+d+'日' +hour +'点'+minute+'分'+second+'秒')
+    </script> -->
+
+另外的获取时间：获取毫秒  & 获取时间戳
+    <script>
+        // 获取毫秒 ： 1000毫秒 = 1 秒
+        var date = new Date()
+        var milli = date.getMilliseconds()
+        console.log(milli)
+
+        // 时间戳：就是从 1970.1.1 00：00：00 开始到现在走过的毫秒数
+        // 获取时间戳方法一 ： 
+        var time = date.getTime() 
+        console.log(time)  // 获取时间戳
+
+        // 获取时间戳方法二 ： 
+        var time = +new Date()  
+        console.log(time)  // 再new Date() 前面写个+ 号，也是当前的时间戳
+
+        // 获取时间戳方法二 ： 获取到 2020-5-01 的时间戳
+        var time = +new Date('2020-5-01')  //注意： 再 5 的前面加 0 就是获取的国际标准的五一时间戳，去掉 0 表示当前时区
+        console.log(time)       // 再new Date() 前面写个+ 号，就是当前的时间戳
+
+        // 获取时间戳方法三 ： 也是获取到 2020-5-01 的时间戳
+        var time = Date.parse('2020-5-01')  // 同上
+        console.log(time) 
+    </script>
+
+设置时间：例如 设置2021年
+    <script>
+        // 要向设置时间需要先获取时间
+        var date = new Date()
+                    
+        // 设置 2021年 6 月 1 号 12点 12 分 12秒 500 毫秒
+        date.setFullYear(2021)  // 设置年分
+        date.setMonth(5)   // 设置月份要少 1 设置 6月就是写 5
+        date.setDate(1)    // 设置几号
+        date.setHours(12)   // 设置 几时
+        date.setMinutes(12) //  设置 几分
+        date.setSeconds(12) // 设置 几秒
+        date.setMilliseconds(500) // 设置 500 豪秒
+        console.log(date)
+    </script>
+
+本地化时间：  
+    
+    <script>
+        // 先获取时间
+        var date = new Date()  
+
+        // 本地化时间  
+        console.log( date.toLocaleDateString() )
+        console.log( date.toLocaleString() )
+        console.log( date.toLocaleTimeString() )
+    </script>
+</body>
+</html>

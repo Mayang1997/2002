@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 200px;
+            height: 200px;
+            border: 5px solid #000;
+        }
+        .bg{
+            background-color: #0f0;   
+        }
+    </style>
+
+</head>
+<body>
+    DOM的其他操作： 元素样式操作 / 类名操作 / html结构的操作 <br>
+
+    <!-- <div class="box">盒子</div> -->
+
+    <div></div>
+</body>
+<script>
+    // 元素样式操作 :  - 语法：DOM元素.style.css属性 = 值
+    // 设置的样式都是行内的
+
+    var box = document.querySelector('.box') 
+    box.style.color = 'red'
+
+    // 当样式中间有横杠的话，用['']包起来，或者使用驼峰命名法
+    box.style['font-size'] = '50px'
+   /* 
+        驼峰命名法： 分两种 
+            1：小驼峰 ： 第一个单词首字母小写，后面所有的单词首字母都大写
+            2：大驼峰 :  说有的单词首字母都大写
+   */
+    box.style.fontWeight = 'bold'       
+</script>
+
+<script>
+    // 类名操作
+    var div = document.querySelector('div')  
+    console.log(div)
+    // 先设置类名属性 - hade的style里
+    // 语法 ： 元素.className = '类名字符串'
+
+    div.className = 'box'
+    div.className = 'box bg'  // 多个类名用空格隔开
+</script>
+
+<script>
+    // body 标签
+    var a = document.body   // 代表body标签
+    console.log(a)
+
+    // head 标签
+    var b = document.head   // 代表head标签
+    console.log(b) 
+
+    // html 标签
+    var c = document.documentElement   // 代表html标签
+    console.log(c) 
+
+    // title 标签
+    var d = document.title   // 代表title标签
+    console.log(d) 
+    // 给title 赋值
+    document.title = 'html结构'
+    console.log(document.title)
+</script>
+</html>

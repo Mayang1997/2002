@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    作业1： 传递任意个数字的乘积
+
+    <script>
+        function and() {
+            console.log(arguments)
+
+            var resule = 1 //叠加数字的变量
+            for (var i = 0; i < arguments.length; i++) {
+                resule *= arguments[i]  
+            } 
+            
+            return resule
+        }
+        
+        // 传递给函数实参 
+
+        var str = and(20,30)
+        console.log(str)
+
+    </script>
+
+    <!-- 作业二 质数：
+
+    <script>
+       
+        
+        function num() {
+            var flge = true
+            for (var i = 2; i <= arguments[0]-1 ; i++) {
+            
+                if (arguments[0] % i === 0) {
+                    flge = false
+                    // 能进来这里的flge 都是被整除的，所以执行flge = false
+                    break
+                }
+                
+                return flge  // 能道这里的flge都是没有被整除的，所以这里的flge等于true 那么return的返回值为 flge = true = 质数 
+            }
+        }
+      
+        var str = num(12)
+        console.log(str)
+    </script> -->
+
+
+    <!-- 作业三：传递两个数字，在控制台打印出两个数字之间的所有闰年
+    <script>
+        function yer(a,b) {
+            // 如果a > b  让这两个数字转换一下
+            if (a > b) {
+                var c = a
+                    a = b 
+                    b = c
+
+            }
+            for (var f = a; f <= b; f++) {
+                if (f % 4 === 0 && f % 100 !== 0 || f % 400 === 0) {
+                    console.log(f + '年是闰年')
+                }
+            }
+        }
+
+        yer(1000,2000)
+
+        // yer(1800,2000)
+
+        // yer(2000,5000)
+    </script>  -->
+    
+</body>
+</html>

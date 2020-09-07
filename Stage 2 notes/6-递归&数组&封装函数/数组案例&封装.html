@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    一 ： 求一组数最大的数
+    <!-- <input type="button" value="测试" onclick="fn()">
+
+    <script>
+        function fn() {
+            // 定义成绩数组
+            var arr = [85,89,98,54,63]
+            // 假设数组的第一个数字为最大的数
+            var max = arr[0]
+
+            // 找到除第一个数据以外的数据,然后进行一一比较，保留下最大的
+            for (var i = 1;i < arr.length; i++){
+                if (arr[i] > max) {
+                    max = arr[i] // 最大数被保留
+                }
+            }
+            console.log(max)
+        }
+    </script> -->
+
+
+    二 ： 封装求一组数最小的函数
+
+        <!-- <input type="button" value="测试" onclick="fn()">
+
+        <script>
+            function fn() {
+                var arr = [98,78,45,30,78,25]
+
+                var m = minfn(arr)
+                console.log(m)
+            }
+
+            function minfn(scores) {
+                
+                var min = scores[0] // n 个数 的最前面的最小数
+                for (var i = 1 ; i < scores.length; i++) {
+                    if (scores[i] < min) {
+                        min = scores[i]
+                    }
+                }
+                return min
+            }
+        </script> -->
+    
+
+    三 ： 封装求最大数函数
+
+    <!-- <input type="button" value="测试" onclick="fn()">
+
+    <script>
+        //使用
+        function fn() {
+            var arr = [99,52,66,78,65,45]
+            // 将 arr 数组赋值给 封装好的 maxfn函数形参 相当于 arr 为实参
+
+            
+            var m = maxfn(arr)
+            console.log(m)
+        }
+
+        // 封装
+        function maxfn(scores) {
+             // 假设数组的第一个数字为最大的数
+            var max = scores[0]  //max存储的是 前n个数的最大数
+            for (var i = 1; i < scores.length ; i++) {
+                // 把当前数，和前 n 个数的最大数进行比较。
+                if (scores[i] > max) {
+                    max = scores[i]
+                }
+            }
+            return max  //设置返回值 max = scores[i] = return
+                        // 不设置返回值你封装的函数执行后的结果无法带出调用
+        }
+    </script> -->
+
+    四 ： 封装求平均数函数
+
+        <input type="button" value="测试" onclick="fn()">
+
+        <script>
+            // 封装求平均值的函数
+            // 功能：求一组数的平均值
+            // 参数：一组数
+            // 返回值：平均值
+            function fn() {
+                var arr = [99,65,98,22,78,86]
+
+                var m = average(arr)
+                console.log(m)
+            }
+
+            function average(scores) {
+
+                var num = 0  // 设置一个叠加变量
+
+                //求和 
+                // 遍历数组 利用循环 将数据一个一个存放在 i 上
+                for (var i in scores) {
+                    num += scores[i]
+                }
+               var avg = num / scores.length
+
+               return avg
+            }
+        </script>
+</body>
+</html>

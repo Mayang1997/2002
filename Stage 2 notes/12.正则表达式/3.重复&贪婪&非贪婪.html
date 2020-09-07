@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+</body>
+<script>
+    //1： {} 重复
+    var str = 'caaaaaaaat'
+    // a{8}  重复8次
+    console.log(/ca{8}t/.test(str))   // true
+    // 任何字符重复 0 次 都是为空 - ''
+    console.log('asdfaasdass'.split(/a{0}/))   // a{0}  === ''  意思就是用''分割字符串
+
+    // /ca{0,}t/ ===  /ca*t/               {0,}     *  有或者没有，有多少个都可以
+    // /ca{1,}t/ ===  /ca+t/               {1,}     +  有至少一个以上
+    // /ca{0,1}t/ === /ca?t/               {0,1}    ?  有或者没有都行，最多1个
+
+
+    // 2：起始符和结束符
+    // ^ 起始符： 写在表达式开头就是表示起始，写在[] 里的开头就是反义
+    // $ 结束符： 写在表达式的最后面
+
+    var reg = /^a$/
+    console.log(reg.test('a'))  // true
+
+
+    // 贪婪匹配：最大优先匹配 
+    console.log('aaaaaaaaaa'.match(/a{0,4}/g))  
+
+    // 非贪婪匹配：最小优先匹配
+    console.log('catcaaaat'.match(/c.*t/))  //  . 代表任意一个字符 * 代表由或者没有，由多少个都可以 .*代表多少个任意字符都可以
+    console.log('catcaaaaat'.match(/c.*?t/))  // 非贪婪匹配 最小优先匹配  cat
+
+
+    // 3： | 或者符号
+    console.log('abac'.match(/a[bc]/g))  // ab ac 组成的数组
+    console.log('abac'.match(/ab|ac/g))  // 返回ab ac 组成的数组
+    console.log('abac'.match(/ab|ac|/g)) // 当多写一个 | 符号，代表或者一个 ''
+    console.log('abac'.match(/ab||ac/g)) // 当 这样书写时，|| 就是 '' 一直到底，不会再找字母
+
+    
+    // 4：分割符 - 单词分割符不是分割空格，而是分割单词之间的空隙
+        // 1：/\b/
+        // 2: /\B/
+    console.log('abc bbb dddb'.match(/\b/g))
+    console.log('abc bbb dddb'.match(/\B/g))
+
+
+    // 5: ?=   ?! 紧随其后  
+    console.log("abad".match(/a(?=d)/g));  // a
+    console.log("abad".replace(/a(?=d)/,"z"))  // abzd
+    console.log("abad".replace(/a(?=b)/,"z"))  // zbad
+    console.log("abadac".replace(/a(?!d)/g,"z"))  // zbadzc
+
+    // ?<= ?<!  前置条件
+    var str="abcbdb".replace(/(?<=c)b/g,"z");
+    console.log(str);  // abczdb
+    var str="abcbdb".replace(/(?<!c)b/g,"z");
+    console.log(str);  // azcbdz
+</script>
+</html>

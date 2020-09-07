@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        const options = [
+            {
+                value: "330000",
+                label: "浙江省",
+                children: [
+                    {
+                        value: "330100",
+                        label: "杭州市",
+                        children: [
+                            {
+                                value: "330106",
+                                label: "西湖区",
+                            },
+                            {
+                                value: "330107",
+                                label: "余杭区",
+                            },
+                        ],
+                    },
+                    {
+                        value: "330200",
+                        label: "温州市",
+                        children: [
+                            {
+                                value: "330206",
+                                label: "龙湾区",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                value: "120000",
+                label: "新疆维吾尔自治区",
+                children: [
+                    {
+                        value: "120100",
+                        label: "博尔塔拉蒙古自治州",
+                        children: [
+                            {
+                                value: "120111",
+                                label: "阿拉山口市",
+                            },
+                        ],
+                    },
+                ],
+            },
+        ];
+
+        /**
+        * 实现函数平铺上面的树形结构，预期结果如下：flattenTree(options)
+            [
+            [{  "value": "330000",  "label": "浙江省"},{  "value": "330100",  "label": "杭州市",},{  "value": "330106",  "label": "西湖区"}],
+            [{  "value": "330000",  "label": "浙江省",},{  "value": "330100",  "label": "杭州市",},{  "value": "330107",  "label": "余杭区"}],
+            [{  "value": "330000",  "label": "浙江省",},{  "value": "330200",  "label": "温州市",},{  "value": "330206",  "label": "龙湾区"}],
+            [{  "value": "120000",  "label": "新疆维吾尔自治区",},{  "value": "120100",  "label": "博尔塔拉蒙古自治州",},{  "value": "120111",  "label": "阿拉山口市"}]
+            ]
+        */
+        
+
+        首先定义一个接收数据得空数组
+        var arr = []
+        // 递归函数
+        function flattenTree(options,list){
+            // 根据树状结构得数据创建容器
+            // 判断，当arr数组中没有元素时，根据 options 的分支创建对应数量的空数组
+            // 若当前arr[i]不存在，元素，说明时第一次进入flattenTree函数
+            // 而此分支也只能时第一次才能进入，因为当递归完成后进入函数后，arr[i]已经创建了数组
+            if (arr.length === 0){
+                // 遍历 options 每层下的每个元素
+                for(var i = 0;i < options.length;i++){
+                    // 根据 options 的分支，判断 arr 的当前层的每个元素是否存在
+                    // 当不存在时，根据options 的分支创建 空数组
+                    if(!arr[i]) arr[i] = []
+                    // 第一次递归 - 带入参数
+                    /* 
+                        参数1：当前options层树状分支的第 i 项分支
+                        参数2：arr中创建好的第 i 项空数组
+                    */
+                    flattenTree(options[i],arr[i])
+                }
+            }
+            // 当第一个 if 分支创建了空数组，并递归，带入参数时
+            // 在这里，list 参数就不在是 undefined，而是空数组
+            // 就不会执行 flattenTree函数下的第一个 if 分支
+            if(list){
+                // 判断，当list存在时，就往 list 数组中填入参数
+                // 根据 options 的属性，以一个对象的方式传入 list数组中
+                list.push({
+                    // 将 options 当前层的数据填入在 list 数组中，就是arr[i]
+                    value:options.value,
+                    label:options.label
+                })
+                // 判断，如果当前 options 层有children数组
+                // 就将 children属性下的每一属性都遍历出来，并填入在 list 数组中
+                // 反之，如果当前层 没有children数组，跳出
+                // 说明已经，递归到了  options数据其中一条分支的最深处，无需再递归
+                if(!options.children) return
+                // 遍历 children数组 下的元素
+                for(var j = 0;j < options.children.length;j++){
+                    // 不断递归- 进入children数组，判断children数组下是否还有children数组
+                    // 当有时，将数据传入到 list 数组中
+                    // 当没有，说明已经递归带 此分支的最深处 跳出
+                    // 那么此时，flattenTree函数的第一个 if 分支下的 for 循环的第一次循环结束
+                    // 开始下一次循环
+
+                    /* 
+                        此时递归参数
+                        参数一：options下的children数组的第 i 项分支
+                                因为children数组下有两个对象，就是要循环两次
+                                且必须要children数组的第一项遍历完，才会不断向上返回
+                        参数二：已经填入了数据的list数组
+                    */
+                    flattenTree(options.children[j],list)
+
+                    // 直到将 options 的第一项分支全部遍历完才会返回到，flattenTree函数的第一个 if 分支下的 for 循环
+                    // 开始下一分支的遍历
+                }
+            }
+        }
+
+        flattenTree(options)
+        console.log(arr) 
+        
+
+
+
+
+      /*   var arr = [];
+      function flattenTree(options,list) {
+        if (arr.length === 0) {
+          for (var i = 0; i < options.length; i++) {
+            if (!arr[i]) arr[i] = [];
+            flattenTree(options[i],arr[i]);
+          }
+        }
+        if(list.length === 0){
+            var lists = list.push([{
+                value:options.value,
+                lable:options.label
+                }]);
+            for(var j = 0 ;j < options.children.length;j++){
+                flattenTree(options.children[j],lists)
+            }   
+        }else{
+            lists = list[0].push({
+                value:options.value,
+                lable:options.label
+            })
+            if(!options.children) return;
+            flattenTree(options.children,lists)
+        }
+        
+      }
+
+      flattenTree(options);
+
+      console.log(arr); */
+    </script>
+</body>
+
+</html>

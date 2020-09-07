@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     分支结构 switch
+
+     基础写法：
+
+     <script>
+         var num = 9
+         // switch 后的小阔号跟的是需要判断的值，大括号里是判断的值满足的各个情况和代码
+         switch (num) {
+            case 1:    // case 情况一  case 1： 情况的值为1时 执行代码
+            console.log('星期一')
+            break  // break 情况一结束
+
+            case 2:
+            console.log('星期二')
+            break
+
+            case 3: 
+            console.log('星期三')
+            break
+
+            case 4: 
+            console.log('星期四')
+            break
+
+            case 5: 
+            console.log('星期五')
+            break
+
+            case 6: 
+            console.log('星期六')
+            break
+
+            case 7: 
+            console.log('星期天')
+            break
+
+            default:   //  当switch 语句的设置的条件下 ，所有的情况都不满足的时候，执行 default 的代码
+            console.log('请输入 1~7 之间的值')
+         }
+     </script>
+
+     <script>
+         var s1 = 2
+         // switch 小括号里书写的时你要判断的 值 ！！！
+         switch (s1) {
+            case 1:
+            console.log('吃西餐')
+            break
+
+            case 2: 
+            console.log('吃霸王餐')
+            break
+
+            case 3: 
+            console.log('吃中餐')
+            break
+
+            default: 
+            console.log('毛都没有')
+         }
+     </script>
+
+     switch 中 case 的穿透 ：
+
+     <script>
+
+         var s2 = 1
+
+        switch (s2) {
+            //  不写break 将会从满足条件的情况一直往下穿透，直到遇到break
+            case 1:
+            console.log('吃一顿')
+
+            case 2: 
+            console.log('吃两顿')
+
+            case 3: 
+            console.log('吃三顿')
+            
+            // 以上都不满足执行default
+            default:
+            console.log('在switc分支语法中，如果不写 dreak 那么它就会在满足条件的那个情况往下一直穿透，且将不考虑以下的值，全部执行 ，直到遇到 break')
+        }
+     </script>
+
+
+     按照月份输出天数：
+
+     <script>
+
+         var s3 = 12
+         switch (s3) {
+             case 1: 
+             console.log(s3 + '月，有31天')
+             break
+
+             case 2: 
+             console.log(s3 + '月，有28天')
+             break 
+
+             case 3:
+             console.log(s3 + '月，有31天')
+             break
+
+             case 4: 
+             console.log(s3 + '月，有30天')
+             break
+
+             case 5: 
+             console.log(s3 + '月，有31天')
+             break 
+
+             case 6:
+             console.log(s3 + '月，有30天')
+             break
+             case 7: 
+             console.log(s3 + '月，有31天')
+             break
+
+             case 8: 
+             console.log(s3 + '月，有31天')
+             break 
+
+             case 9:
+             console.log(s3 + '月，有30天')
+             break
+             case 10: 
+             console.log(s3 + '月，有31天')
+             break
+
+             case 11: 
+             console.log(s3 + '月，有30天')
+             break 
+
+             case 12:
+             console.log(s3 + '月，有31天')
+             break
+
+             default:
+             console.log('请输入 1 ~ 12 之间的值')
+         }
+     </script>
+
+     利用switch 的穿透效果 ：
+
+     <script>
+         var s4 = 2
+         switch (s4) {
+             case 1: 
+             case 3:
+             case 5:
+             case 7:
+             case 8:
+             case 10: 
+             case 12:
+             console.log(s4 +'月，有31天')
+             break
+ 
+             case 4: 
+             case 6: 
+             case 9:
+             case 11: 
+             console.log(s4 + '月 ，有30天')
+             break 
+
+             case 2: 
+             console.log(s4 +'月 ，有28天')
+             break 
+
+             default: 
+             console.log('请输入 1 ~ 12 之间的数值')
+         }
+     </script>
+
+
+     根据switc 的穿透输出一年中的第几天 ：
+
+     <script>
+         var yaer = 2020  //第一个变量，年份
+         var month = 5    // 第二个变量，月份
+         var date = 31   // 第三个变量，天数 
+
+         var day = 0 // 第4个变量，记录天数
+
+         switch (month) {
+             case 12: 
+             day += 30  // day += 30 加的是下个月的天数  
+             case 11: 
+             day += 31
+             case 10: 
+             day += 30
+             case 9: 
+             day += 31
+             case 8: 
+             day += 31
+             case 7: 
+             day += 30
+             case 6: 
+             day += 31
+             case 5: 
+             day += 30
+             case 4: 
+             day += 31
+             case 3:  // 3月加的是2 1 月 2月要判断闰年
+             if (yaer % 4 === 0 && yaer % 100 !== 0 || yaer % 400 === 0) {
+                 day += 28
+             } else {
+                 day += 29
+             }
+            
+             case 2: 
+             day += 31
+            //  case 1: 
+            //  day
+         }
+
+          day += date    // 加dete是本月的天数 
+
+         console.log('当前日期是今年的第'+ day + '天')
+     </script>
+
+     
+
+</body>
+</html>

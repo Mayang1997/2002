@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    定时器 - 让代码每隔一段时间或者延迟多长时间执行
+        
+    <button id="btn">测试</button>
+    <button id="btn1">测试</button>
+    
+</body>
+<script>
+    // 1: window.setInterval()  // 每隔一段时间执行代码
+    // 语法 ： setInterval(函数,毫秒数)   
+    var a = 0
+    var b = setInterval(function(){
+        console.log(++a)
+    },1000)
+    // 每隔一秒执行一次
+    //  没有清除定时器就会每隔一段时间一直执行代码
+
+    //停止定时器 - 清除定时器
+    // 语法：clearInterval(定时器的返回值)
+    // 返回值： 就是页面中第几个定时器
+    // 通过绑定点击事件函数执行清除定时器的代码
+    btn.onclick = function(){
+        clearInterval(b)
+    }
+    
+
+    // 2: 延迟定时器 - 延迟多长时间执行代码
+    // 语法：setTimeout(函数,毫秒数)
+    var n = 1 
+    var c = setTimeout(function(){
+        console.log(n)
+    },3000) 
+    // 三秒以后打印 a  只执行一次
+
+    // 清除延迟定时器
+    // 语法： clearTimeout(定时器的返回值)
+    // 通过绑定点击事件函数执行清除定时器的代码
+    btn1.onclick = function(){
+        clearTimeout(c)
+    }
+</script>
+</html>

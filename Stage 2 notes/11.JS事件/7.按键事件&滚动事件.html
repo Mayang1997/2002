@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 按键事件
+    // keydown  按下键    keydown 不单纯按下键触发事件，一直按着就一直触发事件
+    // keyup 松开键
+    // 按键侦听的是 document
+
+    // 创建 按键侦听事件
+    document.addEventListener('keydown',keydownHandler)    // 按下键事件
+    document.addEventListener('keyup',keydownHandler)      // 松开键事件
+
+    // 定义一个开关
+    var bool = false
+    function keydownHandler(e){
+        // 当事件类型为 按下 keydown 时
+        if (e.type === 'keydown'){
+            // 当开关的值为 false 时 执行分支
+            if(!bool){
+                console.log(e.type,e.keyCode)
+                // 按键事件的属性
+                // e.code: "KeyJ"  键名
+                // key: "j"   键名
+                // keyCode: 74  键码
+                // which   键码
+                // 左 上 右 下  37，38，39，40
+            }
+            // 当执行完分支，修改 bool 的值为 true ，这样一直按下值执行一次
+            bool = true
+            return
+        }else{
+            // 反之 当事件类型为 松开 keyup 时 bool值修改为false
+            // 这样就可以 循环执行 按下 松开
+            bool =false
+        }
+    }
+
+
+    
+    // 滚动事件 
+        document.addEventListener("scroll",scrollHandler);
+
+        function scrollHandler(e){
+            console.log(e);
+        }
+
+        // 鼠标滚轮
+        // IE 和谷歌浏览器
+        document.addEventListener("mousewheel",mouseHandler);
+        // 火狐浏览器
+        document.addEventListener("DOMMouseScroll",mouseHandler);
+
+        function mouseHandler(e){
+            console.log(e);
+
+            /* 
+                谷歌和IE
+                deltaX: -0
+                deltaY: -125  向上
+                deltaZ: 0
+                detail: 0
+                wheelDelta: 150
+                wheelDeltaX: 0
+                wheelDeltaY: 150  向上
+
+
+                火狐
+                detail: -3  向上
+             */
+        }
+</script>
+</html>

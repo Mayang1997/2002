@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        //  原型链 __proto__
+
+        // ES6 类
+        class Box{
+            constructor(){
+
+            }
+            // 这个方法会加在原型链中
+            piay(){
+
+            }
+            run(){
+
+            }
+            static run(){
+
+            }
+        }
+        // 实例化对象
+        var o = new Box
+
+
+        // ES5 类   prototype 原型
+        function Bos(){
+
+        }
+        // 这个等同于ES6 的run方法
+        Bos.prototype.run = function(){
+
+        }
+        // 等同于ES6中static 的方法run
+        Box.run=function(){
+
+        }
+
+        // 实例化对象
+        var k = new Bos()
+        // 对象的最近原型链于当前对象的类的原型相同
+        // console.log(o.__proto__===Box.prototype);
+        // console.log(Box.prototype);
+        // console.log(o.__proto__);
+
+        // 其实对象的原型链与该对象对应的类的原型是完全相同的
+        // 只不过，我们把对象中的叫做原型链,__proto__
+        // 类中的叫做原型，使用prototype
+    </script>
+</body>
+</html>

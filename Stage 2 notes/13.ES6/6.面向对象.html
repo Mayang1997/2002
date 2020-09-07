@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+
+</body>
+<script>
+    // 面向对象
+        /* 
+            面向对象 - 任何事物都属于对象,因此将说有的事物归类设置,根据类别创建不同对象,根据这些不同的对象组合完成整个项目
+            
+            类别&对象
+            类别:  父类 当前类继承的所有类别都是它的父类 
+                子类: 继承当前类形成的新类别就是当前类子类
+                超类: 子类的父类叫做超类  - superClass
+            类别是一种抽象的概念   对象是根据类别实际创建出来的案例, 把根据类别创建出案例的过程叫做实例化对象      
+        */
+    // 创建一个类
+    // 在类中,函数与变量直接书写
+    class Humen{
+            head = 1;
+            body = 1;
+            run(){
+                console.log('奔跑')
+            }
+            Obj(){
+                console.log('面向对象')
+            }
+    }
+    
+    // 实例化对象 - 语法: var 对象 = new 类别()
+    // 实例化的对象具备 类 的所有属性
+    let bol = new Humen();  // 实例化对象
+
+    // 调用 类别的方法
+    // 当调用 类Humen 中的方法时执行
+    bol.run()
+    bol.Obj()
+   
+
+
+    // 面向对象练习 - // 若干个小方块，颜色不同，一起向右运行,点击一个小方块，就会停止，再点击继续前进，每个方块直接不会互相影响
+    // 在面向对象中,一定要用this
+
+    // 创建类
+    class Rect{
+        // 定义一个 box 变量接收 div 的值
+        box;
+        // 设置一个开关
+        bool = false;
+        // 设置 x 方向上的初始位置
+        x = 0;
+        
+        // 类中的第一个函数是构造函数 constructor 构造函数,默认有
+        // 当实例化对象时 ,自动执行 constructor 构造函数
+        constructor(){
+            // 在面向对象中,this 代表调用这个函数的 实例化对象
+            // 获取 box 并 执行 createElen() 函数 ,创建 div
+            this.box = this.createElen();
+        }
+        // 函数方法 , 创建一个随机宽高,背景颜色,定位的元素
+        createElen(){
+            // 创建一个 div 元素
+            let div = document.createElement('div');
+            // 赋予 box 元素宽高,随机背景,随机定位
+            // 在这里div元素的 宽高,颜色,定位,是回调函数赋予,调用函数要用 实例化函数 == this
+            div.style.width = div.style.height = this.getW(60,50);
+            div.style.backgroundColor = this.getRandomColor();
+            div.style.position = 'absolute';
+            // 给创建好的元素添加侦听事件
+            div.addEventListener('click',e=>this.clickHandler());
+            // 将创建好的 div 元素返回出去
+            return div
+        }
+        // 随机宽高
+        getW(max,min){
+            let m = Math.max(max,min);
+            let i = Math.min(max,min);
+            return Math.floor((Math.random()*(m-i))+i) + 'px'
+        }
+        // 随机背景颜色
+        getRandomColor(){
+            let str = '#';
+            for(let i = 0 ; i < 6; i++){
+                str += Math.floor(Math.random()*16).toString(16);
+            }
+            return str;
+        }
+        // 侦听事件函数e
+        clickHandler(e){
+            // 开关   每点击一次改变 bool 的值
+            this.bool = !this.bool;
+        }
+        // 将创建好的 div 放进 容器中
+        // 参数 parent 父容器的字符串
+        appendTo(parent){
+            // 当 parent 等于 字符串时，执行
+            if (typeof parent === 'string'){
+                 // 获取 parent 父容器
+                parent = document.querySelector(parent);
+            }
+            // 将 box 元素放在 parent 父容器中
+            parent.appendChild(this.box)
+        }
+        //  update 函数，让元素 x 方向不断的值不断改变
+        update(){
+            // 判断 当 bool 的值为 true 时，直接跳出
+            if (this.bool) return;
+            // 通过实例化对象中的定时器，每隔16毫秒改变 x 的值
+            this.x += 2;
+            // 将得到的 x 的值 赋值给 创建好的div 元素上，就是 box
+            this.box.style.left = this.x + 'px';
+        }
+    }
+
+    
+    // 创建一个类 初始化
+    class Init{
+        // 定义一个空数组接收 实例化对象
+        list = [];
+        // 构造函数, 实例化时,自动执行
+        constructor(){
+            for (let i = 0; i < 10; i++){
+                // 实例化对象
+                // 当实例化 Rect 时,就已经创建好了 div元素
+                let box = new Rect()
+                // 调用 Rect 中的appendTo方法,就是用实例化对象 box 调用 
+                // 将参数 body 传入 Rect 类的 appendTo方法中
+                box.appendTo('body')
+                // 将每一个 box 都放在 空数组中
+                this.list.push(box)
+            }
+            // 定时器,每隔 16 毫秒改变 Rect 中 update 方法 x 的值
+            // 通过箭头函数的方法,改变 this 的指向
+            // 这样定时器的回调函数的this就是指向 调用anmintion函数的 实例话对象了
+            setInterval(()=>this.anmintion(),16)               
+        }
+        // 定时器回调函数
+        anmintion(){
+            // 遍历数组,将数组中的每一个 实例化对象 都执行 update 方法
+            for (let i = 0;i < this.list.length;i++){
+                // 因为每一个实例化对象,都具备有 update 的方法
+                this.list[i].update()
+            }
+        }
+    }
+
+
+    // 调用 Init  直接 new Init 就可以自动执行 init里的构造函数
+    new Init()
+</script>
+</html>

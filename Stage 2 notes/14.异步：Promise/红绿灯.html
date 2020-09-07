@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 50px;
+            height: 50px;
+            border: 1px solid #333;
+            border-radius: 50%;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+
+
+
+    <script>
+        // 获取所有的元素，并转换成数组
+        var divs = Array.from(document.querySelectorAll("div"))
+        // 切换背景函数
+        var prev;
+
+        // 创建promise，返回一个promise对象
+        /* 
+            参数为传入的color
+            当执行函数 setLight 3秒后，promise对象的状态由进行中pidding 执行成功状态，并带入 color
+        */
+        function setLight(color){
+            return new Promise(function(resolve,reject){
+                setTimeout(function(){
+                    resolve(color)
+                },3000)
+            })
+        }
+
+        // 链式promise ，处理异步操作
+        function changeLight(){
+            // setLight 函数返回一个promise对象，并执行成功状态
+            setLight("red").then(function(color){
+                setBgColor(0,color)
+                // 当背景设置成功，在返回一个promise对象，并带入color
+                return setLight("yellow")
+            }).then(function(color){
+                // then上一个promise对象返回出的promise对象，并再次返回
+                setBgColor(1,color)
+                return setLight("green")
+            }).then(function(color){
+                setBgColor(2,color)
+                return setLight("yellow")
+            }).then(function(color){
+                setBgColor(1,color)
+                // 再次执行，循环
+                changeLight()
+            })
+        }
+
+
+        // 切换背景
+        /* 
+            参数一：为当前html中第几个div
+            参数二：清除上一次的背景，设置下一次的背景      
+        */
+        function setBgColor(num,color){
+            // 当上一次背景存在是，清除
+            if(prev){
+                prev.style.backgroundColor = "#ccc"
+            }
+            // 当不存在，设置当前prev背景和当前div
+            prev = divs[num]
+            prev.style.backgroundColor = color
+        }
+
+        // 执行
+        changeLight()
+    </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    递归：函数递归
+         递归在现在是了解知识。未来在深拷贝会给大家再次体现。
+
+         总结
+         一、递归概念：
+         递归就是特殊的嵌套调用，递归就是函数自己调用自己
+         递归函数中必须有一个分支是不调用自己的，要不然就调死了。
+
+         二、递归函数的特点：
+         1、跟踪比较麻烦
+         2、执行效率低
+
+         三、递归使用场景（度的把握）：
+         1、如果一个需求即能用循环解决，又能用递归解决，强烈建议你使用循环。
+         2、在树形结构里，是必须使用递归了。
+
+
+    递归小案例： 任意数字的阶乘
+    
+    <script>
+        // 阶乘的条件     任意数字：n 的阶乘为 1 到 自身的乘
+        /*
+            5! = 5*4*3*2*1; = 5*4！
+            4! = 4*3*2*1; = 4*3!;
+            3! = 3*2*1; = 3*2!;
+            2！= 2*1; = 2*1!;
+            1！= 1；
+            0！= 1；
+
+            总结：n! = n*(n-1)!;
+
+        */
+        // 功能：定义一个函数，求阶乘
+        // 参数：一个大于等于0 的数 n；
+        // 返回值：n的阶乘
+        function fun(n) {
+            if (n === 0 || n === 1) {
+                return 1
+            } else {
+                return n*fun(n-1)  // 递归的运算十分之慢，执行的效率很低
+            }
+        }
+
+        //调用函数 
+        var resule = fun(10)
+        console.log(resule)
+
+        //用循环做阶乘
+
+        function fnn1(a) {
+
+            var resule = 1 // 叠加数字的变量
+            for (var i = 1;i <= a;i++) {
+                resule *= i
+            }
+            return resule  // 返回值 返回的是函数阶乘的值
+        }
+
+        var str = fnn1(10)
+        console.log(str)
+    </script>
+
+
+
+    函数的嵌套调用：
+    <script>
+        function fn() {
+            console.log('A')  //执行顺序  1
+            fn1()    // 2
+            console.log('A')   // 6
+        }
+
+        function fn1() {
+            console.log('B') // 2
+            fn2()          // 3
+            console.log('B')  // 5
+        }
+
+        function fn2() {
+            console.log('C') // 4
+            console.log('C')  // 4
+        }
+
+
+        //调用
+         
+        fn() 
+    </script>
+
+    案例3：斐波那契数列 (递归的方法)
+
+        <script>
+            /*
+            斐波那契数列：
+            // 前两个数是1，从第三个数开始，每个数是相邻的前两个数之和。
+            1  1  2   3   5   8  13
+
+                第n个数 = 第n-1个数 + 第n-2个数;
+
+            */
+
+            // 功能：求第n个斐波那契数列的数字
+            // 参数：n；
+            // 返回值：第n个斐波那契数
+
+            function Fbnq(b) {
+                if (b === 2 || b === 1) {
+                    return 1   // 因为斐波那契数列的规律，第一个和第二个数都为1，所以只要确定好 b = 1 和 b = 2 的情况，其他的都符合第n个数 = 第n-1个数 + 第n-2个数的规律
+                } else {
+                    return Fbnq(b-1) + Fbnq(b-2)
+                }
+            }
+
+            // 调用函数
+            var tersf = Fbnq(30)
+            console.log(tersf)
+
+        </script>
+
+        
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    变量声明提升：
+
+    <script>
+        // 1、变量声明提升：不管变量在函数体里的什么位置进行定义（声明），
+        //                那么在预解析（预编译）时，浏览器会先把变量的声明提升到函数体的最开始
+
+        function fn() {
+
+            console.log(a)
+            console.log('不管局部变量在哪个位置定义，都会把变量得声明放到最开始，注意，提升的是被定义的变量，不是值')
+
+            // 但是打印实在定义变量a之前，所以打印的是undefined
+            var a = 100 // 在这里定义，预解析会通读代码，且知道在页面中有a变量
+        }
+
+        function fun() {
+
+            var a
+            console.log(a)  //提升的是声明，而不是值
+
+            a = 20
+        }
+        //调用函数
+
+        fn()
+        fun()
+		
+		// 2：显式声明变量和隐式声明变量得区别
+		/* 
+			区别一：在函数中，显示声明变量是局部变量，隐式声明变量是全局变量
+			区别二：显示声明变量无法被删除，隐式声明变量可以被删除
+			区别三：隐式声明变量属性默认配置下得configurable为true，显式声明变量的默认配置configurable为false
+		*/
+		var s = 10;  // 显式声明变量
+		n=100;  // 隐式声明变量
+		
+		delete window.s
+		delete window.n
+		
+		console.log(s,n)  // n === undefined 被删除
+		
+		var sDesc = Object.getOwnPropertyDescriptor(window,'s');
+		var nDesc = Object.getOwnPropertyDescriptor(window,'n');
+		console.log(sDesc)  // configurable为false
+		console.log(nDesc)  // configurable为true
+		
+		
+		// 面试题
+		// 预编译
+		// function Foo(){
+		//   abc = function (){ alert(1); };
+		//   return this;
+		// }
+		// abc = function (){ alert(5); }; -> function (){ alert(4); } -> function (){ alert(1); };
+		
+		// 执行阶段
+		// Foo.abc = function (){ alert(2); };
+		// Foo.prototype.abc = function (){ alert(3); };
+		// abc = function (){ alert(4); };
+		
+		
+		
+		function Foo(){
+		  abc = function (){ alert(1); };
+		  return this;
+		}
+		Foo.abc = function (){ alert(2); };
+		Foo.prototype.abc = function (){ alert(3); };
+		var abc = function (){ alert(4); };
+		function abc(){ alert(5); };
+		
+		Foo.abc();   // 当执行到这里时，Foo类下添加了一个动态方法 abc为function (){ alert(2); }; 所以在这里Foo.abc()执行为  2
+		abc(); // 此时全局得abc函数已经变量声明提升为 abc(){ alert(5); }; 当直接调用abc()时，全局得函数abc 被赋值为 var abc = function (){ alert(4); }; 所以 abc()得执行结果为 4
+		Foo().abc(); // 在这里全局得abc函数已经被赋值为 function (){ alert(4); };，当调用Foo类下得静态方法abc时，全局得函数abc被赋值为 function (){ alert(1); }; 所以 Foo()abc()得执行结果为 1 , 函数的内部当调用时才声明提升
+		abc(); // 此时abc函数已经被赋值为 function (){ alert(1); }; ，所以abc()得执行结果为 1
+		new Foo.abc();  // 在这里使用构造函数得方法 new 了一个Foo.abc函数，所以执行结果为 function (){ alert(2); };   2
+		new Foo().abc(); //  在这里实例化对象 Foo 然后，调用Foo类下得动态方法，就是原型上得方法，所以当new Foo().abc() 执行时，结果为 3
+		
+		
+    </script>
+</body>
+</html>

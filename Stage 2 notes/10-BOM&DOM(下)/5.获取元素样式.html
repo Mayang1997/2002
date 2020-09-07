@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background-color: green;
+            border-top: 10px solid #000;
+        }
+    </style>
+</head>
+<body>
+    获取元素样式：
+
+        使用style属性来获取元素的样式 - 有缺陷
+        缺陷：只能获取到行内样式，不能获取到内部和外部的样式
+
+    获取到所有方式的样式方法 (内联，内部，外部)： - 在ie有兼容问题
+
+        语法：window.getComputedStyle(标签元素)  window可省略
+        兼容写法：- 在 ie 中使用  元素.currentScript
+
+
+    <div style="margin-left: 50px;"></div>
+    <script>
+        // 获取元素
+        var div = document.querySelector('div')
+        
+        // 获取div 的所有方式的样式
+        var res = window.getComputedStyle(div)
+        console.log(res)
+
+        // 获取 div 宽度的样式的值
+        console.log(res.width)  // 100px
+        // 获取 div 高度的样式的值
+        console.log(res.height) // 100px
+        // 获取 div 边框的颜色样式的值
+        console.log(res.borderTopColor)  // rgb(0, 0, 0)
+    </script>
+
+    <script>
+        // 兼容写法
+        // 先获取元素
+        var div = document.getElementsByTagName('div')[0] 
+        // 如果访问一个对象不存在的属性 - undefiend
+        // 在分支中，undefiend 转成布尔值就是 false
+        // 当出现兼容问题，window.getComputedStyle 就不存在
+        // 那么就执行
+
+        // 定义一个接收样式的变量
+        var res; 
+        if (window.getComputedStyle){
+            res = window.getComputedStyle(div).width
+        } else{
+            res = div.currentScript.width
+        }
+    </script>
+
+    <script>
+        // 将获取元素样式的方法封装成一个函数
+        // ele 元素
+        // attr 变量 - 样式
+        function getStyle(ele,attr){
+            if (window.getComputedStyle){
+               return window.getComputedStyle(ele)[attr]
+            } else{
+               return ele.currentScript[attr]
+            }
+        }
+
+        var div = document.getElementsByTagName('div')[0] 
+        var w = getStyle(div,'width')
+        console.log(w)
+    </script>
+</body>
+</html>

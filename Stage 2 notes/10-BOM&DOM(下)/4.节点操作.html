@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    操作节点的方法：增/删/改/查
+
+        1：创建元素节点：语法：document.createElement(标签名字符串)
+        2：替换节点：语法：父元素.replaceChild(新的节点，被替换的节点)
+        3：删除节点：语法：父节点.removeChild(子节点)
+        4：插入子节点：语法：父元素.appendChild(子节点)
+        5：将一个节点放到某一个子元素前面：父元素.insertBefore(新的节点，旧的节点)
+        6：复制节点：被复制的节点.cloneNode()   注意：此方法不加参数 true 只能复制一个空标签，如果加了 true 参数，就可以把里面的内容也复制出来
+
+    <div class="box">
+        盒子
+        <p>
+            段落
+            <b>文本加粗</b>
+        </p>
+        <!-- 这是注释 -->
+        <span>文本</span>
+    </div> 
+</body>
+<script>
+    // 节点的操作
+    // 1：增 - 创建标签节点 - 语法：document.createElement(标签名字符串)
+    var div = document.createElement('div')
+    console.log(div)  // 打印得到div标签
+
+    /* // 3：删 - 删除节点 - 父节点.removeChild(子节点)
+    // 获取父节点 div
+    var div = document.querySelector('.box')
+    // 删除 子节点 p 标签
+    // var p = document.querySelector('p')
+    // div.removeChild(p) 
+    // 有的时候无法获取父元素，只知道要删除子元素
+    // parentElement 获取父元素节点
+    p.parentElement.removeChild(p) */
+
+    // 2：改 - 替换 - 语法：父元素.replaceChild(新的节点，被替换的节点)
+    // 使用 i 标签替换 p 标签
+    // 先获取 p 标签，在创建 i 标签
+    var p = document.querySelector('p')  // 获取p标签
+    var i = document.createElement('i')  // 创建i标签
+    i.innerHTML = '文本倾斜'   // 给i标签添加内容
+    p.parentElement.replaceChild(i,p)
+
+    // 4：插入节点 - 语法：父元素.replaceChild(子节点)
+    // 将 i 标签 放到 box 的最后面，作为一个子元素
+    var div = document.querySelector('.box')
+    div.appendChild(i)
+
+    // 5：将一个节点放到某一个子元素前面 语法：父元素.insertBefore(新的节点，旧的节点)
+    // 将 i 标签放在 span标签的前面
+    var span = document.querySelector('span')
+    div.insertBefore(i,span)
+
+    // 6:复制节点：被复制的节点.cloneNode() 
+    // 注意：不加参数true 不复制节内容，加参数true，复制节点的内容
+    console.log(span.cloneNode(true))
+</script>
+</html>

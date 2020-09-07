@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    js检测数据的类型：
+        运算中数据可能出错，需要检测
+        检测数据类型使用 typeof 关键字
+
+    语法：typeof 需要检测的变量
+         typeof(需要检测的变量)
+
+         语法区别： typeof a + b
+                   typeof(a + b)         
+            没有小括号  先检测 a 的类型 在用result 计算 +和b 的 +运算
+            有括号 先 计算a+b 在用typeof检测 a+b的类型
+         
+            result：  就是检测出变量的 结果 类型
+
+
+            注意：！！！检测的结果只有5种 ：
+                1：number 数值类型
+                2：string 字符串
+                3：boolean 布尔
+                4：undefiend 空
+                5：object   为null
+
+
+            <script>
+                var num = 1000
+                var result = typeof num    // result结果   typeof检测num的结果
+                console.log(result)    //js输出语法：检测resule是否为 Number 
+            </script>
+            
+            简写方法：
+            <script>
+                var s1 =100
+                console.log(typeof s1)
+            </script>
+
+            检测string：
+
+            <script>
+                var s2 = '你好 11点半的月亮'
+                console.log(typeof s2)
+
+                var s3 = '奥里给'
+                console.log(typeof s3)
+
+                var s4 = '加油 冲刺 不松懈'
+                console.log(typeof s4)
+            </script>
+
+            检测boolean类型
+
+            <script>
+                var s5 = true
+                console.log(typeof s5)
+
+                var s6 = false 
+                console.log(typeof s6)
+            </script>
+
+            检测undefined 和 Null 
+
+            <script>
+                var un 
+                console.log(typeof un)   //因为Undefiend 为空 且没有赋值
+
+                var nu = null 
+                console.log(typeof nu)   //这里检测的为object
+            </script>
+</body>
+</html>

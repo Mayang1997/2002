@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        // cookie  临时存储  - 是本地计算机的临时存储
+            /* 
+                cookie - 存储/获取
+                1: cookie只能再页面通过服务打开的情况才可以使用，双击文件打开页面无法使用。Ajax也是
+                2：cookie存储是 5k，但是这个是针对当前文件夹路径的存储，子文件夹将会有新的存储空间
+                3：cookie 存储的数据类型是字符串
+                4：cookie存储是以域名区分，不同域名的存储无法共享，一般有50条
+                5：如果客户端与服务端在同一个域名下
+                    5.1：在打开网址时或者提交表单时自动裹挟着cookie数据发送到服务器
+                    5.2：并且服务端程序可以继续裹挟着新的cookie内容存储在你的电脑的cookie中
+            */
+		 // 同源策略：协议，域名，端口必须一致！否则就是跨域
+
+            // cookie存储 - document.cookie = "字符串"
+            // 如果浏览器设置了不存储cookie,或者手动清除cookie，那么存储的内容都会丢失
+            // document.cookie = "a=3";
+            // var a = document.cookie.split("=")[1]
+            // a++
+            //_________________ 以上的cookie 未设置过期时间，那么注释cookie后，关闭页面，内容丢失
+            // console.log(document.cookie)
+
+
+            // 设置cookie 的过期时间
+            // 先获取本地时间
+            var data = new Date();
+            // 设置未来时间 - 12分钟后
+            data.setFullYear(2022);
+            // 存储cookie 并设置过期时间
+            // document.cookie="a=3";  // 在这里，手动删除后，还会保留cookie
+            // 过期时间不会添加在值中，在这里执行后，在下面a++后，会告知浏览器a++后的 cookie是设置了过期时间
+            console.log(document.cookie);
+            var a =Number(document.cookie.split("=")[1]);
+            a++;
+            document.cookie = "a="+a+";expires="+data.toUTCString();
+            
+
+
+    </script>
+</body>
+</html>

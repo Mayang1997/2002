@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+</head>
+<body>
+    <!-- 替换 -->
+    <b>加粗</b>
+    <em></em>
+    <em></em>
+    <em></em>
+    <em></em>
+
+    <!-- 删除 -->
+    <span>第一个span</span>
+    <h1>第一个h1</h1>
+
+    <!-- 克隆 -->
+    <input type="text">
+
+    <script>
+        // jquery 元素操作 
+
+            // TODO 一：创建一个元素  $("你要创建的元素标签名")
+            var div = $("<div></div>")  
+
+            // TODO 二: 追加 - 内部插入
+            /* 
+                1：给父容器中末尾插入一个子元素 append
+                2：给父容器中最前面插入一个子元素 prepend
+                3：把子元素放在父容器中最后面 appendTo 
+                4：把子元素放在父容器中最前面 prependTo 
+            */
+            // 向 div 元素中插入一个 p 元素，放在最后 
+            $('body').append($("<div></div>"))
+            // 把 p 元素插入到 div 中去，放在最后            
+            $('<p>hello</p>').appendTo($('div')) 
+
+            // 向 div 元素中插入一个 p 元素，放在最前 
+            $('div').prepend($('<p></p>')) 
+            // 把 p 元素插入到 div 中去，放在最前 
+            $('<p>hello</p>').prependTo($('div'))
+
+            // 2.1: 外部插入 
+            /* 
+                1：在 元素的后面插入另一个元素  after
+                2：在 元素的前面面插入另一个元素  before
+            */
+            // 在 div 的后面插入一个元素 span 
+            $('div').after($('<span></span>')) 
+            // 在 div 的前面插入一个元素 span 
+            $('div').before($('<span></span>')) 
+
+            /* 
+                1：把元素插入到另外一个元素的后面  insertAfter
+                2：把元素插入到另外一个元素的前面  insertBefore
+            */
+            // 把 span 元素插入到 div 元素的后面 
+            $($('<span></span>')).insertAfter('div') 
+            // 把 span 元素插入到 div 元素的前面 
+            $($('<span></span>')).insertBefore('div')
+
+
+            // TODO 三：替换元素 
+            /* 
+                1：把一个元素替换成另外一个元素  replaceWith
+                2：用一个元素将所有的另外一个元素全部替换 replaceAll
+            */
+            // 把 b 元素替换成 em 元素 
+            $('b').replaceWith($('<em></em>')) 
+            // 用 b 元素替换掉 em 元素
+            $('<b>加粗</b>').replaceAll($('em'))
+
+
+            // TODO 四：删除元素
+            /* 
+                1: 清空元素的节点内容 empty()
+                2: 删除节点 remove() 
+                3：移除被选元素，包括所有的文本和子节点，返回移除元素的副本  detach()
+            */
+            // 清空 第一个span 的节点内容 
+            $('span').first().empty() 
+            // 删除 第一个span 节点 
+            $('span').first().remove() 
+            // 移除被选元素，包括所有的文本和子节点，返回移除元素的副本 
+            $('h1').detach()
+
+
+            // TODO  五：克隆元素
+             /* 
+                克隆一个元素  $("要被克隆的元素").clone(事件保留布尔值)
+                事件保留布尔值：保留元素的事件，默认是 false - 不保留 ，保留 将深度布尔值 设置成true 
+             */
+            $('input').clone()
+    </script>
+</body>
+</html>

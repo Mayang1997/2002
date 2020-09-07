@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+        // 自动轮播图
+        /* 
+            1：布局
+        */
+
+        /* 
+            变量：
+            imgCon 定义一个放置图片得盒子
+            ul  接收ul 得变量
+            preDot 接收小圆点得变量
+        */
+        var imgCon,ul,preDot;
+
+
+        // imgSrcList 定义一个接收图片的数组
+        // imgList 放置 img 的数组
+        // btnList 放置 按钮图片的 空数组
+        // dotList 放置 小圆点列表的 空数组
+        // bool 按钮的开关，一直点时，图片移动完后才能在移动
+        // pos 接收当前图片移动位置的是第几个图片 ，初始为0
+        // direction  图片运动的方向
+        // autoBool 自动轮播的开关
+        // time 防抖
+        var imgSrcList = ['./img/a.png','./img/b.png','./img/c.png','./img/d.png','./img/e.png'],
+            imgList = [],
+            btnList = [],
+            dotList = [],
+            bool = false,
+            pos = 0,
+            direction = '',
+            x = 0,
+            autoBool = false,
+            time = 300
+        
+        // 定义元素宽高的常量
+        const WIDTH = 1300;
+        const HEIGHT = 500;
+        // 定义接收图片向那一边移动的唯一字符串
+        const LEFT = Symbol();
+        const RIGHT = Symbol();
+        // 定义一个图片每个16毫秒移动的距离
+        const SPEED = 40;
+
+        // 初始化函数
+        /* 
+            1： 创建轮播图得外层容器
+        */
+        init();
+        function init(){
+            // ce 创建元素得函数 又两个参数 1为元素类型 2为样式
+            // carousel 为轮播图大盒子
+            var carousel = ce('div',{
+                width:WIDTH+'px',
+                height:HEIGHT+'px',
+                position:'relative',
+                margin:'auto',
+                overflow:'hidden'
+            })
+            // 执行创建 imgCon 盒子的函数
+            // 参数 carousel 创建好的元素，就是装 imgCom 的父元素
+            createImgCon(carousel);
+            // 执行创建轮播图两边的按钮
+            createButton(carousel);
+            // 执行创建小圆点列表
+            createDotList(carousel);
+            // 将 carousel 放在 body 中
+            document.body.appendChild(carousel);
+            // 将 ul 在轮播图盒子里水平居中, ul.offsetWidth 元素的内容宽
+            ul.style.left = (WIDTH - ul.offsetWidth)/2+'px';
+            // 设置定时器
+            setInterval(animation,16);
+            // 添加事件委托，给 carousel，事件类型为鼠标移入移出
+            // 当鼠标移入 carousel 盒子中，停止自动轮播，当鼠标移出 carousel 盒子时，自动轮播
+            carousel.addEventListener('mouseenter',mouseHandler);
+            carousel.addEventListener('mouseleave',mouseHandler);
+            // 执行 小圆点 背景颜色切换的函数
+            changeBgDot()
+        }
+
+        // 鼠标移入移出事件
+        function mouseHandler(e){
+            // 当事件类型为 移入时，关闭自动轮播
+            if (e.type === 'mouseenter'){
+                // 关闭 autopiay 
+                autoBool = false
+                // 防抖 变量 
+                time = 300
+            }else if (e.type === 'mouseleave'){
+                // 启动 autoplay 自动轮播图
+                autoBool = true
+            }
+            
+        }
+
+        // 创建元素得函数
+        // 参数：type 元素类型
+        // style 样式
+        function ce(type,style){
+            // 定义一个变量接收创建好的元素
+            var elem = document.createElement(type)
+            // 将传入好的 样式参数，复制到 elem 元素上
+            // Object.assign 方法： Es6 方法，将后面对象得参数复制到前面得对象中
+            Object.assign(elem.style,style)
+            // 返回创建好的并添加了样式得元素
+            return elem
+        }
+
+        // 创建 imgCon 的函数
+        // 参数 parent 父元素
+        function createImgCon(parent){
+            // 创建 放置图片的 imgCon 盒子
+            imgCon = ce('div',{
+                width:WIDTH*2+'px',
+                height:HEIGHT,
+                position:'absolute',
+                left:'0'
+            })
+            // 图片要与 imgsrclist 中的图片个数相同
+            for(var i =0; i < imgSrcList.length;i++){
+                var img = ce('img',{
+                    width:WIDTH+'px',
+                    height:HEIGHT+'px'
+                })
+                // 将存放在imgsrclist 中的图片地址赋值给 创建好的 img 并放在 存放img的imgList空数组中
+                img.src = imgSrcList[i]
+                imgList.push(img)
+            }
+            // 将创建好的 imgcon 放在大盒子 carousel 中
+            parent.appendChild(imgCon)
+            // 将 imgList中的第一张 放在 imgCon 盒子中，因为初始为第一张
+            imgCon.appendChild(imgList[0])
+        }
+
+        // 创建 createButton 函数
+        function createButton(parent){
+            // 定义一个放置按钮图片名的数组
+            var btnBox = ['left','right'];
+            for (var i = 0;i < btnBox.length;i++){
+                var img = ce('img',{
+                    position:'absolute',
+                    // （外容器盒子 - 按钮图片的高度） / 2  处置居中
+                    top:(HEIGHT - 60)/2 +'px',
+                    // 当是第 0 个图片时候，让他居左 50px 否则就 none
+                    left:i === 0 ? '50px' : 'none',
+                    // 如果是第1张图片，右边按钮，让他居右50像素，否则是none
+                    right:i === 1 ? '50px' : 'none'
+                })
+                // 用 ES6 新方法 将图片地址拼合在一起
+                img.src = `./img/${btnBox[i]}.png`;
+                // 将创建好的 按钮 放在 carousel 中
+                parent.appendChild(img)
+                // 将 两个按钮图片 放置在 btnList 空数组中
+                btnList.push(img)
+                // 给两个按钮 添加 侦听事件 
+                img.addEventListener('click',btnClickHandler)
+            }
+        }
+
+
+        // createDotList 创建小圆点列表的函数
+        function createDotList(parent){
+            ul = ce('ul',{
+                listStyle:'none',
+                margin:'0',
+                padding:'0',
+                position:'absolute',
+                bottom:'50px'
+            })
+            // 循环创建 li 列表
+            for(var i = 0;i < imgSrcList.length;i++){
+                var li = ce('li',{
+                    width:'28px',
+                    height:'28px',
+                    border:'2px solid red',
+                    borderRadius:'50%',
+                    float:'left',
+                    marginLeft:i === 0 ? '0px' : '10px'
+                })
+                // 将创建好的 li 放在 dotList 空数组中
+                dotList.push(li)
+                // 将 li 放在 ul 中
+                ul.appendChild(li)
+            }
+            // 将创建好的 ul 放在 carousel 中
+            parent.appendChild(ul)
+            // 给 ul 元素 创建侦听事件
+            ul.addEventListener('click',dotClickHandler)
+        }
+
+
+        
+
+        // 侦听按钮事件回调函数
+        function btnClickHandler(e){
+            // 当bool 是为true 时说明图片正在移动 直接跳出
+            if (bool) return
+            // E6方法 includes  如果目标字符串包含参数内容，就是true，否在false
+            if (e.target.src.includes('left.png')){
+                // 点击左按钮时，imgCon 盒子向 右移动
+                pos--
+                // 当 pos 小于0 时，赋值为 imgSrcList 数组长度的减一
+                if(pos < 0) pos = imgSrcList.length-1;
+                // 图片移动的变量接收 向右移动的 symbol值
+                direction = RIGHT;
+            } else{
+                // if (e.target.src.includes('right.png'))
+                // 点击右按钮时，imgCon 盒子向左移动
+                pos++
+                if(pos > imgSrcList.length-1) pos = 0;
+                // 图片移动的变量接收 向左移动的 symbol值
+                direction = LEFT;
+                
+            }
+            // 当点击左获取右按钮时，触发该函数，根据direction 来让图片创建在图片容器的头部或者尾部
+            createTextImg()
+        }
+
+        // 侦听 ul 事件回调函数
+        function dotClickHandler(e){
+            // 当点击的不是小圆点 li 时直接跳出
+            if (e.target.nodeName !== 'LI') return;
+            // 将当前点击的小圆点的下标赋值给 变量 index
+            var index = dotList.indexOf(e.target);
+            // 当点击的小圆点跟当前小圆点相同，直接跳出
+            if (index === pos) return;
+            // 判断 index 的下标值 大于 pos 时就是往左走，反之往右
+            direction = index > pos ? LEFT : RIGHT;
+            // 将 将当前 index 的值 赋值给 pos，这样图片也会随着一起走动
+            pos = index;
+            // 执行 createTextImg 函数，
+            createTextImg()
+        }
+
+
+        // 点击左右按钮时，在图片容器头部或者尾部创建图片，挤走初始图片，达到移动效果
+        function createTextImg(){
+            // 当图片移动方向的变量 等于 左移动的symbol 时，说明点击的时是右按钮，pos++了
+            if(direction === LEFT){
+                // 在图片容器的末尾插入当前容器的下一张图片
+                imgCon.appendChild(imgList[pos]);
+                // 当自动轮播时，将x的值调整为的初始位置
+                x = 0;
+            }else if(direction === RIGHT){
+                // 当图片移动方向的变量 等于 右移动的symbol 时，说明点击的时是左按钮，pos--了
+                // 在图片容器的头部插入当前容器的上一张图片
+                // insertBefore 方法：节点元素插入方法 语法：父容器.insertBefore(新元素，旧元素)
+                imgCon.insertBefore(imgList[pos],imgCon.firstElementChild)
+                // 如果方向向右运动，给图片容器的最头部添加新图片，但是这时候原图被挤到后面，我们将这个容器向左挪动一个宽度位置
+                imgCon.style.left = -WIDTH+'px';
+                x = -WIDTH;
+            }
+            // 当点击完按钮后 bool 设置为 true 这样就开启了定时器 动画函数的开关
+            // 当 bool 为 fasle 时说明未点击，就不执行定时器
+            bool = true
+            changeBgDot()
+        }
+
+        // 定时器 当点击按钮或者小圆点的时候，每隔 16 毫秒 走动一段距离，让图片自动轮播
+        function animation(){
+            // 每隔 16 秒让图片移动一次，并根据图片插入的位置，删除多余的图片
+            imgConMove()
+            // 自动轮播图
+            autoPlay()
+        }
+
+        // 图片移动函数
+        /* 
+            每16毫秒让图片移动一次
+            开始的时候就一直运行，因为有一个bool值判断，如果是false时，一直就不能进入
+            如果可以进入
+            1、如果方向向左
+               不断让变量x递减，每16毫秒减40像素，设置图片容器位置，图片容器就可以移动了
+               当图片容器的第一张图完全移动到最左侧以后，也就是x小于等于负的图片宽度
+               设置bool是false，16毫秒后进入时直接跳出，并且删除掉移到最左侧的图片，
+               这时候后面的图片就会补充到最前面，因此我们设置将这x为0，让整个容器向后
+               挪回初始位置
+            2、如果方向向右
+            x不断增加40像素
+            如果x大于0，表示左侧的图片已经移到中间位置，原图片移到了右侧
+            这时候停止运动，bool设为false，x设为初始的0，删除右侧的图片
+        */
+        function imgConMove(){
+            // 当 每天触发任何点击事件，就不执行定时器图片移动的回调函数
+            if (!bool) return;
+            // 根据记录图片移动方向的变量，来让图片移动和删除相对应插入位置的图片
+            if (direction === LEFT){
+                // 当图片往左移动，说明点击了右按钮
+                x -= SPEED;
+                // 当 x 的值 等于 负的图片宽度时，说明往左已经移动了一张图片的距离
+                if (x <= -WIDTH){
+                    // 删除当前图片的上一张图片
+                    imgCon.firstElementChild.remove();
+                    // 将x 的值 重新回到初始值
+                    x = 0;
+                    // 当移动完后，将定时器关闭，在点击按钮时会重新打开定时器
+                    bool = false
+                }
+                // 将 x 不断减等的x 值 赋值给 imgCon 盒子的 left值
+                imgCon.style.left = x +'px';
+
+            }else if(direction === RIGHT){
+                // 当图片往右移动，说明点击了左按钮，那么在 imgCon 盒子的头部插入了一张图片，imgCon盒子被撑大
+                // x 不断加等 SPEED ，当x 大于或者等于0 时，说明插入在头部的图片已经移动到了 imgCon 的中间
+                x += SPEED
+                if (x >= 0){
+                    // 当x 等于 0 时，关闭定时器
+                    bool = false;
+                    // 将 x 的值 重新赋值未 0
+                    x = 0;
+                    // 删除原来的图片
+                    imgCon.lastElementChild.remove()
+                }
+                // 将 移动的 距离 赋值给 imgCon 盒子
+                imgCon.style.left = x + 'px'
+            }
+        }
+
+        // 自动轮播图
+        //     1、如果自动轮播开关是false时，跳出
+        //     2、time不断减少
+        //     3、如果time大于0就不继续执行，跳出
+        //     4、time值等于0，设置time初始为300
+        //     5、创建一个点击事件对象
+        //     6、向右侧按钮抛发这个点击事件
+        function autoPlay(){
+            // 当 autobool 为 false时 不执行自动轮播
+            if(!autoBool) return
+            // 防抖 
+            time-- 
+            // 每个 300 个 16毫秒执行自动轮播一次
+            if (time > 0 ) return
+            // 当 time 小于 0 ，重新赋值为 300 
+            time = 300
+            // 创建点击事件
+            var evt = new MouseEvent('click')
+            // 抛发事件   抛发给右按钮
+            btnList[1].dispatchEvent(evt)
+        }
+
+        // 小圆点背景颜色切换
+        function changeBgDot(){
+            if(preDot){
+                preDot.style.backgroundColor = 'rgba(0,255,0,0)';
+            }
+            preDot = dotList[pos];
+            preDot.style.backgroundColor = 'rgba(0,255,0,1)';
+        }
+</script>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入jquery.js -->
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+</head>
+<body>
+    <!-- jquery基础选择器 -->
+    <div id="box" class="div" name="name">1</div>
+
+    <!-- jquery层级选择器 -->
+    <div class="ceng">
+        <h2>2</h2>
+        <span>3</span>
+        <div>4</div>
+        <span>8</span>
+    </div>
+    <ul>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+    </ul>
+
+    <!-- 三：属性选择器 -->
+    <div name="cat mi" hobby="ade" toggle='book3' >9</div>
+    <div name="cat mao yue" toggle='book-2'>10</div>
+    <div name="mao cat mimi" class="div1 div2">11</div>
+    <div name="x-miao">12</div>
+
+    <!-- 四：jquery结构结构伪类选择器 -->
+    <!-- 一：子元素一致 child-->
+    <ul>
+        <li>13</li>
+        <li>14</li>
+        <li>15</li>
+        <li>16</li>
+        <li>17</li> 
+    </ul>
+    <!-- 子元素不一致 of-chlid-->
+    <ul>
+        <li>18</li>
+        <b>19</b>
+        <li>20</li>
+        <b>21</b>
+        <li>22</li>
+        <b>23</b>
+    </ul>
+
+
+    <script>
+        // jQuery 是一个对象 - 按照标签名放在一个列表中就是叫做jquery对象
+            
+            // $符号代表jquery
+            
+            // 一：jquery基础选择器
+            console.log($("#box"))    // id选择器
+            console.log($("div"))     // 标签选择器
+            console.log($(".div"))    // 类选择器
+            console.log($("[name]"))  // 属性选择器
+            
+            // 二：jquery层级选择器
+            console.log($("*"))       // 通配符选择器 - 选择所有元素
+            console.log($(".ceng span")) // 后代选择器
+            console.log($(".ceng,ul"))  // 群组选择器
+            console.log($(".ceng>h2"))  // 子代选择器
+            console.log($(".ceng+ul"))  // 紧邻下一个兄弟选择器
+            console.log($(".ceng~span"))  // .ceng下的所有兄弟选择器
+
+            // 三：jquery属性选择器
+            // 1: $([属性名]) 只要带有当前属性名就会被选中。
+            console.log($("[hobby],[toggle]"))
+            // 2: $([属性名="属性值"]) 不仅指定属性名，还有指定属性值
+            console.log($("[hobby=ade]"))
+            // 3: $([属性名~="属性值"]) 属性值为一个词列表，只要包含当前词就会被选中
+            console.log($("[name~=mao]"))
+            // 4: $([属性名^="属性值"]) 属性值必须是当前指定的属性值开头的
+            console.log($("[name^=m]"))
+            // 5: $([属性名$="属性值"]) 属性值必须是当前指定的属性值结尾的
+            console.log($("[name$=o]"))
+            // 6: $([属性名*="属性值"]) 属性值中只要包含了指定的字符就会被选中
+            console.log($("[name*=o]"))
+            // 6: $([属性名|="属性值"]) 属性值仅是当前指定的属性值，或者是以属性值- 开头  （ left-con ）  (属性值只有一个属性值，或者属性值-开头的词列表)
+            console.log($("[name|=x]"))
+
+
+            // 四： 四：jquery结构结构伪类选择器
+            // 一：如果子集标签类型一致（类名一致）的情况下：采用的是  child
+            // 1: 该元素的父元素下的第一个该类型元素
+            console.log($("li:first-child").css("color","red"))
+            // 2: 该元素的父元素下的最后一个该类型元素
+            console.log($("li:last-child").css("color","green"))
+            // 3: 该元素的父元素下的第n个该类型元素
+            console.log($("li:nth-child(2)").css("color","pink"))
+            // 4: 该元素的父元素下的为偶数的该类型元素  /  2n 或者 even  偶数
+            console.log($("li:nth-child(2n)").css("color","pink"))
+            console.log($("li:nth-child(even)").css("color","pink"))
+            // 4: 该元素的父元素下的为奇数的该类型元素  /  2n + 1  或者 odd    奇数
+            console.log($("li:nth-child(2n-1)").css("color","orange"))
+            console.log($("li:nth-child(odd)").css("color","orange"))
+
+
+            // 二：如果子集合标签类型不一致（类名不一致）的情况下：采用的是  of-type 
+            //  基于上面增加一个of
+    </script>
+</body>
+</html>

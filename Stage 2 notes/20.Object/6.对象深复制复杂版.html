@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <img src="./1-1.jpg" alt="">
+
+    <script>
+        // 对象深复制
+        var obj = {
+            a: 1,
+            b: "a",
+            c: true,
+            d: function (a, b) {
+                if (a > 10) a = 10;
+                if (b > 5) {
+                    b = 5;
+                } else if (b < 0) {
+                    b = 0;
+                }
+                console.log(a + b);
+            },
+            e: [1, 2, 3, 4],
+            f: {
+                g: ["a", "b", "c"],
+                h: new Date(),
+                i: /^[a-z]+$/g,
+                j: {
+                    k: {
+
+                    },
+                    l: [true, false],
+                    m: [
+                        { id: 1001, name: "abc1" },
+                        { id: 1002, name: "abc2" },
+                        { id: 1003, name: "abc3" }
+                    ]
+                }
+            }
+        }
+        Object.defineProperties(obj.f.j, {
+            n: {
+                value: function () {
+                    console.log("abcd");
+                }
+            },
+            o: {
+                value: 10,
+                enumerable: true
+            },
+            p: {
+                value: [1, 2, 3],
+                writable: true
+            },
+            q: {
+                value: true,
+                writable: true,
+                enumerable: true
+            }
+        });
+
+        Object.defineProperties(obj.f.j.k, {
+            r: {
+                value: function () {
+
+                },
+                writable: true
+            },
+            s: {
+                value: { a: 1 },
+                enumerable: true
+            }
+        });
+
+        // TODO 对象深复制案例
+        /* 
+            深复制，源对象的属性如果有对象，该对象属性修改后，不会引起复制后的对象各属性的改变，
+            源对象的任何属性及子属性与新对象的直接没有任何引用关系
+        */
+        
+        // 深复制参数
+        /* 
+            参数一：sourceobj 源目标
+            参数二：targetobj 目标对象
+        */
+        var colObj = cloneObj(obj)
+        console.log(colObj)
+        function cloneObj(sourceobj,targetobj){
+            // 递归sourceobj下的对象- 当属性本身是没有类型的就进入分支
+            // 根据属性的constructor类型，new出来
+            // sourceObj.constructor就是 sourceObj的类型
+            // sourceObj是数组  sourceObj.constructor->Array   new Array();
+            if(!targetobj){
+                // 根据当前对象的constructor来new类型
+                targetobj = new sourceobj.constructor()
+                switch(sourceobj.constructor()){
+                    case RegExp:
+                        // 正则表达式的属性：
+                        /* 
+                            1：sourceobj.source：表达式体
+                            1：sourceobj.flags：表达式修饰符
+                        */
+                        targetobj = new RegExp(sourceobj.source,sourceobj.flags)
+                        break
+                    case Date:
+                        // 递归到当前的事件对象来创建时间对象
+                        targetobj = new Date(sourceobj)
+                        break
+                }
+            }
+
+            // 对象得方法 ：获取对象下所有得key（包括不可枚举属性，原型链属性不可枚举）
+            // 返回一个key组成得数组 - names
+            var names = Object.getOwnPropertyNames(sourceobj)
+            // 根据names得长度来设置遍历次数
+            for(var i = 0; i<names.length;i++){
+                // 对象的方法：根据属性名来获取对象下对应属性的属性描述对象
+                var desc = Object.getOwnPropertyDescriptor(sourceobj,names[i])
+                // typeof sourceobj[names[i]] 查看到sourceobj对象下没项属性的类型
+
+                // desc.value 属性的描述对象的value值，代表当前属性的值
+                // typeof desc.value 来判断当前属性的值为什么类型
+                if(typeof desc.value === "object"){
+                    // 递归对象下的所有属性，根据属性的类型来创建对应的类型
+                    // 递归下的每项属性类型的构造器，new 出来
+                    var o = cloneObj(desc.value)
+                    Object.defineProperty(targetobj,names[i],{
+                        enumerable:desc.enumerable,
+                        configurable:desc.configurable,
+                        writable:desc.writable,
+                        value:o
+                    })
+                }else if(typeof desc.value === "function"){
+                    // 当前属性得类型为函数时，进入此分支
+                    // 将当前进人分支的函数转换成字符串去除空格，并截取参数和函数语句块
+                    // replace 替换
+                    var fnStr = desc.value.toString().replace(/[\n]/g,"")
+                    // 截取参数
+                    var arg = fnStr.match(/\((.*?)\)/)[1]  //  非贪婪匹配
+                    var cont = fnStr.match(/{(.*)}/)[1]  
+                    // 构造函数参数：前面的为参数，最后一个为函数语句块
+                    var fn = new Function(arg,cont)
+                    // 设置函数
+                    Object.defineProperty(targetobj,names[i],{
+                        enumerable:desc.enumerable,
+                        configurable:desc.configurable,
+                        writable:desc.writable,
+                        value:fn
+                    })
+                }else{
+                    // 能进入此分支都是string,number,boolean类型，不需要进行深层复制，直接赋值
+                    // 对象方法：定义对象配置属性 Object.defineProperty(对象本身，要添加得值，属性描述符)
+                    Object.defineProperty(targetobj,names[i],desc)
+                }
+            }
+            return targetobj
+        }
+
+    </script>
+</body>
+</html>

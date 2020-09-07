@@ -1,0 +1,9 @@
+function abc(a,b){  
+        for(var i=0;i<5;i++){
+             a++;
+             ++b;
+        }
+        console.log(a*b);
+    }
+    abc.a=10;
+    abc.f=20;

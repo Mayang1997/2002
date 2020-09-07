@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    BOM  - browser object model - 浏览器 对象 模型
+        BOM 提供了一套操作浏览器的方法
+        这套方法都是使用对象来操作的
+
+    window - 全局对象 - 浏览器窗口
+    BOM的操作 - 都是window对象来操作 - window的操作 - window对象
+
+    对象 - 由键值对组成  - 值可以是任意数据类型
+
+    window对象 - 里面有很多对象  
+    BOM对象的结构，由一个大的对象包含很多小对象
+
+    window子对象
+    1： window - navigator - 记录了浏览器的信息
+    2： history - 浏览器得历史记录 - 可以前进操作，后退操作
+    3： window - location - 用来操作地址浏览器的地址栏
+    4： screnn - 获取获取屏幕的宽度和高度        
+    
+        <script>
+            //1： window - navigator
+            console.log(window)
+            console.log(window.navigator)
+
+            console.log(window.navigator.appName)  // 浏览器名称
+            // window.navigator.appName 说有的浏览器名称 都得出Netscape
+            // Netscape 网景浏览器的名称   -  纪念作用
+
+            console.log(window.navigator.appCodeName) // 浏览器内核
+
+            console.log(window.navigator.appVersion) // 浏览器版本
+
+            console.log(window.navigator.userAgent) // 浏览器的整体信息
+            // 爬虫 - 利用userAgent 写一段代码，获取别人的代码，必须是后端的语言书写
+        </script>
+
+        <script>
+            //2： history  - 必须是用在前进后退页面，只有访问过后才能访问
+            history.back()  // 回退一个页面
+            history.forward()  // 前进一个页面
+            history.go()   // 前进 (正数)或后退(负数)数字个页面
+
+            // 配合事件使用
+        </script>
+
+        <script>
+            //3：  location.href - 用来获取/设置地址栏的地址
+            console.log(window.location.href)   // 获取地址栏  重要
+            // file:///E:/web/note/%E4%BA%8C%E9%98%B6%E6%AE%B5%E7%AC%94%E8%AE%B0/10-BOM&DOM/BOM-window%E5%AF%B9%E8%B1%A1.html  获取到的地址
+
+            window.location.href = "file:///E:/web/note/%E4%BA%8C%E9%98%B6%E6%AE%B5%E7%AC%94%E8%AE%B0/10-BOM&DOM/BOM-window%E5%AF%B9%E8%B1%A1.html"   //相当于再跳转
+        </script>
+
+        <button id="btn">测试</button>
+
+        <script>
+            // 3.1 window.location.reload()  刷新当前页面
+            btn.onclick = function() {
+                window.location.reload()  
+            }
+
+            // 3.2 window.location.search()   获取地址栏中携带的数据
+            var a = window.location.search
+            console.log(a)
+        </script>
+</body>
+</html>

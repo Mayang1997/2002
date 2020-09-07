@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    JS 数组的概念
+
+    上周讲的定义变量，是一次定义一个变量，一个变量只能存储一个数据
+        var score : 成绩
+        var age:
+        var num:
+
+    如果用了数组，那么，一次性定义无数个变量。
+
+    数组创建语法： 
+            
+        字面量创建方式： var 你要创建数组的名称 = []  注意： 此处为方括号，中括号为对象字面量创建方式
+
+
+        内置构造函数创建方式： var 你要创建数组的名称 = new Array() 
+            注意：Array 为数组关键字 书写时 A 大写
+
+    快速清空数组的方法：
+        arr.lenght = 0  数字为下标，当等于0时情况所有，等于3时，清空包括 3 在内的之后的所有数据  ，保留 下标3 之前的数据
+
+    
+    多维数组：就是数组的嵌套，当数组里嵌套一个数组，就叫二维数组，同理，当数组下嵌套数组，嵌套的数组里在嵌套数组，就是三维数组，维度跟数组的嵌套多层相关。
+
+    将类似与数组的列表转成数组： 
+        语法：Array.from(类似于数组的列表) 转为数组
+            var arr=Array.from(类似于数组的列表);//ES6 的写法
+            var arr=Array.prototype.slice.call(类似于数组的列表);//ES5
+
+    <script>
+        // 判断元素是否是数组，如果是数组返回true否则返回false
+        // ES6
+        console.log(Array.isArray(arr));
+        console.log(Array.isArray(obj));
+
+        console.log(arr.toString());
+        console.log(obj.toString());
+        // 数组的构造函数是数组类型
+        console.log(arr.constructor===Array);
+        console.log(arr.constructor===Object);
+    </script>
+
+            
+    <script>
+         //  多维数组
+        var arr = [
+            '二维数组',  // 下标 0
+            '数组的嵌套多少层就是多少维度的数组', // 下标 1
+            [ // 下标 2
+                '这里是二维数组',  
+                '再嵌套就是三维数组', 
+                [    // 下标 2 下的  下标 2
+                    '这里是三位数组',  // 下标 2 下的  下标 2 的下标 0
+                    '依次类推'  // 下标 2 下的  下标 2 的下标 1
+                ]
+            ]
+                
+        ]
+
+        // 多维数组的调用： 想要调用那么就找到相应维度的下标
+        console.log(arr[2]) // 这里调用的是二维数组
+        console.log(arr[2][2]) // 这里调用的是二维数组下的第二个嵌套数组
+        console.log(arr[2][2][1])  // 这里调用的是三维数组下的第二个元素
+    </script>
+
+    <script>
+        // 二位数组的应用
+        // 定义一个空数组
+        var arr=[]
+        for(var i=0;i<10;i++){
+            // i是外层数组的下标
+            // 循环 让 arr 数组 中添加 i++个空数组
+            arr[i]=[];
+            for(var j=0;j<10;j++){
+                // j是内层数组的下标
+                // arr[i]就是内层的数组
+                // arr[i][j]就是内层数组的第几个下标变量
+
+                // 给二维数组添加元素
+                arr[i][j]=i*10+j;
+            }
+        }
+
+        console.log(arr,arr[0][0])
+
+        // 运用在游戏方面
+    </script>
+
+
+    <script>
+        // 一、用构造函数的方式定义
+        // 1、
+        var arr = new Array();//定义了一个空数组，里面啥也没有
+        // 2、
+        var arr = new Array(5);// 定义了一个数组，里面有五个元素（五个变量），这五个变量没有值；
+        // 3、
+        var arr = new Array("jake","rose","李易峰","宝宝");//定义了一个数组，里面有4个元素，值已经赋好了。
+        
+        // 二、字面量的方式
+        // 1、
+        var arr = [];//等价于：var arr = new Array();
+        // 2、
+        var arr = ["jake","rose","李易峰","宝宝"];//等价于： var arr = new Array("jake","rose","李易峰","宝宝");
+
+        var arr = ["jake","rose",12,23,true,false,null,undefined];//等价于： var arr = new Array("jake","rose","李易峰","宝宝");
+
+        // 两种方式的区别：
+        var arr = [2]  // 当直接创建的方式创建数组时，方括号里放了一个数字，这个数字代表数组中只有一个小空间，且存放了一个数字 为 2
+
+        var arr = new Array(2) // // 当用构造函数的方式创建数组时，方括号里放了一个数字，这个数字代表数组中有两个小空间，且这两个小空间都是空的
+    </script>
+
+
+    数组的length和索引： 跟函数的天生变量arguments很像，但是arguments是伪数组
+    <script>
+        var arr = [12,23,34,45];
+    
+        //一、 length:表示数组的长度，就是数组中元素的个数。
+        // console.log(arr.length); //4
+    
+        //二、索引：又叫作下标。
+        //  1、下标就是数组中元素的序号，从0开始；最大下标是：数组.length-1
+        //    使用数组中元素的格式：arr[下标];
+    
+        // console.log(arr[0]); //12
+        // console.log(arr[1]);
+        // console.log(arr[2]);
+        // console.log(arr[3]);
+    
+        // 2、下标可以是变量，也可以是表达式
+        var i=0;
+        // console.log(arr[i]); 等价于 arr[0] //12
+        // console.log(arr[i+1]); 等价于 arr[1] //23
+        // console.log(arr[(i+1)*2]); 等价于 arr[2] //34;
+    
+        console.log(arr[i++]); //等价于：console.log(arr[i]);  i=i+1;  
+    
+        console.log(arr[i]); //23
+    
+        
+    </script>
+</body>
+</html>

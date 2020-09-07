@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    字符串的创建方式：
+
+        var str = 'aaaa'   字面量创建字符串方式
+        var str = new String('123adc')  构造函数创建方式
+
+    API - 接口 - 其实就是一些已经写好的方法，自需要调用就ok
+    字符串也有下标，但是没有增删改查的操作，因为字符串是一个只读数据
+    字符串也能遍历
+    字符串的长度： 字符串.length
+
+    字符串的常用方法
+
+        一 ：charAt 通过下标来获取对应的字符
+        二 ：charCodeAt 通过下标得到字符对应的阿斯克码
+        三 ：String.fromCharCode 通过阿斯克码来找到对应的字符,多个编码用逗号隔开
+        四 ：split 将字符串分割成多段，组成一个数组返回
+        五 ：substring 截取字符串  (只能用新数组接受，原字符串是不可改变的)
+        六 ：substr  截取字符串 (只能用新数组接受，原字符串是不可改变的)
+        七 ：toUpperCase 转大写  toLowerCase 转小写
+        八 : concat 拼接  跟数组concat的用法一样
+        九 ：indexOf 和 indexInOf  查找字符    跟数组的用法一样
+
+        扩：replace  替换  类似于数组中的splice() 注意：数组的splice是修改原数组的内容 但是replace不修改原字符的内容，会返回一个被修改后的新字符串
+                          如果出现两个相同的元素，那么只修改第一次被查找到的元素
+        <script>
+            // 1: charAt 语法 ：字符串.charAt(下标)
+                // var str = 'abdckdj'
+                // var res = str.charAt(0)
+                // console.log(res)  // a
+            
+            //2: charCodeAt 语法 ：字符串.charCodeAt(下标)
+                /* var str = 'abdckdj'
+                var res = str.charCodeAt(0)
+                console.log(res) // 97 */
+            
+            //3: String.fromcharCode 语法 ：String.fromcharCode(阿斯克码)   
+                console.log(String.fromCharCode(98))  // b
+
+            //4：split 语法 ：字符串.split(分割符)   第二种写法 ：字符串.split(分割符,[保留的元素个数]) 
+                /* var str = 'opne_next_jake'
+                var res = str.split('_')
+                console.log(res)
+                // 第二种写法
+                var res1 = str.split('_',2) // 2 代表只保留两个元素
+                console.log(res1) */
+
+            //5：substring 语法：字符串.substring(开始下标,结束下标)
+                /* var str = 'asdsadsad'
+                var res = str.substring(3,5)  
+                var res = str.substring(3)   // 如果结束下标省略，默认截取到字符串末尾
+                var res = str.substring(5,3)  // 3,5 和 5,3的结果一样
+                var res = str.substring(-2,3) // 跟 0,3 的效果一样
+                console.log(res)
+                // 总结一下substring方法：
+                //  1： 结果包含开始下标对应的字符，不包含结束下标对应的字符
+                //  2： 如果结束下标省略，默认截取到字符串末尾
+                //  3： 如果开始下标大于结束下标，那就先交换两个参数，再截取
+                //  4： 如果参数为负数，会先将负值转换成 0 再截取 */
+
+            //6：substr 语法：字符串.substr(开始下标,截取的字符个数)
+               /*  var str = 'asdsadsad'
+                var res = str.substr(2,5)  
+                var res = str.substr(3)   // 如果第二个参数省略，默认截取到字符串末尾
+                var res = str.substr(-2)  // 开始下标可以为负数
+                console.log(res)  
+                // 总结：
+                //  1：如果第二个参数省略，默认截取到字符串末尾
+                //  1：开始下标可以为负数 */
+
+            //7：toUpperCase 语法：字符串.toUpperCase()
+                /* //toLowerCase 语法：字符串.toLowerCase()
+                var str = 'i love you'
+                var res = str.toUpperCase()   // 转大写
+                console.log(res)
+
+                var res = str.toLowerCase()   //转小写
+                console.log(res) */
+        </script>
+
+        小案例：识别文件的后缀名
+        <script>
+            var name = 'www/dd/gg/gg/cad.jpg'
+            var index = name.lastIndexOf('.')   // 找到 最后一位小数点
+            console.log(index) // 下标
+            // 截取
+            var res = name.slice(index)  
+            console.log(res)
+        </script>
+
+        扩：slice & substring & substr 的区别
+            1：slice & substr 允许有负值 ，subString 不允许
+        <script>
+            var str="abcdefghij";
+            // slice(从下标几开始，到下标几之前结束) 截取复制字符串
+            // 允许有负值，负值表示从后向前
+            // var s=str.slice(1,2);
+
+            //  substring
+            // var s=str.substring(2,4);//和slice相似
+            // substring不允许负数，所有的负值指0之前，因此负数都是0
+            //  可以逆向截取赋值
+            // var s=str.substring(4,2);
+            // console.log(s);
+
+            //  substr(从下标几开始，截取长度);
+            // var s=str.substr(-2,5);
+            // console.log(s);1
+
+        </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    递归 ： 递归就是在函数内部执行自己
+
+    事件触发函数
+        + 页面元素.事件类型 = 函数
+        + 页面元素.onclick = 函数
+        + 在 JS 里面, 一个页面元素的 id 可以直接代表这个元素
+
+
+    实践一：
+    <div id="btn">点击一下试试</div>
+
+    <script>
+        function fn() {
+            console.log('试试就试试')
+        }
+
+        btn.onclick = fn
+    </script>
+
+    案例二： 简单计算机
+        条件：+ 当我点击 button 的时候
+            + 我要执行一个函数
+
+            + 在点击的函数里面
+            => 获取 a 的文本框内容
+            => 获取 b 文本框内容
+            => 计算出一个结果
+            => 填充到 c 文本框里面
+            + 获取和填充文本框的内容
+            => 元素.value 就是获取这个元素的内容
+            => 元素.value = 100 就是给这个元素的 value 赋值, 修改文本框的内容
+            => 注意: **从文本框里面拿出来的 value 全都是 文本(字符串)**
+
+    <input type="text" id="a"> +
+    <input type="text" id="b"> 
+    <button id="bt">=</button>
+    <input type="text" id="c">
+    
+    <script>
+        bt.onclick = fun  // 给button 添加一个事件触发函数
+
+        // 当点击 button 时 ，执行 函数 fun 中的代码
+
+
+        function fun() {
+            var d = a.value - 0  // 让a和b 的value提示文本转换成number，运用的是非加法运算符
+            var e = b.value - 0
+
+            var str = d + e // 让 转换好的数字 相加 得到结果
+
+            c.value = str  // 然后把结果传递给第三个input 文本框
+        }
+
+        
+    </script>
+
+    案例： 判断两个数字之间的所有质数
+    <script>
+
+        //求2-10之间的质数
+        getZhi(2,10);
+        
+        // 功能：求两个数之间的 质数
+        // 参数：两个数
+        // 返回值：无
+        function getZhi(n1,n2){
+            var linshi;//定义的中间变量
+            // 保证n1是小于等于n2
+            if(n1>n2){
+                linshi = n1;
+                n1 = n2;
+                n2 = linshi;
+            }
+        
+            // 从n1循环到n2，判断每个数是不是质数，如果是质数，那么就输出
+            for(var i=n1;i<=n2;i++){        
+                var is = isZhi(i);
+                if(is==true){
+                    console.log(i);
+                }
+            }
+        }
+        
+        // 判断一个数是不是质数
+        function isZhi(num){
+            for(var i=2;i<num;i++){
+                if(num%i==0){
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+    </script> 
+        
+        
+</body>
+</html>

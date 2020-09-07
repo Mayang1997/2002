@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+
+        // TODO 一： 回调 - 调用别人的函数 - 使函数更加多态化，函数更独立
+        function fn(f) {
+            f()  // 执行fn函数后，将HD函数作为参数带入fn函数中 此时，f参数为 HD函数
+        }
+
+        function HD() {
+            console.log("我是回调函数")
+        }
+        // 回调
+        fn(HD)
+
+        // 回调案例 - ajax通信 - 回调函数用于将部分功能实现抽离
+        // 处理图片回调函数
+        function setImgData(img) {
+            console.log("处理图片数据")   // 成功加载完本地文件后执行此回调函数
+        }
+        // 处理Tet文档回调函数
+        function setTetData(txt) {
+            console.log("处理文本数据")  // 成功加载完本地文件后执行此回调函数
+        }
+
+        // ajax 加载本地文件函数
+        /* 
+            参数1：url 发送请求的地址
+            参数2：fn 回调函数
+        */
+        function loadData(url, fn) {
+            // 创建ajax 通信
+            var xhr = new XMLHttpRequest()
+            xhr.addEventListener("load", function () {
+                // 处理对应数据的回调函数 fn
+                fn(xhr.response)
+            })
+            // 以什么方式发送
+            xhr.open("GET", url)
+            // 发送
+            xhr.send()
+        }
+
+        // 执行函数
+        loadData("./img/a.jpg", setImgData)
+        loadData("./img/a.txt", setTetData)
+
+
+        // TODO 二：js设计模式
+        // 1：桥接模式 - 函数与函数功能衔接 - 重构filter方法
+        /* 
+            参数一：要过滤的数组
+            参数二：回调函数
+        */
+        function filters(arr, fn) {
+            // 定义一个接收数据的空数组
+            var a = []
+            // 遍历 arr
+            for (var i = 0; i < arr.length; i++) {
+                // 将判断arr 数组的每个元素的功能交给回调函数
+                // 根据返回的布尔值，将满足条件的元素插入到 空数组 a中
+                // 参数1：arr[i] - arr数组的每个元素
+                // 参数2：i arr数组每个元素的下标
+                // 参数3：arr 要过滤的数组
+                if (fn(arr[i], i, arr)) a.push(arr[i])
+            }
+            // 返回数组 a
+            return a
+        }
+
+        // 判断元素是否满足的回调函数
+        function Bool(itme, index, arr) {
+            // itme 大于 8 就满足添加返回true
+            return itme > 8
+        }
+        // 执行函数
+        var arr = [9, 10, 56, 2, 3, 4, 6, 7]
+        console.log(filters(arr, Bool))  // [9, 10, 56]
+
+
+        // 2: 工厂模式
+        /* 
+            1：工厂模式每次每次创建的对象都是不同的，可以根据参数创建出需要内容
+            2：工厂模式有新建元素，有返回元素，执行一次返回一个一个新元素，不可能相同
+            3：局部变量，创建返回
+        */
+        function ce(type, style) {
+            // 创建元素
+            var elem = document.createElement(type)
+            // 添加样式
+            for (var prop in style) {
+                elem.style[prop] = style[prop]
+            }
+            return elem
+        }
+        var div = ce("div", { width: "50px", height: "50px" })
+
+
+        // 3：单例模式
+        /* 
+            单例模式只返回同一个元素
+            全局变量，赋值返回
+        */
+        // 案例一
+        var a;
+        function fun() {
+            // 当 a 不存在时，创建一个对象，存在时，返回该对象
+            return a = a || {}
+        }
+        var obj = fun()
+
+        // 案例二 ES6 类
+        /* class Box {
+            // 静态属性
+            static _instance
+            sun = 10
+            constructor() {
+
+            }
+            static getInstance() {
+                // 当 静态属性为空时，new 一个Box ，当存在时，赋值返回这个 new出来的 Box
+                if (!Box._instance) Box._instance = new Box()
+                // 每次都返回这个静态属性 _instance
+                return Box._instance
+            }
+            play() {
+                console.log("aaa");
+            }
+            run() {
+                console.log("bbb");
+            }
+        }
+        var c = new Box()
+        var d = new Box()
+        c.sum = 100
+        console.log(d.sum) */
+    </script>
+</body>
+
+</html>

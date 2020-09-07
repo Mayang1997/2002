@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+        // 创建 按键侦听事件
+        document.addEventListener('keydown',keydownHandler)    // 按下键事件
+        document.addEventListener('keyup',keydownHandler)      // 松开键事件
+
+        // 按键事件回调函数
+        function keydownHandler(e){
+                console.log(e.type,e.code,e.keyCode)   // 打印事件类型和键名，键码 
+        }
+</script>
+
+
+    <!-- 常见的事件：
+
+    一 : 鼠标事件
+
+            ### 鼠标事件
+
+            click ：点击事件
+            dblclick ：双击事件
+            contextmenu ： 右键单击事件
+            mousedown ：鼠标左键按下事件
+            mouseup ：鼠标左键抬起事件
+            mousemove ：鼠标移动
+            mouseover ：鼠标滑入事件
+            mouseout ：鼠标滑出事件
+            mouseenter ：鼠标移入事件
+            mouseleave ：鼠标移出事件
+
+    二 ：键盘事件
+
+            keyup ： 键盘抬起事件
+            keydown ： 键盘按下事件
+            keypress ： 键盘按下事件
+
+    三 ：表单事件
+             
+            change : 表单内容改变事件
+            input : 表单内容输入事件
+            blur : 表单失去焦点
+            focus： 表单获取焦点 -->
+
+
+
+</body>
+</html>

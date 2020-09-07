@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0%;
+        }
+        input{
+            outline: none;
+            border: none;
+        }
+        html,body{
+            width: 100%;
+            background-color: #cccccc;
+        }
+        #head{
+            width: 100%;
+            height: 50px;
+            background-color: rgba(47, 47, 47, 0.98)
+        }
+        .tops-wrap,.con-wrap{
+            width: 50%;
+            margin: 0 auto;
+        }
+        label{
+            float: left;
+            width: 100px;
+            line-height: 50px;
+            color: #ddd;
+            font-size: 24px;
+            cursor: pointer;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        input[type="text"] {
+            width: 60%;
+            height: 24px;
+            margin-top: 12px;
+            text-indent: 10px;
+            border-radius: 5px;
+            box-shadow: 0 1px 0 rgba(216, 9, 9, 0.24),
+            0 1px 6px rgba(71, 207, 18, 0.45) inset;
+            float: right;
+        }
+        #Con{
+            width: 100%;
+            min-height: 200px;
+        }
+        .undone,.done{
+            width: 100%;
+            min-height: 40px;
+            margin-top: 20px;
+            font-size: 25px;
+            font-weight: 900;
+            line-height: 40px;
+        }
+        .info>span{
+            margin-top: 9px;
+            padding: 0 5px;
+            height: 20px;
+            border-radius: 20px;
+            background: #E6E6FA;
+            line-height: 22px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            float: right;
+        }
+        ul{
+          list-style: none;
+          font-size: 14px;
+          font-weight: 400;
+          margin: 0;
+          padding: 0;
+          margin-top: 10px;
+        }
+        li{
+            height: 32px;
+            background: #fff;
+            margin-bottom: 10px;
+            padding: 0 45px;
+            overflow: hidden;
+            border-radius: 3px;
+            border-left: 5px solid #629A9C;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+            position: relative;
+        }
+        .close{
+            display: inline-block;
+            position: absolute;
+            right: 20px;
+            top:4px;
+            border-radius: 10px;
+            outline: none;
+            width: 20px;
+            height: 20px;
+        }
+        .ckbox{
+            width: 18px;
+            height: 18px;
+            margin: 9px 10px 0px 0px;
+        }
+        .textSpan{
+            display: inline-block;
+            width: 70%;
+            height: 28px;
+            position: absolute;
+            line-height: 28px;
+            top: 2px;
+        }
+        /* 完成事项变灰 */
+        li.doneLi{
+            border-left: 5px solid #999;
+            opacity: 0.5;     
+        }
+        /* 双击文本span出现 */
+        input.changeInput{
+            width: 300px;
+            display: none;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="head">
+            <div class="tops-wrap">
+                <label>ToDoList</label>
+                <input type="text" name="addInfo" class="addInfo" placeholder="添加ToDo" /> 
+            </div>
+        </div>
+        <div id="Con">
+            <div class="con-wrap">
+                <div class="undone">
+                    <div class="info">
+                        正在进行
+                        <span>0</span>
+                    </div>                              
+                </div>
+                <div class="done">
+                    <div class="info">
+                        已经完成
+                        <span>0</span>
+                    </div>      
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="text" name="changeInput" class="changeInput">
+
+    
+</body>
+    <script>
+        // arr  放置localStorage数据对象的数组
+        // addInfo  添加todo事项的文本框
+        // undone  放置未完成 todo 事项的位置
+        // done  放置已完成 todo 事项的位置
+        // undoneSpan  根据未完成的事项个数改变 undone中Span 的值 - 初始为0
+        // doneSpan  根据已完成的事项个数改变 undone中Span 的值 - 初始为0
+        // undoneUl  根据数据创建未完成 doto 事项ul
+        // doneUl  根据数据创建已完成 doto 事项ul
+        // changeInput  双击 文本span 出现这个文本框
+        var arr,addInfo,undone,done,undoneSpan,doneSpan,undoneUl,doneUl,changeInput
+
+
+        init()
+
+        // TODO 初始化函数
+        /* 
+            1：获取元素：addInfo,undone,done,undoneSpan,doneSpan
+            2：获取一个 localStorage 数据
+            3：侦听 document - 鼠标按下事件
+        */
+        function init(){
+            // 添加数据文本框 addInfo
+            addInfo = document.querySelector(".addInfo");
+            undone = document.querySelector(".undone")
+            done = document.querySelector(".done")
+            undoneSpan = document.querySelector(".undone span")
+            doneSpan = document.querySelector(".done span")
+            changeInput=document.querySelector(".changeInput");
+
+            // 当 localStorage 的数据 todoList存在时，直接获取，当不存在，创建一个数组
+            arr = localStorage.todoList ? JSON.parse(localStorage.todoList) : [];
+            console.log(arr)
+            // 事件侦听 document - 当回车键松开时，触发事件
+            document.addEventListener("keyup",keyHandler)
+
+            // 存储数据 / 拆分数据 回调函数
+            dataSave()           
+        }
+
+
+        // TODO  敲回车添加数据
+        /* 
+            1: 判断是否回车键，判断输入的是否字符串
+            2：将 文本框输入的数据放入对象中，并放置在 arr 数组中
+            3：获取localStorage存储的todoList
+            4：每次在 addinfo 文本框回车添加完数据后，清除文本框的内容
+        */
+        function keyHandler(e){
+            // 不是回车键 return
+            if(e.keyCode !== 13) return
+            // 当输入的是空格 清除空格并跳出
+            if(addInfo.value.trim().length === 0) return
+            // 获取 localStorage存储 todoList 数组
+            // arr = JSON.parse(localStorage.todoList)
+            // 创建一个新对象，将当前的文本框中输入的内容放在这个对象的info中，设置finish默认为false
+            arr.push({finish:false,info:addInfo.value})
+            // 存储数据 / 拆分数据 回调函数
+            console.log(arr)
+            dataSave()
+            // 清空文本框
+            addInfo.value = ""
+        }
+
+
+        // TODO  完成数据整理并且存储，完成数据的分类并计算总数
+        /* 
+            1：将敲回车添加在arr 数组中的数据转换成 JSON 字符串存储在 localStroage中
+            2：
+        */
+        function dataSave(){
+            // 将数组转换为字符串存储在localstorage中
+            localStorage.todoList = JSON.stringify(arr);
+
+            // 判断 数组中的 finish 的值
+            // 根据数组中的finish时false的元素放在undoneList数组中
+            var undoneList = arr.filter(itme=>{
+                return !itme.finish
+            })
+            // 将数组中finish时true的元素放在doneList数组中
+            var doneList=arr.filter(item=>{
+                return item.finish;
+            })
+
+
+            // 根据 undoneList/doneList元素的个数改变 span 的初始值
+            undoneSpan.textContent = undoneList.length
+            doneSpan.textContent = doneList.length
+
+            // 判断当前未完成获取已完成的 ul 列表，如果已经创建了，我们需要将他删除，并且设为null，以保证每次最新一个
+            // 未完成
+            if(undoneUl){
+                undoneUl.remove();
+                undoneUl=null;
+            }
+            // 已完成
+            if(doneUl){
+                doneUl.remove();
+                doneUl=null;
+            }
+
+            // 通过执行createUl函数，根据undoneList中的数据创建ul，并且放在undone容器中，
+            // 并且将返回ul赋值给全局变量undoneUl
+            undoneUl = createUl(undoneList,undone)
+            // 通过执行createUl函数，根据doneList中的数据创建ul，并且放在done容器中，
+            // 并且将返回ul赋值给全局变量doneUl
+            doneUl = createUl(doneList,done)
+        }
+
+
+        // TODO  创建UL 列表
+        /* 
+            参数 list ： undoneList或者doneList数组
+            参数 parent : 存放的父容器
+        */
+        function createUl(list,parent){
+            // 创建ul 
+            var ul = document.createElement("ul")
+
+            // 遍历数组创建li
+            for(var i = 0;i < list.length;i++){
+                var li = document.createElement("li")
+                // 将选中的元素，li的样式设置为doneLi
+                if(list[i].finish) li.className = "doneLi"
+                
+                // 创建多选框 
+                var ck = getCheckbox(list[i])
+                // 将多选框放在 li 中
+                li.appendChild(ck)
+                // 创建 input 元素，将 addInfo的value 放在创建的input中
+                var span = getTextSpan(list[i])
+                li.appendChild(span)
+                // 创建删除按钮
+                var bn = getBtn(list[i])
+                li.appendChild(bn)
+                // 将li 放在 ul 中
+                ul.appendChild(li)
+            }
+            // 将 ul 放在指定的容器中
+            parent.appendChild(ul)
+            // 返回创建好的 ul
+            return ul
+        }
+
+
+        // 创建多选框
+        function getCheckbox(list){
+            var ck = document.createElement("input")
+            ck.type = "checkbox"
+            // 创建属性data，将 undoneList或者doneList 数组的当前元素赋值给 ck 的 data
+            // 当前元素就是addinfo 回车的数据对象
+            ck.data = list
+            ck.className = "ckbox"
+            // 根据finish值设置多选框是否被选中
+            ck.checked = list.finish
+            // 给多选框添加点击事件
+            ck.addEventListener("click",clickHandler)
+            return ck
+        }
+
+        // TODO  修改事项 多选框点击事件
+        function clickHandler(e){
+            // 当点击多选框时，将当前多选框下的data属性的 finish值修改为 多选框的状态
+            // 那么改变多选框的状态就是在 当前数据的 finish 值。
+            this.data.finish = this.checked
+            // 重构列表 - 将 修改为 true 的finish数据，过滤到 已完成事项的数组中
+            dataSave()
+        }
+
+
+        // 创建 放入addInfo的  span
+        function getTextSpan(list){
+            var span = document.createElement("span")
+            // 给span元素中放入内容时数据的info内容
+            span.textContent = list.info
+            span.style.userSelect="none"
+            span.className = "textSpan"
+            // 创建属性data，将 undoneList或者doneList 数组的当前元素赋值给 span 的 data
+            // 当前元素就是addinfo 回车的数据对象
+            span.data = list
+            // 添加事件侦听
+            span.addEventListener("dblclick",getLiTextHandler)
+            return span
+        }
+
+        // TODO 双击弹出文本框修改文本  双击事件 
+        function getLiTextHandler(e){
+            // 当双击 文本span时，出现input
+            changeInput.style.display="block";
+            // 
+            var rect=this.getBoundingClientRect();
+            // 设置input 的出现位置，鼠标点击位置
+            changeInput.style.left=rect.x+"px";
+            changeInput.style.top=rect.y-10+"px";
+            // 将 当前 data 对象数据 赋值到当前出现的 input的属性data 上
+            changeInput.data=this.data;
+            // 设置input 聚焦
+            changeInput.focus()
+            // 设置input 失焦时，修改data 下 info 值，-就是修改文本span
+            changeInput.addEventListener("blur",blurHandler)
+        }
+        // 失焦
+        function blurHandler(e){
+            // 在这里 this.data 已经是 changeInput的了
+            // 且当前 文本span 的data 跟 changeInput 的引用关系一致
+            // 将 changeInput 下的 data对象下的属性 info 改成changeInput文本框输入的内容
+            this.data.info = this.value;
+            // 将changeInput文本框的data 清空，方便下一次修改其他的 li
+            this.data=null;
+            this.value="";
+            // 重新隐藏
+            this.style.display="none"
+            // 重构ul
+            dataSave()
+        }
+        
+
+        // 创建删除按钮
+        function getBtn(list){
+            var bn = document.createElement("button")
+            // 设置按钮的内容 X
+            bn.innerHTML = "&times"
+            // 设置按钮的样式
+            bn.className = "close"
+            // 创建属性data，将 undoneList或者doneList 数组的当前元素赋值给 bn 的 data
+            // 当前元素就是addinfo 回车的数据对象
+            bn.data = list
+            // 添加按钮点击事件
+            bn.addEventListener("click",removeClickHandler)
+            return bn
+        }
+        // TODO  删除列表 按钮点击事件
+        function removeClickHandler(e){
+            //  当点击删除按钮时，点击的那个删除按钮就是那个按钮侦听事件
+            // 那么 this.data 就是对应 要删除的数据
+            // arr 数组中 保存这对应的数据
+            var index = arr.indexOf(this.data)
+            // 找到删除并重构列表
+            if(index > -1) arr.splice(index,1)
+            dataSave()
+        }
+    </script>
+</html>

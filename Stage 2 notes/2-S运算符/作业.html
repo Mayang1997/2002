@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    作业 一 : 成绩案例 
+
+        <script>
+            var num = 90
+            if (num <= 59) {
+                console.log('成绩为E')
+            } else if (num <= 69) {
+                console.log('成绩为D')
+            } else if (num <= 79) {
+                console.log('成绩为C')
+            } else if (num <= 89) {
+                console.log('成绩为B')
+            } else if (num <=100) {
+                console.log('成绩为A')
+            }
+        </script>
+
+        作业二 :保留小数位后三位
+
+        <script>
+            // 四舍五入
+            var s1 = 66.666666
+            var resule = s1 .toFixed(3)
+            console.log(resule)
+            
+            // 不四舍五入
+            var n1 = 109.123456
+            var a = parseInt(n1 * 1000)  // parseInt不认识小数点,所以先乘于1000,让小数点前进三位,在让parseInt转换乘数值类型
+            var b = parseFloat(a / 1000) // parseFloat 认识小数点
+            console.log(b)
+        </script>
+
+
+        作业三: 
+
+        <script>
+            var c = 6234
+
+            var d = parseInt(c / 1000) * 1000
+            console.log(d)
+
+            var e = parseInt( (c - d) / 100) * 100
+            console.log(e)
+
+            var f = parseInt((c - (d + e ))/ 10)* 10
+            console.log(f)
+
+            var g = parseInt(c-(d + e + f ))
+            console.log(g)
+        </script>
+</body>
+</html>

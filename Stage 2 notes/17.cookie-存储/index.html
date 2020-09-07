@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table{
+            width: 600px;
+            border-collapse: collapse;
+        }
+        td{
+            border: 1px solid #000000;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <script>
+        // 根据提交的数据,创建表格
+        // 定义一个空变量
+        var table;
+        // 
+        window.addEventListener("storage",storageHandler)
+
+
+        // storage事件回调函数
+        function storageHandler(e){
+            // 触发事件时,根据数据创建表格
+            createTable()
+        }
+
+
+        // 创建表格回调函数
+        function createTable(){
+            // 当表格存在时,删除上一次的表格
+            if (table){
+                // 元素.remove()  - 自删除
+                table.remove();
+                // 元素 = null - 完全删除
+                table = null;
+            }
+            // 
+            var arr=JSON.parse(localStorage.shoppingList);
+            // 创建表格元素
+            table = document.createElement("table");
+            // 循环创建行 tr ,列 td
+            for(var i = 0;i < arr.length;i++){
+                // 根据arr数组有多少个对象创建tr
+                var tr = document.createElement("tr")
+                // 根据数组中对象的属性创建 td
+                // 遍历数组中的每个对象
+                for(var porp in arr[i]){
+                    var td = document.createElement("td")
+                    td.textContent = arr[i][porp]
+                    tr.appendChild(td)
+                }
+                table.appendChild(tr)
+            }
+            document.body.appendChild(table)
+        }
+    </script>
+</body>
+</html>

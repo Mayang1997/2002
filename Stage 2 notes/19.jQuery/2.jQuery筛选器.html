@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+</head>
+<body>
+     jquery 筛选器
+
+
+        二：内容筛选
+
+            contains(text) 匹配包含给定文本的元素。        例如：$("div:contains('John')")
+            empty 匹配所有不包含子元素或者文本的空元素。    例如：$("td:empty")
+            has(selector) 匹配含有选择器所匹配的元素的元素。例如：$("div:has(p)");
+            parent 匹配含有子元素或者文本的元素。           例如：$("td:parent")
+
+        三：特殊筛选器
+
+            $('li').first()  匹配所有该元素，找到第一个元素。  
+            $('li').last()  匹配所有该元素，找到最后一个元素。  
+
+            $('li:eq(3)').next()  找到某一个元素的下一个兄弟元素
+            $('li:eq(3)').prev()  找到某一个元素的上一个兄弟元素
+
+            $('li:eq(3)').nextAll()  找到某一个元素的后面的所有兄弟元素
+            $('li:eq(3)').prevAll()  找到某一个元素的前面的所有兄弟元素
+
+            $('li:eq(3)').parent()  找到某一个元素的父元素
+            $('li:eq(3)').parents()  找到某一个元素的所有结构父级，一直到 html
+
+            找到一组元素中的某一个
+            $('li').parents().find('body')   在 li 的所有父级里面找到所有 body 标签
+            $('div').find('.box')   找到 div 标签下所有后代元素中所有类名为 box 的元素
+            $(".divs").parentsUntil("html")  查找当前.divs元素的父元素到html之前的所有父容器
+            
+
+        四：jquery 方法筛选
+
+            first 匹配所有该元素，找到第一个元素。         例如：$("tr:first")
+            last 匹配所有该元素，找到最后一个元素。         例如：$("tr:last")
+
+            even 匹配所有索引值为偶数的元素，从 0 开始计数。    例如：$("tr:even")
+            odd 匹配所有索引值为奇数的元素，从 0 开始计数。     例如：$("tr:odd")
+
+            eq(index) 匹配一个给定索引值的元素。               例如：$("tr:eq(1)")
+            gt(index) 匹配所有大于给定索引值的元素，从 0 开始计数。    例如：$("tr:gt(0)")
+            lt(index) 匹配所有小于给定索引值的元素。           例如：$("tr:lt(2)")
+            not(selector) 去除所有与给定选择器匹配的元素。     例如：$("input:not(:checked)")
+            
+            animated 匹配所有正在执行动画效果的元素。          例如：$("div:animated");
+            hidden 匹配所有不可见元素，或者type为hidden的元素。  例如：$("input:hidden")
+            header 匹配如 h1, h2, h3之类的标题元素。     例如：$(":header").css("background", "#EEE")
+            focus 匹配当前汇聚焦距的元素                            例如  $(":focus");
+           
+</script>
+</body>
+</html>

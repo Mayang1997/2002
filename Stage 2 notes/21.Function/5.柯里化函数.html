@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+            // 柯里化 - 利用闭包的特性
+            
+            function curry(fn){
+                // 定义一个接收数据的空数组
+                var arr = []
+                // 闭包 保存arr数组不被销毁
+                return function(){
+                    // 判断，当 arguments 的长度大于 0 时，说明传入了参数进来
+                    if(arguments.length > 0){
+                        // 将 arguments 列表下的数据转换成数组
+                        // 将每次传入的参数转换成数组后拼接在一起
+                        // arr = arr.concat(Array.from(arguments))  // 同等效果
+                        arr = arr.concat([].slice.call(arguments))
+                        // 返回当前函数
+                        return arguments.callee   
+                    }else{
+                        // 当 arguments 的长度小于 0 时，说明参数已经被填入 arr数组
+                        // 将arr 数组带入回调函数中处理
+                        return fn(arr)
+                    }
+                }
+            }
+
+            // 处理加运算回调函数
+            function getSum(arr){
+                var sum = arr.reduce(function(value,itme){
+                    return value + itme
+                })
+                return sum
+            }
+            // 处理乘法运算会调函数
+            function getProduct(arr){
+                return arr.reduce(function(value,item){
+                        return value*item
+                })
+            }
+            // 闭包 - 外层函数有变量引用B函数
+            var sum = curry(getSum)
+            // 将数据传入 arr 数组中，保存
+            sum(2,6)(8,7)(10,6)(12);
+            // 执行函数
+            console.log(sum()) 
+    </script>
+</body>
+</html>

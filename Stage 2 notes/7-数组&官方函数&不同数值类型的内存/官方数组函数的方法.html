@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    对数组的操作包括：
+        1: push() 在数组尾部添加一个或者多个元素，并且返回数组的新长度
+        2: unshift() 在数组头部添加一个或者多个元素，并且返回数组的新长度
+        3: pop() 删除数组尾部的最后一个元素，并且将这个被删除的元素返回
+        4: shift() 删除数组的第一个元素，并且返回被删除的元素
+        5: concat() 数组的合并，合并后会返回一个新数组，原来的两个数组不会变化
+        6: join() 就是将数组的每个元素以指定的字符连接形成新字符串返回
+        7: splice(从什么位置开始,删除多少个元素,要插入的元素)
+           以从指定的位置删除给定数 量的元素，并且在这个位置插入需要的元素
+           并且返回被删除的元素组成的新数组
+
+    一：添加元素
+        push()：添加元素：  在数组的末尾添加一个元素,并且返回数组的新长度
+        unshift() :添加元素：  在数组的开始添加一个元素，并且返回数组的新长度
+        splice()：给数组既可以添加元素，也可以删除元素，关键是它可以在在指定下标删除，或者添加
+
+        <script>
+            var arr = []
+            arr.push('push：在数组的最后添加一个元素')
+            console.log(arr)
+            // push 在数组尾部添加一个或者多个元素，并且返回数组的新长度
+            arr.push("a","b");
+            arr.push(6);//在数组的尾部插入一个新元素
+            arr.push(6,7,8);//在数组的尾部插入多个新元素
+            var a=arr.push(6,7,8);//通过添加到尾部元素后返回数组的新长度
+            console.log(arr);
+
+            arr.unshift('unshift: 在数组的最开始添加一个元素')
+            // 可以同时添加多个元素，每个元素之间用逗号隔开  例子如下
+            arr.unshift('元素一',24)
+            console.log(arr)
+            // unshift在数组头部添加一个或者多个元素，并且返回数组的新长度
+            arr.unshift(0);//在数组的头部插入一个新元素
+            arr.unshift(-3,-2,-1,0);//在数组的头部插入多个新元素
+            var a=arr.unshift(-3,-2,-1,0);//返回数组的新长度
+            console.log(arr);
+            
+            arr.splice(2,0,'splice 可以删除也可以添加元素(可以同时添加多个)',25,26)
+            // splice 括号 后的 2 为下标，是几就代表从那个位置插入
+            // splice 括号里 2 后的 0 为删除，是几就代表从 下标为 2 的位置删除几个
+            // arr.splice(2,0,"William");//在下标2的位置插入了 William
+            // arr.splice(2,1,"William");//把下标为2的元素删除掉了（刘备），在下标2的位置插入了 William
+            // arr.splice(2,3,"William");//删除元素：从下标2开始删除3个，插入元素：在下标2的位置插入了 William
+            // arr.splice(2,3,"William","William他哥",);
+            // console.log(arr);
+        </script>
+
+    二：删除元素
+        shift(): 删除元素： 在数组的开始删除
+        pop(): 删除元素：删除数组里最后一个元素，返回值就是被删除的元素
+        splice()：给数组既可以添加元素，也可以删除元素，关键是它可以在在指定下标删除，或者添加
+        <script>
+            var arr1 = [1,2,3,4,5]
+            arr1.shift()    
+            console.log(arr1)
+            // shift() 删除数组的第一个元素，并且返回被删除的元素
+            arr.shift();//将数组的第一个元素删除
+            var a=arr.shift();//将数组的第一个元素删除，并且返回这个被删除的元素
+            console.log(arr);
+
+            arr1.pop()
+            // pop 删除数组尾部的最后一个元素，并且将这个被删除的元素返回
+            arr.pop();//pop中没有参数,删除数组的最尾部一个元素
+            var a=arr.pop();//pop删除数组的最尾部一个元素，并且将被删除的元素返回
+            console.log(arr,a);
+
+
+        </script>
+
+    三：修改数组： 
+        reverse:把数组的元素进行翻转      
+        sort()：sort函数只能排序字符串，不能排序数字(只能排序不超过10的数字)
+        join(): 将数组转换成对应的字符串，参数是链接符
+        concat()：拼接数组，把若干个数组拼接起来，也可以是若干个元素，也可以拼接元素
+        <script>
+
+            var arr2 = [1,2,3,4,5,6]
+            arr2.reverse()
+            console.log(arr2)
+
+            console.log(arr2.splice(1,3))  // 从下标1 到 下标 3 的元素都被取出
+
+            var arr3 = [2,5,3,9,4,8,6,7,15]
+            arr3.sort()
+            console.log(arr3)
+
+            var arr4 = [2020,3,17]
+            arr4.join('-')
+            console.log(arr4.join('-'))
+        </script>
+
+        concat的应用： 
+        <script>
+            //拼接若干个数组
+            var arr6 = [1,2,3,4]
+            var t = arr6.concat(5,6,7)  // 将三个元素拼接到arr6数组中
+            console.log(t)
+            var arr7 = [5,6,7,8,9]
+            //拼接 arr6 arr7
+            var n = arr6.concat([1,2,3,4],[5,6,7,8,9])
+            console.log(n)
+        </script>
+
+    四：从数组中查询
+        
+    slice()：从数组里取出一部分元素（根据起始下标和结束下标）
+        语法：数组.slice(开始下标,结束下标)
+       <script>
+           var arr5 = [0,1,2,3,4,5,6]
+           console.log(arr5)
+           console.log(arr5.splice(1,3)) 
+           console.log(arr5.splice(-2,-1))  // 5
+           // 注意：截取结果包含开始下标的值，不包含结束下标的值
+            // 第一个参数不可省略，第二个参数可以省略，如果第二个参数省略，默认截取到数组末尾
+            // 两个参数可以为负值，负数下标就是数组从末尾往前数，因为截取不包含结束下标的值，所以arr5.splice(-2,-1)截取的值为5
+            // 按指定位置截取复制数组的内容
+            
+            var arr=[1,2,3,4,,5,6,7];
+            // 从第1位开始截取到第4位之前
+            // 只能从前向后截取
+            // arr.slice(从什么位置开始，到什么位置之前结束)
+            // 第二个参数不写，默认截取到尾部
+            var arr1=arr.slice(1,4);
+            console.log(arr1,arr);
+
+
+            var arr1=arr.slice();//复制数组arr
+            
+            var arr1=arr.slice(0); //复制数组
+
+            var arr1=arr.slice(3);//从第三位截取到尾部复制
+
+            var arr1=arr.slice(-2);//从倒数第二位开始截取到尾部
+
+            var arr1=arr.slice(-3,-1);//从倒数第三位到倒数第一位
+            console.log(arr1);
+
+       </script>
+
+
+
+       扩充: sort 排序
+       <script>
+           var arr=[0,1,4,2,7,2,5,8,10,4,5,7,3,8,9];
+        
+        // arr.sort();
+
+        arr.sort(function(后一项,前一项){})
+        arr.sort(function(a,b){
+            console.log(a,b);
+            // return  a-b      // 从小到大     arr[j+1]-arr[j]
+            return  b-a         // 从大到小     arr[j]-arr[j+1]
+                                // 仅适用于数值
+            // return a-b;
+        })
+        console.log(arr);
+
+        // 使用与字符串的 利用 charCodeAt 字符方法 转换成相应的阿斯克码
+        arr.sort(function(a,b){
+            // console.log(a.charCodeAt(0),b.charCodeAt(0));
+            // return a.charCodeAt(0)-b.charCodeAt(0);
+            return b.charCodeAt(0)-a.charCodeAt(0);
+        })
+        console.log(arr);
+
+
+        var str="cbd";
+        console.log(str.charCodeAt(0));
+        // GB2312
+        // 将str字符串的第0项转换为Unicode编码  c--->99
+       </script>
+</body>
+</html>

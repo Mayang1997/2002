@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // window 的子对象
+
+    // 1:location  本地
+
+        //      location.href
+        //      location.assign()
+        //      location.replace()
+        //      location.hash
+        //      location.search
+
+        console.log(location.hash);//获取地址栏中#后面的内容，也就是锚点标记名
+        console.log(location.search);//获取地址栏中？后面的内容，？号后面一般是访问地址的参数
+
+        console.log(location.pathname);//地址栏中文件路径和名称
+        console.log(location.port);//地址栏中的端口号
+        console.log(location.protocol);//地址栏中的协议
+        console.log(location.hostname);//地址栏中的域名
+
+
+    // 2：history  历史记录
+        history.back();//回退
+        history.forward();//前进
+        history.go(1);//跳转到第几个负数是回退，正式是前进，0是刷新页面
+
+
+    // 3：screen  屏幕
+        console.log(screen.width,screen.height);  //全屏幕宽高
+        console.log(screen.availWidth,screen.availHeight);//不带任务栏的屏幕宽高
+
+
+    // 4：navigator  浏览器信息
+        // 用户浏览器信息
+        console.log(navigator.userAgent);
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    <script>
+        // 对象的复制方法
+            // 1：对象复制
+            var obj = {a:10,b:15,c:15}
+            var obj0 = {d:20}
+            for(var prop in obj){
+                obj0[prop] = obj[prop]
+            }
+            console.log(obj,obj0)
+
+            // 二：ES6的方法 - Object.assign()
+            // 跟obj 没有应用关系 - 且是浅复制  
+            // 不能复制原型属性，枚举属性
+            var o = {}
+            // 将obj的所有对象属性复制到o的属性上
+            Object.assign(o,obj)
+            console.log(o)
+            // 可以同时复制多个给第一个参数对象
+            // 当将多个对象复制到一个对象上时，如果有相同属性，后面的对象会覆盖前面对象的相同属性
+            var o1 = Object.assign({},obj,obj0)
+            console.log(o1)
+
+            // 三：扩展符复制方法：新对象 = {...被复制的对象}  - 浅复制
+            var obj1 = {...o1}
+            console.log(obj1)
+            
+
+            // 四：json方法复制  - 深复制  -但是无法复制枚举属性和方法
+            var o2 = JSON.parse(JSON.stringify(o1))
+            console.log(o2)
+
+    </script>
+</body>
+</html>
