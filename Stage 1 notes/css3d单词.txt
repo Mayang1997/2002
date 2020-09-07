@@ -1,0 +1,47 @@
+css3景深： perspective perspective perspcetive perspective
+视角角度： perspective-origin origin origin origin origin
+形成3d舞台：transform-style:preserve-3D preserve-3D preserve-3D preserve-3D
+使背面不可见：backface-visibility:hidden backface-visibility backface-visibility
+过渡：transtion transtion transtion transtion 
+关键帧：@keyfames @keyfames @keyfames @keyfames @keyfames 
+动画： animation animtion animation animation animation 
+关键帧名称：animation-name name name
+动画的持续时间：animation-duration duration duration duration 
+动画运用的类型：animation-timing-function 
+动画的延迟：animation-delay delay delay
+动画运动的次数：animation-iteration-count
+无限循环：infinite infinite infinite infinite infinite
+动画运动的方向：animation-direction
+反方向：reverse reverse reverse
+动画先正常在反运行,并交替：alternate alternate alternate
+动画先反运行再正常运行,并交替：alternate-reterse alternate-reterse alternate-reterse
+动画暂停：animation-play-state animation-play-state animation=play-state
+暂停：paused paused paused pauded paused 
+运动：running running running
+逐帧动画：animation--timing-function:step-state step-state step-state
+语义化便签结构：
+类似与div，更趋向于划分区域的：section section section section
+更趋向于内容的展示：article article article article 
+在一边的，侧边：aside aside aside aside aside
+内容的头部，网页的头部，头部区域：header
+网页的底部，内容的底部，底部区域：footer footer
+导航链接，导航栏：nav nav
+表示一块独立的内容：figure figure figure figure
+figure的标题(一般放在figure的第一位或者最后一位)：figcaption figcaption figcaption 
+主题内容(IE不兼容)：main main main main main
+hgroup 
+高亮显示(默认背景为黄色，可以该背景，内联元素)：mark mark mark mark mark
+放时间的：time  time time time
+类似于微信的对话框(默认display：none，默认定位，默认边框)：dialog dialog dialog
+视频：video  video video
+资源路径：src src src
+向用户显示控件，比如播放按钮：controls controls controls controls 
+视频在就绪之后播放：autoplay autoplay autoplay
+重复播放属性：loop loop loop loop loop
+静音属性：muted muted muted muted
+定义媒介资源类型：source source source  source
+tpye属性：用于视频：video/ogg  video/mp4
+            用于音频 audio/mpeg  audio/ogg
+音频：audio audio audio
+
+

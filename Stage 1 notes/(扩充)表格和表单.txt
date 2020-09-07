@@ -1,0 +1,93 @@
+                        表格扩充知识
+一：表格里面的css属性：
+1:相邻边框合并
+    border-collapse:;   (添加在table上面)   应用：制作单线表格
+        属性值：
+            separate  分开（默认值）
+            collapse  合并
+2：相邻边框之间的间距
+    border-spacing:  ( 添加在table上面 )   应用：制作宫字格
+3: 当表格没有内容的时候，是否显示边框区域   
+    empty-cells : 
+        属性值：
+            hide  默认值：不显示
+            show  显示
+4:控制表格宽度的算法:
+    table-layout:
+        属性值：
+            auto(默认值)
+            fixed（固定）
+    a : auto的显示状态：
+        值为auto:趋于平均分配，如果添加内容，根据td里面内容量的多少，再来分配td的宽度
+        优点：布局灵活。
+        弊端：性能消耗：必须先确定内容量，再来分配宽度。
+    b : fixed的显示状态：
+        趋于平均分配，不会收到内容的影响，如果单独设置宽度，宽度是可以变化的。
+        优点：性能消耗较少。
+        弊端：布局不灵活。
+二：表格标签的补充：
+1：数据行分组:
+        thead  (表头)
+        tbody  (表体)
+        tfoot  (表尾)
+        一个表格里面：只能包含一个thead  一个tfoot  但是可以包含多个tbody
+    数据列分组：
+        <colgroup span="把几列分成一组"></colgroup>
+2：表格的标题：<caption></caption>
+        <caption></caption>
+        拓展：
+            caption显示位置默认位置： 表格的上方
+            caption-side：left/right/top/bottom;
+                left/right  火狐浏览器能识别
+3：列标题:<th></th>   
+        默认样式：文本加粗、左右居中
+4：表格的html属性：分割线
+    属性值：
+        rules=""  
+            属性值：
+                all     //所有单元格之间有分割线
+                rows    //每一行之间有分割线
+                cols    //每一列之间有分割线
+                groups  //每一组之间有分割线
+表单控件的补充
+一：表单：<form></form>    
+    表单控件：
+        input   
+            type类型
+                text  文本框
+                password  密码框
+                reset  重置按钮
+                submit  提交按钮
+                button  空按钮
+二：表单补充：
+1：单选按钮：
+    <input type="radio">
+    每一组单选按钮name属性是必须的，并且保证属性值统一。
+2：多选按钮：
+    <input type="checkbox">
+3: 下拉列表
+    <select>
+        <option></option>
+        <option></option>
+        <option></option>
+   </select>
+4：多行文本域：
+    <textarea name="" id=""></textarea>
+    属性:cols    rows     控制宽高（字符为单位）
+    禁止textarea拖拽css属性：resize:none;
+5:上传文件框：
+    <input type="file">
+6：属性补充：默认选中和禁用
+        默认选中   checked="checked"
+        禁用       disabled="disabled"
+三：表单内的常用标签
+1：表单字段集 ： 用来给表单分组：
+    <fieldset></fieldset>
+    fieldset可以进行嵌套
+    fieldset自带边框
+2:表单字段集标题
+    <legend></legend>
+    一般放在fieldset第一个子元素的位置
+3：提示标签
+    <label for=""></label>
+        for需要绑定对应的id名称

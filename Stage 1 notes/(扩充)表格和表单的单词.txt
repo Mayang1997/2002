@@ -1,0 +1,28 @@
+相邻边框合并 border-collapse collapse collapse collapse collapse
+属性值1：分开 separate separate separate separate separate
+属性值2：合并 collapse collapse collapse collapse collapse
+相邻边框之间的间距 border-spacing spacing spacing 
+当表格没有内容是否显示边框区域 empty-cells empty-cells empty-cells empty-cells
+属性值1：默认不显示 hide  hide hide
+属性值2：显示  show show show show
+控制表格的算法： table-layout layout layout layout
+属性值1：自动  auto
+属性值2：固定 fixed fixed fixed
+表格的标题：caption caption caption caption caption 
+列标题：th th
+分割线：rules rules rules rules rules
+属性值1：所有的单元格之间有分割线 all all all
+属性值2：每一行之间有分割线 rows rows rows
+属性值3：每一列之间有分割线 cols cols cols
+属性值4：没一组之间有分割线 groups group group 
+单选框：input type=radio radio radio radio
+复选框：checkbox checkboc checkbox
+下拉列表：select select select select
+属性值：option option option option 
+多行文本域：textarea textarea textarea
+属性值1：默认选中 checked checked checked
+属性值2：禁用 disabled disabled disabled
+表单字集段：用来表单分组：fieldset fieldset fieldset fieldset
+表单字符集标题 legend legend legend legend
+提示标签：label label label
+上传文本框：file file file 

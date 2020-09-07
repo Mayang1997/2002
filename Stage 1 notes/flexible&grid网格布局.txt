@@ -1,0 +1,10 @@
+flexible.js  插件！
+
+    1：先引入flexible.js
+        <script src="url"></script>
+
+    2: 去掉meta标签（1：1比例，禁止缩放）
+
+    3：应用：
+        例如：从ps里面量出height   88px；
+        css设置的时候， 0.88rem;

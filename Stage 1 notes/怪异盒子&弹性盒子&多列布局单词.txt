@@ -1,0 +1,52 @@
+标准盒模型：box-sizing:content-box box-sizing:content-box 
+怪异盒子：box-sizing:border-box box-sizing:border-box
+弹性盒模型：display:flex  flex flex flex flex flex
+一：改变主轴的排序方式(指定谁为主轴)：flex-direction direction direction direction 
+属性值：x轴为主轴：row row row row 
+属性值：横向反向排列：row-reverse row-reverse row-reverse 
+属性值：y轴为主轴：column column column column column 
+属性值：纵向反向排列：column-reverse column-reverse reverse reverse
+二：子元素在弹性盒里面的 主轴的排列方式：justify-content justify-content justify-content
+属性值：弹性盒开始的地方：flex-start flex-start flex-start start start start
+属性值：弹性盒子的末端(x/y轴的低端)：flex-end end end end  end end 
+属性值：居中 center
+属性值：两端对齐中间自动分配：space-between space-between space-between
+属性值：完全自动分配空间：space-around space-around space-around space-around
+三：侧轴的对齐方式：align-items align-items align-items items items 
+属性值：基线对齐(默认跟flex-start等效) baseline
+属性值：默认值拉伸：stretch
+四：控制元素在弹性盒子中是否换行：flex-wrap flex-wrap
+属性值：不换行 nowrap
+属性值：换行   wrap
+属性值：反向换行  wrap-reverse
+五：控制行与行之间的对齐方式：align-content
+属性值： flex-start  开端
+属性值： flex-end   末端
+属性值： center   居中
+属性值： 两端对齐 space-between
+属性值： 自动分配空间 space-around
+属性值： 拉伸  start
+六：flex-direction和flex-weap的简写：flex-flow  flex-flow flex-flow
+属性值：row wrap
+添加在子元素上的属性：
+一：针对某个子元素在侧边的对齐方式：align-self self self self self self
+属性值：    Stretch		元素被拉伸以适应容器。
+    Center		元素位于容器的中心。
+    flex-start		元素位于容器的开头。
+    flex-end		元素位于容器的结尾。
+二：权重，数字越大越往后排：order  默认为0，支持负数。
+三：把父盒子剩余空间自动分配：flex：1
+多列布局:
+yi:规定元素分隔的列数:column-count column-count column-count
+二:列之间的间隔大小:column-gap  gap gap gap gap gap gap 
+三:设置列于列之间的边框(复合属性):column-rule rule rule 
+四:设置所有列的高度是否统一:column-fill  fill fill fill fill fill fill
+属性值1:列高度自适应高度:auto 
+属性值2:所有列的高度一其中最高的一列统一:balance balance balance
+五:设置每列的宽度:column-width
+六:设置对象的列数和每列的宽度 复合属性:columns :
+写法 columns: 2 300px;   2列每列300px 
+媒体查询:@media @media @media @media
+属性:all 所有的设备  all  all
+属性二:手持设备   screen screen screen
+属性三:only 只针对单一设备

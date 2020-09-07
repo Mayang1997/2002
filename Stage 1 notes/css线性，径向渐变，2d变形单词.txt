@@ -1,0 +1,33 @@
+浏览器前缀：
+    -webkit-  谷歌前缀 webkit  webkit webkit webkit webkit 
+    -moz-   火狐前缀  moz moz moz moz moz moz
+    -ms-   ie浏览器  ms ms ms ms ms ms ms 
+    -o-   欧鹏浏览器  o  o  o  o
+文本阴影：text-shadow text-shadow shadow shadow shadow 
+    属性值：属性值1 属性值1 属性值1 属性值1;
+        属性值1 阴影水平方向上的位置
+        属性2：阴影垂直方向上的位置
+        属性3：阴影的大小
+        属性4：阴影的颜色
+线性渐变：linear-gradient linear-gradient linear-gradient lienar-gradient
+渐变 方向：direction direction direction direction direction 
+单一方向：到左侧 to left 
+         到右侧 to right 
+         到上  to top
+         到下  to bottom
+对角渐变：
+        到左上  to left top
+        到右下  to right bottom
+角度的渐变：
+        10deg  10度  10deg  10deg 10deg
+径向渐变：radial-gardient radial-gardient radial-gardient radial-gardient
+渐变的形状：shape shape shape shape shape
+椭圆：ellipse ellipse ellipse ellipse ellipse
+圆形：circle circle circle circle
+过渡：transition transition transition transition transition
+2d变换:transform  transform transform transform transform
+在平面进行位移：transform:translate(参数1，参数2) translate translate translate
+在平面进行旋转：transform:rotate rotate ratate ratate
+在平面进行缩放：transform:scale scale scale scale scale 
+在平面进行倾斜：transform：skew skew skew skew 
+元素透明：opacity opacity opacity opacity opacity

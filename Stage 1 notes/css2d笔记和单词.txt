@@ -1,0 +1,49 @@
+css3 - 2D: 二维的平面空间。
+css3 - 2D变形：
+    变形属性：transform
+    2d的变换：
+        在平面进行位置的移动   transform:translate()
+        在平面进行旋转        transform:rotate()
+        在平面进行缩放        transform:scale()
+        在平面进行倾斜        transform:skew()
+2d位移：
+    transform:translate(参数1，参数2)
+        参数1：在X轴移动的距离
+        参数2：在Y轴移动的距离
+        参数的设置:如果是正值的情况下：往右往下   负值：往左往上      
+    单独设置X/Y的位移：
+        transform:translateX(参数);
+        transform:translateY(参数);
+opacity：
+    透明属性：
+        让整个元素透明
+        属性值：0 - 1 
+2d缩放：
+        transform:scale(参数1，参数2);  （0 - 0.999999  缩小     大于1 放大） 
+            参数1：X轴缩放的比例 
+            参数2：Y轴缩放的比例
+        注：如果两个参数相同的情况下 直接写一个。
+    单独设置X  Y
+        transform:scaleX();
+        transform:scaleY();
+transform:rotate();    旋转的是一个度数  deg
+        默认情况下：绕着中心点进行转动
+        单独设置围绕某个轴（X  Y）
+        transform:rotateX()
+        transform:rotateY()
+2D  倾斜：
+        transform:skew();   deg
+        transform:skewX()
+        transform:skewY()
+2d变形原点：
+        transform-origin:水平方向  垂直方向
+            left center
+            10px 10px
+            50%
+如果transform:
+        有两个功能函数：先写位移   再写旋转
+目标伪类选择器：
+        :当元素被相关连接（锚点）指向的时候，放生css样式的改变！
+        选择符:target{
+        }
+

@@ -1,0 +1,84 @@
+一： 怪异盒模型
+标准盒模型：
+        border长在元素的宽高以外，padding会把盒子撑大。
+怪异盒模型（IE盒模型）：
+        特点：border和padding都是长在元素宽高内部的。
+标准盒模型：   box-sizing:content-box;
+怪异盒模型：   box-sizing:border-box;
+二： 弹性盒模型：
+弹性盒模型：
+    作用：控制 "子元素" 的布局方式。
+    显示规则：所有的子元素都会在 “主轴” 进行排列。
+    主轴、侧轴： 主轴和侧轴是相对而言的，
+            如果X轴为主轴，Y轴就是侧轴。
+            如果Y轴为主轴，X轴就是侧轴。
+    设置方法：如果想控制某个元素的布局，必须让父元素形成弹性盒子。  
+    一：display:flex; 形成弹性盒子 
+        a: 弹性盒子 子元素默认排列状态: 
+            因为弹性盒子默认的X轴为主轴，所有子元素默认都横向排列。
+        b：如果父元素是弹性盒子：子元素都能设置宽高。
+        c: 如果父元素为弹性盒，让子元素在弹性盒子里面左右上下居中，只需要给子元素添加margin:auto;
+    二：改变主轴的排列方式（指定谁主轴）
+        flex-direction:
+            属性值： 
+                row             x轴为主轴
+                row-reverse     横向反向排列
+                column          Y轴为主轴
+                column-reverse  纵向反向排列
+    三：子元素在弹性盒子里面的 主轴的对齐方式：
+        justify-content: 
+            flex-start          弹性盒子的开始的地方。
+            flex-end            弹性盒子的末端
+            center              居中
+            space-between       两端对齐中间自动分配
+            space-around        完全自动分配空间
+    四：侧轴的对齐方式。
+        align-items:
+            flex-start
+            flex-end 
+            center
+            baseline  ( 默认情况下和flex-start等效)
+            stretch（默认值——>拉伸）;
+    五：控制子元素在弹性盒子里面是否换行：
+        flex-wrap:
+            nowrap   不换行
+            wrap     换行
+            wrap-reverse;    反向换行
+    六：控制行与行之间的对齐方式：
+        align-content: 
+            flex-start
+            flex-end
+            center 
+            space-between 
+            space-around 
+            strech(拉伸)
+        注:
+            默认情况下align-content在侧轴上执行样式的时候，会把默认的间距给合并。
+            对于单行子元素，该属性不起作用
+    七：flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap;
+三：弹性盒：添加在子元素上面的属性：
+    一：align-self:   针对的是某个子元素在侧轴的对齐方式。
+        注意：align-self 属性可重写灵活容器的 align-items 属性。
+        属性值
+            auto 		默认值。元素继承了它的父容器的 align-items 属性。如果没有父容器则为 "stretch"。
+            Stretch		元素被拉伸以适应容器。
+            Center		元素位于容器的中心。
+            flex-start		元素位于容器的开头。
+            flex-end		元素位于容器的结尾。
+    二：order:
+        数字越大越往后排，默认为0，支持负数。  
+    三： flex:1;
+        把父元素（弹性盒子）剩余空间自动分配(主轴上面的空间)
+        复合属性。设置或检索弹性盒模型对象的子元素如何分配空间
+        详细属性值：
+            缩写「flex: 1」, 则其计算值为「1 1 0%」
+            缩写「flex: auto」, 则其计算值为「1 1 auto」
+            flex: none」, 则其计算值为「0 0 auto」
+            flex: 0 auto」或者「flex: initial」, 则其计算值为「0 1 auto」，即「flex」初始值
+    flex-grow
+	    一个数字，规定项目将相对于其他灵活的项目进行扩展的量。
+    flex-shrink
+        一个数字，规定项目将相对于其他灵活的项目进行收缩的量。
+        flex-shrink:0;  弹性盒子内部的子元素不再进行挤压，正常显示。
+    flex-basis
+	    项目的长度

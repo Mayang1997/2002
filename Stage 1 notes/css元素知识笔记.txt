@@ -1,0 +1,247 @@
+    css元素知识笔记 
+一：文本溢出：三个属性
+1.white-space:   空白空间的处理
+        normal：默认值，多余空白会被浏览器忽略只保留一个；
+        pre：空白会被浏览器保留；
+        pre-wrap：保留一部分空白符序列，但是正常的进行换行；
+        pre-line:合并空白符序列，但是保留换行符；
+        nowrap:文本不会换行，文本会在同一行上继续，直到遇到<br/>标签为止;
+2.overflow:   溢出属性
+        visible:默认值，内容不会被修剪，会呈现在元素框之外；
+        hidden：内容会被修剪，并且其余内容是不可见的；
+        scroll：内容会被修剪，但是浏览器会显示滚动条，以便查看其余的内容;
+        auto：如果内容被修剪，则浏览器会显示滚动条，以便查看其他的内容;
+        inherit：规定应该从父元素继承overflow属性的值。
+    拓展：
+    overflow-x : hidden;    水平方向的修剪
+    overflow-y : hidden;    y轴方向的修剪
+text-overflow  文本溢出是否显示省略号
+        clip  不显示
+        ellipsis   显示省略号
+3.单行文本溢出省略号显示步骤：
+        1：不让文本换行：
+            white-space:nowrap;
+        2: 让超出的文本隐藏
+            overflow:hidden;
+        3: 超出的文本省略号显示
+            text-overflow:ellipsis; 
+        4：宽度的设置！！！
+            width
+二：元素类型：三类
+    根据css盒模型的显示分类：
+        三类的划分1:
+            块状元素
+            内联元素
+            内联块状元素 (争议点：内联块状元素自己属于一类 || 属于内联一类)（css 2.1）
+        三类的划分2:
+            块状元素
+            内联元素
+            可变元素      <button>按钮</button>
+1.块状元素：常见的块状元素
+        div -最常用的块级元素
+        dl - 和dt-dd 搭配使用的块级元素
+        form - 交互表单
+        h1 -h6- 大标题
+        hr - 水平分隔线
+        ol – 有序列表
+        p - 段落
+        ul - 无序列表
+        li
+        fieldset - 表单字段集
+        colgroup-col - 表单列分组元素
+        table-tr-td  表格及行-单元格
+1.1块级元素的特点
+    一：块状元素特点（默认情况）：
+            1：块状元素，在页面中以矩形区域显示！
+            2：块状元素，能直接添加宽高！
+            3：块状元素，在页面显示，自上而下排列，独占一行。
+            4：块状元素，一般座位内容或者其他元素的容器！
+2.内联元素（行内元素）：常见的内联元素
+        a –超链接（锚点）                               
+        b - 粗体(不推荐) 
+        br - 换行                             
+        i - 斜体
+        em - 强调                             
+        img - 图片                         
+        input - 输入框               
+        label - 表单标签                  
+        span - 常用内联容器，定义文本内区块
+        strong - 粗体强调
+        sub - 下标   
+        sup - 上标
+        textarea - 多行文本输入框
+        u - 下划线
+        select - 项目选择  
+2.1内联元素的特点
+    二：内联元素特点（默认情况下）：
+            1：内联元素，不能设置大小，由内容撑开，最小单位也是矩形
+            2：内联元素，在一行内逐个显示
+            3：内联元素也支持盒模型的规则，但是个别属性不能正确显示,
+                例如（padding-top/bottom   margin-top/bottom）
+2.2行内块元素的特点（属性值：display:inline-block）
+    a:能直接设置宽高
+    b：在一行内逐个显示。
+    c: inline-block的元素 支持 vertical-align 属性
+        vertical-align 属性  垂直对齐方式
+        top
+        middle
+        bottom
+    典型的行内块元素
+        input   
+        img
+2.3vertical-align ：垂直对齐属性
+    属性值：
+        top        顶线
+        middle   中线
+        bottom     底线 
+        baseline  ( 基线对齐 )
+三：应用：vertical-align（让子元素在父元素中左右上下居中）
+    让一个子元素在父元素里面左右上下居中！
+        分析流程：
+            1：如果子元素是display:inline-block; 给父元素添加text-align:center; 让子元素左右居中
+            2: 因为vertical-align 属性 对齐按照 顶线 中线 基线 底线
+            3：添加一个“标尺” 用来确定 顶线 中线 基线  底线
+            4：因为做上下居中  中线对齐， 标尺的高 和 父元素的高保持一致。
+        实现流程：
+            1：左右居中：
+                a : 给父元素添加text-align:center;
+                b : 保证子元素为inline-block
+            2: 上下居中：
+                a : 添加 “标尺” -> 确定 顶线 中线 基线 底线
+                    添加标尺 在子元素的后面添加同级元素span 并且 不能有回车
+                b : 必须保证 标尺 inline-block  ->  标尺和子元素在同一行。
+                c : 给标尺确定中线  添加属性  vertical-align:middle;
+                d : 给标尺设置width:0;height:100%;
+3.1利用定位让子元素在父元素中左右上下居中
+    让内容在浏览器窗口左右上下居中。
+        第一种方法:
+            position:fixed;
+            left:50%;
+            top:50%;
+            margin:-高度的一半 0 0 -宽度的一半。
+        第二种方法：
+            position:fixed;
+            left:0;right:0;
+            top:0;bottom:0;
+            margin:auto;             （更好）
+        利用定位:让子元素在父元素里面左右上下居中？
+         /* 左右上下的居中 */
+        position:absolute;
+        left:0;right:0;
+        top:0;bottom:0;
+        margin:auto;
+四：可变元素
+    可变元素：  button
+        根据布局流的规则，生成块或者是内联
+五：元素类型的转换 属性：display
+    display属性:
+        检索或者设置元素所生成的盒模型类型！
+1.display的属性值：
+        a: display:block
+            作用：让元素转成块状元素，拥有块状元素的特点
+            大部分块状元素的display的默认值：block
+        b: display:inline
+            作用：让元素转成内联元素。
+            大部分内联元素的display的默认值 inline
+        c: display:none
+            作用：让元素隐藏
+六：定位 position
+    定位属性：position 
+            作用：检索或者设置元素的定位方式（改变元素位置的属性）
+            position的属性值（来确定定位方式【参照物】）
+1.0定位的步骤：
+        1：给元素添加position属性，证明该元素要做位置的变化。
+        2：确定参照物！（通过position的属性值来确定：static\absolute\relative\fixed\sticky）
+        3: 确定坐标 left  right  top  bottom
+1.1position的属性值和特点
+    1：static 静态定位：
+        position的默认值，默认文本流的状态。
+        不会识别left right top bottom指定的坐标
+    2：absolute 绝对定位:
+        a : 参照物：按照已经有定位的父元素进行位置的变化。
+        b : 假如 当前没有父元素 或者 父元素没有定位的情况下，以整个文档为参照物。
+        c : 绝对定位，脱离文档流、不占据空间
+    3: relative 相对定位：
+        a : 参照物：自身默认的位置！
+        b : 始终占据空间，不会破坏文档流
+    （拓展）包含块的设置：
+        1：如果父元素为参照物：添加 position:relative;
+        2: 给要做定位的子元素 添加position:absolute;
+    4:固定定位： position :fixed;
+        a : 参照物：浏览器窗口
+        b : 脱离整个文本流。不占据空间
+    5:黏性定位：position:sticky;
+        position:relative  和 position:fixed的结合。
+        如果页面没超出窗口范围，按照relative 执行
+        如果内容超出窗口位置，按照fixed执行。
+1.2定位元素的层级关系
+     定位元素：
+            后定位的元素会把前面定位的 盖住。
+1.3元素设置层级关系属性：z-index:
+        控制定位元素的层次关系
+        属性值为一个数字（可以为负数），数字越大，层次关系越高
+        默认值 auto;
+PC端宽高自适应
+    PC端的宽高自适应：
+        目的：让项目更加灵活。（宽度和高度的处理）
+一：宽度的处理
+        宽度自适应：
+            块状元素：width不设置 或者 width:100%;
+            显示状态: 块状元素 宽度 跟随 父元素宽度变化。
+1.1：高度的处理
+        height:auto  或者 不设置  高度是被内容撑开！
+    (两种自适应的情况)
+        1：
+            当height不去设置，或者设置 height:auto;
+            当前容器的高是被内容撑开的。
+1.2最小高度的设置 :
+        min-height:;  最小高度!!!!!   
+    说明: 
+        现代高版本浏览器(不包括ie8以下)解析min-height的时候:
+        如果一个元素设置min-height:  让当前元素保持一个最小高度,
+        如果超出最小高度容器会被内容撑开,如果内容不超出,或者没有内容
+        容器会保持min-height设置的最小高度.
+     注意：   IE6:默认认为height为最小高度
+1.3 高度塌陷出现的场景:
+    如果子元素设置了浮动,父元素没有设置高度,父元素会出现高度塌陷!
+    解决高度塌陷的方法:
+1.3.1:给出现高度塌陷的父元素 添加overflow:hidden;
+        原理:overflow:hidden 触发了BFC;
+            bfc规定:计算BFC高度的时候,里面浮动元素也参与计算!
+            弊端:overflow:hidden 溢出隐藏  会隐藏掉定位在当前元素以外的内容.
+1.3.2:在浮动元素的下面添加一个空的元素.
+            并且给空元素设置样式{clear:both;}     //清除浮动!  闭合浮动!
+        弊端:会出现很多没有意义的空元素,形成代码的冗余
+1.3.3:万能清除法
+            高度塌陷的元素:after{
+                content:".";
+                display:block;
+                clear:both;
+                height:0;
+                overflow:hidden;
+                visibility:hidden;
+            }
+1.4伪对象选择器:
+    ::after{}
+        在元素的最后添加内容
+        配合属性content使用.
+    ::before{}
+        在元素的之前添加内容
+        配合属性content使用.
+    :first-letter
+        第一个字符
+    :first-line
+        第一行
+1.5隐藏整个元素的方法:
+        display:none;
+            彻底隐藏:不占据空间
+        visibility:hidden;
+            隐藏元素,占据空间
+高度自适应第二种情况:
+        让子元素跟随父元素高度变化.
+        父元素必须有高度,然后给子元素设置height:100%;
+    需求:
+        让一个元素覆盖整理浏览器窗口
+        html,body{
+            height:100%;
+        }

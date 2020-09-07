@@ -1,0 +1,56 @@
+空白空间的处理：white-space white-space white-space
+    属性值1：默认值 多余的空白只保留一个空格 normal normal
+    pre  空白会被浏览器保留 pre pre pre
+    pre-wrap  只保留一部分空白 但是正常进行换行 pre-wrap pre-wrap pre-wrap
+    pre-line  合并空白符序列，保留换行符 pre-line pre-line pre-line
+    nowrap  文本不会换行，文本会在一行上继续，直至遇到<br>为止 nowrap nowrap nowrap
+溢出属性 overflow overflow overflow  overflow overflow
+    属性值：visible 默认值 文本不会修建 显示在元素框之外 visiblu visiblu visiblu
+    hidden 内容会被修剪 而且其余内容是不可见的 hidden hidden hidden hidden
+    scroll 内容会被修剪 但是浏览器会显示滚动条 以便查看其余内容 scroll scroll scroll
+    auto 如果内容被修剪 浏览器就会显示滚动条 以便查看其余内容
+    inherited 规定从父元素继承overflow的值 inherited inherited inherited
+水平方向的修剪 overflow-x：hidden overflow-x:hidden overflow-x:hidden
+y轴方向的修剪 overflow-y：hidden overflow-y：hidden overflow-y：hidden
+文本溢出是否显示省略号 text-overflow text-overflow text-overflow
+    属性值：clip 不显示 clip clip clip clip
+        ellipsis 娴显示省略号 ellipsis ellipsis ellipsis
+不让文本换行 white-space：nowrap white-space：noweap white-space:nowrap
+溢出文本隐藏：overflow：hidden
+超出文本省略号显示：text-overflow：ellipsis ellipsis ellipsis
+元素类型的转换：display display display display
+    属性：行转块  display：block block block
+    快转行 display：inline inline inline inline
+定位：position position position position
+        1. 静态定位  static static static 默认值 static
+        2. 绝对定位 absolute absolute absolute absolute
+        3. 相对定位 relative relative relative relative
+        4. 固定定位 fixed fixed fixed fixed
+        5. 黏性定位 sticky sticky stiky sticky  
+元素层次关系设置： z-index z-index z-index z-index
+    属性值为一个数字（可以为负数），数字越大，层次关系越高
+        默认值 auto;
+清除浮动 clear clear clear clear
+    属性值：both 清除左右浮动 both
+            left 清除左浮动
+            right 清除有浮动
+最小高度的设置： min-height  min-height min-height
+万能清除法：完美解决
+    高度塌陷的元素:after{
+            content'.';
+            display：block;
+            clear:both;
+            overflow:hidden;
+            visitibility:hidden;
+        }
+伪对象选择器：
+    ::after{
+        解释：在元素的最前面添加内容，配合content使用
+    }
+    ::before{
+        在在元素的最前面添加内容，配合content使用
+    }
+    :first-letter
+        第一个字符{可以修改第一个字符的样式}
+    :first-line
+        第一行   可以修改第一行字符的样式

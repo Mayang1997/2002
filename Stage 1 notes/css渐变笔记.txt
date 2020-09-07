@@ -1,0 +1,81 @@
+主流浏览器：
+        谷歌、火狐、苹果、欧鹏、ie
+浏览器前缀:
+        -webkit-         谷歌浏览器
+        -moz-            火狐浏览器
+        -ms-             IE浏览器
+        -o-              欧鹏浏览器
+css3
+    很多css3属性：还是最初的预览版，没有形成一个最终的正式版。
+    造成了很多属性，浏览器不兼容。
+    浏览器为了能使这些属性兼容，每个浏览器商，提供属于自己的浏览器的语法规则。
+    浏览器前缀。
+css3属性：文本阴影 
+                text-shadow : 属性值1 属性值2 属性值3 属性值4
+                    属性值1 ： 阴影的水平方向的位置
+                    属性值2 ： 阴影的垂直方向的位置
+                    属性值3 ： 阴影的大小
+                    属性值4 ： 阴影的颜色
+css3属性在设置的时候:
+        兼容模式
+            -webkit-text-shadow:5px -1px 5px #5361a9;
+            -moz-text-shadow:5px -1px 5px #5361a9;
+            -ms-text-shadow:5px -1px 5px #5361a9;
+            -o-text-shadow:5px -1px 5px #5361a9;
+            
+标准模式:
+            text-shadow:5px -1px 5px #5361a9;
+css3渐变：浏览器生成的！！！
+线性渐变：
+    语法：
+        background: linear-gradient(direction, color-stop1, color-stop2, ...);
+        说明：
+        direction：默认为to bottom，即从上向下的渐变；
+1：单一方向的渐变：
+    to left      到左侧
+    to right     到右侧
+    to top
+    to bottom
+2: 对角渐变
+    to left top  
+    to right bottom
+3: 角度的渐变
+    10deg      10度
+注：颜色默认情况下趋于均分
+     1.   如果颜色后面带有百分比，按照百分比进行色彩的渐变
+        例如  red   10%         到10% 都是红色
+     2.   linear-gradient（）颜色的分布方向，标准模式 和 兼容完全相反！！
+            带有浏览器前缀的兼容模式，方向是不加to   从哪个方向开始
+径向渐变：（一定要添加浏览器前缀）
+        线性渐变从一个方向到另一个方向
+        径向渐变从一个点向四周的渐变
+语法：
+     background: radial-gradient(center, shape, size, start-color, ..., last-color);
+        center参数：渐变点的位置
+                left  bottom   在左下角
+                10px   20px    离左侧10px   离上边20px
+        径向渐变的大小：
+            最远角  farthest-corner  （ 默认大小 ）
+            最远边  farthest-side
+            最近角  closest-corner
+            最近边  closest-side
+说明：
+    center：渐变起点的位置，可以为百分比，默认是图形的正中心。
+    shape：渐变的形状，ellipse表示椭圆形，circle表示圆形。默认为ellipse，如果元素形状为正方形的元素，则ellipse和circle显示一样。
+    size：渐变的大小，即渐变到哪里停止，它有四个值。 closest-side：最近边； farthest-side：最远边； closest-corner：最近角； farthest-corner：最远角。
+重复性线性渐变：repeating-linear-gradient
+重复性径向渐变：repeating-radial-gradient
+css3过渡属性：
+        1. transition-property：检索或设置对象中的参与过渡的属性
+        2. transition-duration：检索或设置对象过渡的持续时间
+        3. transition-delay：检索或设置对象延迟过渡的时间
+        4. transition-timing-function：检索或设置对象中过渡的动画类型
+简写方法：
+        transition: 属性值1  属性值2  属性值3  属性值4
+            属性值1： 需要参与过渡属性   all  ( 能支持过渡属性的都会过渡变换  默认值)
+            属性值2： 过渡的时间   s秒   ms  毫秒
+            属性值3： 延迟的时间   s秒   ms  毫秒
+            属性值4： 
+                动画的类型（匀速、匀加速、匀减速........）
+                linear   匀速
+    注：transition  必须通过鼠标事件触发（鼠标滑过   ）

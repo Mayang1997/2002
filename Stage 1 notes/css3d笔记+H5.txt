@@ -1,0 +1,126 @@
+css3-景深！（3D空间！）
+        观察物体的一视角距离.
+        近大远小
+        perspective: 1200px;（一般都是在父元素中使用）
+        transform:perspective(1200px) （在子元素中使用）
+        两个都设置会发生冲突，建议只设置父元素，通常的数值在900-1200之间
+        如果当你的视线距离物体足够远的时候，基本上就不会有近大远小的感觉
+视觉角度：
+    persperctive-origin:
+        left top
+        center center
+        50% 50%
+        0px 0px
+让当前形成一个3D舞台，让其子元素在3D空间里面进行一个变换。
+        transform-style:preserve-3d  / flat(默认值：平面空间);
+    2d场景，在屏幕上水平和垂直的交叉线x轴和y轴
+    3d场景，在垂直于屏幕的方法，相对于3d多出个z轴
+    Z轴：靠近屏幕的方向是正向，远离屏幕的方向是反向
+变形属性：
+        transform:
+3D功能函数：
+3D的位移：
+    transform:translate(x,y,z);
+        translateX()
+        translateY()
+        translateZ(不能是百分比)
+3D的旋转：
+    transform:rotate();
+        rotateX()
+        rotateY()
+        rotateZ()  //默认情况效果类似
+        rotate3D()
+        - x：是一个0到１之间的数值，主要用来描述元素围绕X轴旋转的矢量值；
+                    - y：是一个０到１之间的数值，主要用来描述元素围绕Y轴旋转的矢量值；
+                    - z：是一个０到１之间的数值，主要用来描述元素围绕Z轴旋转的矢量值；
+                    - a：是一个角度值，主要用来指定元素在3D空间旋转的角度，如果其值为正值，元素顺时针旋转，反之元素逆时针旋转。
+3D缩放：
+    transform:scale3d(x,y,z);
+        scaleX()
+        scaleY()
+        scaleZ()
+使背面不可见！backface-visibility:hidden;
+transition:
+        过渡：
+            特点：需要事件进行触发。
+animation
+    动画：
+        特点：不需要事件进行触发。调用关键帧即可
+制定关键帧：
+        @keyframes 关键帧的名称{
+            /*制定关键帧*/
+            /*from{}
+            to{}*/
+            0%{
+                //开始状态
+            }
+            25%{
+
+            }
+            50%{
+
+            }
+            ......
+            100%{
+                //结束状态
+            }
+        }
+动画：animation 
+animation:  复合属性
+        animation-name   关键帧的名称
+        animation-duration   动画的持续的时间
+        animation-timing-function   动画运用的类型（匀速linear、加速度、减速度、贝塞尔曲线）
+        animation-delay  动画的延迟
+        animation-iteration-count   动画运动的次数（默认情况下运动1次） infinite(无限循环)
+        animation-direction  运动的方向
+                属性值：
+                    - reverse：反方向运行 （ 让关键帧从后往前执行 ）
+                    - alternate：动画先正常运行再反方向运行，并持续交替运行
+                    - alternate-reverse：动画先反运行再正方向运行，并持续交替运行
+        animation-play-state 
+                属性值：
+                    paused暂停
+                    running运动
+常用的写法：
+    animation:关键帧的名称  动画运动的时间  linear(匀速)  动画延迟的时间
+逐帧动画：animation-timing-function:
+        动画的类型：
+            linear
+            ease
+            ease-in
+            step-start  //没有动画中间的过渡效果。每次直接跳到下一帧开始的地方
+语义化结构标签：
+        section    类似于div,section 更偏向划分区域
+        article    更偏向于 内容的展示
+        aside      （在一边的，在一旁的，侧边）
+        header     表示内容的头部、网页的头部、头部区域
+        footer     表示网页的底部、内容的底部、底部区域
+        nav         导航连接、导航区域
+        figure     表示一块独立的内容
+        figcaption  figure的标题（一般放在figure的第一位或者最后一位）
+        main       主体内容(IE不兼容)
+        hgroup
+        mark       高亮显示  默认北京为黄色（可以更改背景  内联元素）
+        time        放时间的
+        dialog      类似于微信的对话框  ( 默认display:none  默认定位  默认边框 )
+video  视频
+        - src属性:资源路径
+        - controls属性：如果出现该属性，则向用户显示控件，比如播放按钮。
+        - autoplay属性：如果出现该属性，则视频在就绪后马上播放。
+        - loop属性：重复播放属性。
+        - muted属性：静音属性。
+        - poster属性：规定视频正在下载时显示的图像，直到用户点击播放按钮
+audio  音频
+        - src属性:资源路径
+        - controls属性：如果出现该属性，则向用户显示控件，比如播放按钮。
+        - autoplay属性：如果出现该属性，则视频在就绪后马上播放。
+        - loop属性：重复播放属性。
+        - muted属性：静音属性。
+source标签:定义媒介资源
+        type属性:
+            视频:
+                用于视频：video/ogg   video/mp4     video/webm
+            音频:
+                用于音频：audio/ogg   audio/mpeg
+                        也支持  wav
+    

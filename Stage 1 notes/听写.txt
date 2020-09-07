@@ -1,0 +1,67 @@
+加粗强调  strong   strong strong sstrong strong
+声明文档类型  <!doctype> !doctype  !doctype !doctype  ！doctype
+语言   charset=utf-8 charset charset  charset charset
+跳转方式 ：新窗口    target=_blonk    target=blonk
+水平对齐方式   align  align align align 
+    属性值：left左 right右
+边框距离内边距的距离    cellpading  cellpadding cellpadding
+边框与边框之间的距离   cellspacing   cellspacing cellsoacing
+宽   width  width  width width width
+高   height  height  height height height
+跳转 地址    herf  herf  herf  herf  herf
+图片地址   src   src  src
+合并列  colspan  colspan  colspan  colspan
+合并行  rowspan  rowspan  rowspan rowspan
+图片单词   img img  img src="url"  title  图片转文字title 
+超链接   a herf   herf     target="_blonk"   target  blonk 
+表格  table table table  table  table  table
+边框   border border  border
+    属性： 虚线 dashed dashed dashed
+边框颜色  bordercolor  bordercolor    
+表单  form form form form form
+表单接口   action  action  action action action
+数据提交方法  method  method method   post / get  method
+文本框   input=text  text
+密码框   input=password   password password
+按钮     input=button  button button
+提交按钮  input=submit  submit submit
+重置按钮  input=reset   reset reset 
+外部样式方法  @improt url（）  @import url（） @import url（）
+伪类-未访问状态  a：link a:link   a：link
+已访问状态  a：visited visited  visited visited  visited 
+滑过状态  a：hover  a:hover  a:hover
+按住状态 a:active  a：active a:active active
+字符间距  letter-spacing letter-spacing letter-spacing
+单词间距  word-sacing wordspacing
+文本大小：  font-size  font-size font-size
+行高： line-height  line-height line-height 
+w文本的加粗：font-weight   font-weight  dont-weight
+    属性值：
+        1：加粗  bold  bold bold  bold
+        2：更粗  bolder bolder bolder bolder
+        3：恢复常规文本  normal normal normal
+文本的斜体： font-style font-style font-style
+    属性值：
+        1：恢复常规文本  normal normal normal  
+        2: 文本斜体   italic italic  italic  italica
+        3：斜体    oblique oblique oblique oblique
+文字类型： font-family font-family font-family
+列表属性：list-style list-style  list-style
+背景： background  background background
+背景颜色 background-color background-color background-color
+背景图片 background-image background-image background-image
+背景图的显示状态 background-repeat background-repeat background-repeat
+    属性值：
+        1.只出现一次  no-repeat no-repeat no-repeat
+        2.平铺  repeat repeat repeat
+        3.x轴平铺 repeat-x repeat-x repeat-x轴
+        4.y轴平铺 repeat-y repeat-y repeat-y轴
+背景图的定位：background-position background-position background-position
+浮动  float' float float  
+行高 line-height line-height line-height
+文本对齐方式 text-align  text-align text-align
+文本修饰属性：text-decoration text-decoration text-decoration
+首行缩进 text-indent text-indent text-indent
+字符间距 letter-spacing letter-spacing letter-spacinglo
+边框的宽/颜色/类型  border-width/color/style 
+透明  transparent  transparent  transparent 

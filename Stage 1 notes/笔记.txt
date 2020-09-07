@@ -1,0 +1,416 @@
+a超链接
+    href：属性     url：地址路径
+    当href="#"  意思为空连接，在当前页面发生跳转（会到顶端）
+    当href="###"    完全空链接，不会跳转。（用来模拟按钮）
+
+    target=""
+        属性值：
+            _self  默认值：在当前页面打开
+            _blonk  在新窗口打开目标地址
+    title=""  不仅仅支持a标签，大部分标签都支持
+        ：做提示信息
+img
+    属性="图片的url"   必须存在
+        alt        必须存在
+            alt作用： ①文本替换图片（当图片加载不出来的时候）
+                      ②搜索引擎检测不到图片里的文本，会查找alt里面的文本（seo优化）
+相对路径:
+            1: 同级找同级文件  ./直接书写目标文件+扩展名
+            2：父级找子级文件  ./目标文件夹名称/目标文件+扩展名
+            3：子级找父级   ../ (返回上一级) 目标文件+扩展名
+表格的作用：显示数据
+    属性：
+        cellpadding=""   内容距离边框的距离
+        cellspacing=""   边框与边框之间的距离
+        align=""       水平对齐方式  属性值：left  right center
+        valign=""      垂直对齐方式  属性值：top  bottom middle
+        行合并 rolspan
+        列合并 colspan
+            上下合并就跨行，左右合并就跨列
+表单   form
+    属性action=""   接口（表单提交的路径）
+        method="get/post"   数据提交的方法
+        name =""    表单的名称
+表单控件：
+        大部分通过input标签实现
+        input属性：
+            type=""    控制input显示类型
+            value=""  根据type类型的不同，作用也不同
+                    value属性在文本框中是指：提示信息的作用
+                    value属性在密码框中值：更改按钮文本
+        name=""     表单控件的名称
+文本框：
+        input="text"
+    密码框：
+        input="password"
+    按钮：
+        input="button"
+    提交按钮：
+        input="submit" 
+    重置按钮：
+        input="reset"
+css
+        css所有的标签都必须放在样式表里
+        选择符  { }
+        css样式表:
+                内部样式表  外部样式表  内联样式表
+        语法：
+            <style></style>   css语句包裹在style中
+
+        <link>
+            属性： rel="stylesheet"   建立关联性
+                  href="url"    导入地址路径
+样式表的权重
+        内联样式表的权重最高，后写的会覆盖前面写的
+        覆盖的只是相同样式，不同的会继承生效
+    层叠性只有在多个选择器选中同一个标签，然后又设置了相同的属性，才会发生层叠，
+    且层叠性受就近原则和权重影响。
+id选择符的权重（100） >  class选择符权重（10） > 标签选择符（类型选择符）（1）
+    包含选择符的权重：是选择符的权重之和。
+    通配符的权重的 0
+    伪类选择符：10
+    群组选择符：权重不发生变化。
+    内联样式表：1000
+!important  权重是最高的（最重要的）
+    权重如果相同的时候，写在后面的样式会把前面的样式覆盖掉。
+2:外部样式
+        (1) 语法：<link rel="stylesheet" type="text/css" href="目标文件的路径及文件名全称" />
+        说明：使用link元素导入外部样式表时，需将该元素写在文档头部，即<head>与</head>之间。
+        rel：用于定义文档关联，表示关联样式表；
+        type：定义文档类型；
+        (2)、导入外部样式表
+        <style type="text/css">
+        @import url("目标文件的路径及文件名全称");
+        </style>
+        说明：@和import之间没有空格 url和小括号之间也没有空格；括号内部加引号，必须结尾以分号结束；
+        link @import区别
+        差别1：老祖宗的差别：link属于XHTML标签，而@import完全是CSS提供的一种方式。 link标签除了可以加载CSS外，还可以做很多其它的事情，比如定义
+        差别2：加载顺序的差别：当一个页面被加载的时候（就是被浏览者浏览的时候），link引用的CSS会同时被加载，而@import引用的CSS 会等到页面全部被下载完再被加载。所以有时候浏览
+        差别3：兼容性的差别。：@import是CSS2.1提出的，所以老的浏览器不支持，@import只在IE5以上的才能识别，而link标签无此问题。
+        差别4：使用dom控制样式时的差别：当使用javascript控制dom去改变样式的时候，只能使用link标签，因为@import不是dom可以控制的.
+css层叠性：
+        样式产生冲突，按照权重大的样式执行
+        不冲突的样式，正常执行。
+    权重问题：
+    内联样式表的权重最大
+    后写的覆盖前写的（相同样式）
+css选择器：
+    基本的选择符：
+            类型选择符（标签选择符）  
+            id选择符 
+            类选择符（class选择符）
+1：类型选择符：
+        说明：所有的html标签，都能当作选择符来用。
+              例如：html\body\div\p\span\i......
+        特点：选择页面中所有的当前元素（div 选中页面中所有的div）
+        作用: 
+             a:想统一某个标签样式的时候，
+             b:想清除某个元素默认样式的时候。
+2：id选择符：
+        语法：
+            <标签 id="自己起的名称"></标签>
+            css用id 写样式
+                #名称{css样式}
+        特点：id是唯一的，在同一个页面内，只能出现一次。
+        作用：id名称用作 网页外围结构的搭建。
+3:class选择符：
+        语法：
+            <标签 class="名称"></标签>
+            css用class写样式
+                .名称{css样式}
+        特点：
+            a : 一个标签可以拥有多个class名称。
+            b : class可以重复使用。
+        作用：更适合定义一类样式。
+4:包含选择符（后代选择器、父子选择器）：
+        说明：根据父元素找子元素。
+        语法：
+            父元素选择器  子元素选择符{ 给子元素写样式 }
+5:群组选择符
+        语法：
+            把多个选择符 以 逗号分隔的形式组成一组。并对当前整个组写样式。
+        
+            选择符1,选择符2,选择符3......{css样式}
+6:通配符：
+        *
+        说明：选择页面中所有的标签。
+        作用：
+            清除内填充和外边距！！！（暂时用法）
+            *{ 
+                padding:0;    /*盒子的内填充*/
+                margin:0;    /*盒子的外边距*/
+             }
+7:伪类选择器 
+        a:link {color: red;}                    /* 未访问的链接状态 */
+        a:visited {color: green;}				/* 已访问的链接状态 */
+        a:hover {color: blue;}                  /* 鼠标滑过链接状态 */
+        a:active {color: yellow;}               /* 鼠标按下去时的状态 */
+        常用的方法：
+            a{color:black;}
+            a:hover{color:yellow;}
+网页布局标准取名：
+     起名字的方法：
+        小写的英文字母开头，
+        字母数字下划线连字符的组合。
+        语义化：名字尽量反应内容板块的内容或用途。
+    下划线：
+        news_left  
+        news_right
+        news_center
+    连字符：
+        news-left
+        news-right
+        news-center
+    驼峰式命名法：
+        newsLeft
+        newsRight
+        newsCenter
+    注意：
+        每个项目 命名风格保持一致。
+        起名字不能使用关键字（所有的标签和属性都属于关键字）！
+一：文本属性:
+    文本大小的设置：
+    font-size:
+        a: 系统为了统一文本大小，规定16px文本为默认大小。
+        b: 文本大小在设置的时候，一定设置成偶数（别低于12px）
+        c: 文本大小在设计图里面的获取，量文本的高度即可。
+        d: em 相对大小，根据父元素font-size的值而定。
+            例如：父元素font-size:20px;  1em == 20px;
+                默认情况下：1em == 16px;
+            em其他应用：
+                line-height(行高)
+                line-height:2em;  （根据自身font-size的值确定）
+            在设计图里面行高怎么获取：从一行的顶端到下面一行的顶端。
+        e: pt  磅  一般用在印刷领域。
+            9pt == 12px
+        f: 使用法定字号：
+            xx-small == 9px      medium == 16px
+            large == 19px         x-small == 11px
+            x-large == 23px        small == 13px
+            xx-large == 27px
+2：设置文本颜色：
+        color:
+            颜色值：red  green  blue ......
+            十六进制颜色值：
+                0123456789abcdef
+                #六位或者三位16进制数字。
+                0带表最暗的颜色 f代表最亮的颜色。
+            实现:#ffdd00     简写  #fd0
+                ff 代表红色
+                dd 代表绿色
+                00 代表蓝色
+            rgb模式：
+                rgb(245,245,245)
+3:设置字体：（ 宋体、楷体...... ）
+        为了统一文字间的差异：默认字体（微软雅黑）
+        font-family:多个属性值的时候是用逗号隔开
+        系统能支持的字体：web安全字体。
+        英文默认的字体:Arial。
+        font-family属性值是中文需要放在引号里面，英文字体多个单词，
+            也需要放在引号里面。一个英文字体的单词，不需要放在引号里面。
+        如果存在中英文字体：先写英文再写中文字体。
+4：设置文本的加粗 
+    font-weight
+        属性值：
+            bold      加粗
+            bolder    更粗的（系统显示的不明显）
+            normal    恢复常规文本
+            分成9个等级：
+                100
+                200
+                300
+                ...
+                900
+            100 - 500 常规状态
+            600 - 900 加粗状态
+5：控制文本的倾斜  
+    font-style:
+        属性值：
+            normal  恢复常规文本
+            italic  文本倾斜
+            oblique  文本倾斜   
+6：行高 line-height:  
+        a:再设计图上量取行高:(地一行的开始第二行的顶端)
+        b:当单行文本的line-height值  和 容器高保持一致，
+            可使文本在容器里面上下居中。
+7: text-align  文本对齐方式
+        属性值：
+            left
+            right 
+            center
+            justify  ( 两端对齐 )
+8:文本修饰属性 text-decoration:
+    属性值：
+        none    去掉下划线
+        underline 下划线
+        overline  上划线
+        line-through  删除线
+        blink     闪烁（不被支持）
+9:首行缩进  text-indent:
+        text-indent:2em;
+        text-indent能接收负值（悬挂缩进）
+10:letter-spacing 字符间距
+    11：word-spacing  单词与单词间距
+    12：text-transform:
+        属性值：
+            capitalize   首字母大写
+            uppercase    全部大写
+            lowercase    全部小写
+css列表属性：
+        1：控制列表符号：
+            list-style-type:
+                属性值：circle、square ...
+                    list-style-type:none;
+        2:list-style-image:url();
+        3:list-style-position:  控制的列表符号的位置
+            属性值：
+                inside
+                outside
+        4:list-style:none    去掉列表符号               
+背景属性：
+        background   简写（复合式写法）
+背景颜色：
+        background-color:
+背景图：
+        background-image:url('图片路径');        
+        背景图的显示（默认）：
+            特点：背景图是不占据空间的，跟随容器大小变化。
+            a: 当容器大小 大于 背景图大小 平铺状态
+            b: 当容器大小 等于 背景图大小 只能显示一张
+            c: 当容器大小 小于 背景图大小 只能显示容器的区域
+背景图的显示状态：
+    background-repeat:
+        属性值：
+            no-repeat
+            repeat
+            repeat-x
+            repeat-y
+背景图片的位置：
+    background-position:
+        属性值：（正值往下往右  负值往左往上）
+            第一个值左右距离    第二个值上下距离
+            可指定方位值：
+                left(背景图左侧贴着容器左侧)   bottom（背景图贴着容器底部）
+                right   top
+                center  center 
+常用的简写形式：
+        background:背景颜色 url(背景图) no-repeat center;
+        扩展：
+        background-attachment:
+            背景图的固定：
+                属性值 ： fixed、scroll     
+float属性
+    浮动：
+    属性值：
+        left  左浮动
+        right 右浮动
+        none  不浮动                                                 
+    1:添加浮动的盒子 是不占据空间的。
+    2:只要子元素有浮动，父元素必须有高度。否则会出现“高度塌陷”
+    3：只要子元素有浮动，尽量保证浮动元素都有父元素存在！！
+    4：浮动的原理
+边框复合写法and画三角形 ：
+        a: 默认情况下边框是长在元素宽高之外。
+        b: 
+            border:10px solid blue;  ( 复合式写法 )
+            属性拆分：
+            border-width:   边框大小
+            border-color:   边框颜色
+            border-style:   边框类型 
+                    （ 
+                        solid 实线 
+                        dashed 虚线
+                        dotted 点状线
+                        double  双线
+                        none 没有线条
+                    ）
+        c:单独一个方向设置边框：
+            border-left:10px solid red;
+            border-right:10px solid red;
+            border-bottom:10px solid red;
+            border-top:10px solid red;
+        d:
+            border-width/color/style : 
+                属性值：
+                    1个值： 四周都添加边框
+                    2个值： 上下    左右
+                    3个值：  上    左右    下
+                    4个值：  上 右 下 左
+边框画三角形样式:
+            用边框画三角形：
+                内容宽高都为o，设置边框即可实现三角形。
+                transparent  透明
+        <style>
+            *{
+                margin:0;
+                padding:0;
+            }
+            body{
+                background:#ccc;
+            }
+            .box{
+                width:0px;
+                height:0px;
+                /* 边框属性 */
+                /* border:10px dashed blue; */
+                /* border-right:20px solid orange; */
+                /* border-top:10px solid red;
+                border-bottom:10px solid red; */
+                /* border:solid 200px;  把border-width:单独拿出来
+                border-color:green red blue pink; */
+                /* border:200px solid;
+                border-color:red transparent transparent transparent; */
+                border-top:200px solid red;
+                border-left:200px solid orange;
+                border-right:200px solid blue
+            }
+        </style>
+盒模型基础
+    网页布局的基石，从盒子的内部到盒子的外围：
+        内容（图片、文本、视频、小盒子...）
+        内填充（补白） 【相当于盒子里面的泡沫】
+        盒子本身（border）
+        外边距    
+    盒模型具体的css属性：
+        内填充：padding属性
+        外边距：margin属性
+padding的用法：
+        1：padding是长在 内容 和 盒子之间的距离
+        2：padding是长在盒子里面的。
+        3：padding的作用：主要控制子元素在盒子内部的位置关系。
+        4：padding是添加在父元素上面。
+        5: padding可以把盒子撑大！！
+            如果想让盒子保持原有的大小，需要在宽高的基础上减掉padding !!
+            注：如果一个盒子没有固定大小（被内容撑开），添加padding 不用减。
+        6：单一方向上设置padding值：
+            padding-left:
+            padding-right:
+            padding-top:
+            padding-bottom:
+        7:padding的设置方法：
+            padding:一个值   四周都padding
+            padding:两个值   上下    左右
+            padding:三个值   上  左右  下
+            padding:四个值   上右下左
+        8：padding不会对背景图的位置造成影响。
+        9：padding不能为负值。
+margin的用法：
+        1:margin 是长在盒子外围的。
+        2：margin 控制当前元素 与 其他同级元素的位置关系。
+        3：margin不会改变盒子内部的大小。
+        4：给元素的单一一个方向设置margin值
+            margin-right:
+            margin-left:
+            margin-top:
+            margin-bottom:
+        5:margin设置方法：
+            margin:一个值   四周
+            margin:两个值   上下   左右
+            margin:三个值   上  左右  下
+            margin:四个值   上右下左
+        6:margin是可以设置负值的！
+        7:margin常出现的BUG:
+            A: 同级元素 上下 之间的margin的margin值，不会叠加，会重合，
+                按照最大值设置。
+            B: 当父元素 和 第一个子元素 都没有浮动，给第一个子元素添加margin-top:
+                 会错误的把margin-top:添加在父元素上面
