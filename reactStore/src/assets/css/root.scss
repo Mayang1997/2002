@@ -1,0 +1,128 @@
+
+html,body,ul,li,ol,dl,dd,dt,p,h1,h2,h3,h4,h5,h6,form,fieldset,legend,img,input{
+    margin:0;
+    padding:0;
+}
+h1,h2,h3,h4,h5,h6{
+    font-size: 16px;
+    font-weight: normal;
+}
+ul,ol,li{
+    list-style: none;
+}
+a,u{
+    text-decoration: none;
+}
+b,strong{
+    font-weight: normal;
+}
+em,i{
+    font-style: normal;
+}
+img{
+    border: 0;  /*清除图片在有超链接的时候，存在一个蓝色的边框*/
+    display: block;
+}
+input{
+    outline: none;
+}
+
+/* 公共样式 */
+.float_left{
+    float: left;
+}
+.float_right{
+    float: right;
+}
+
+/* 万能清除法 */
+.clear_fix::after{
+    content:".";
+    display:block;
+    clear:both;
+    height:0;
+    overflow: hidden;
+    visibility: hidden;
+}
+.clear_fix{
+    zoom:1;
+}
+
+
+#root{
+    width: 600px;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin: 30px auto;
+    color: rgb(180, 19, 19);
+}
+.header{
+    font-size: 30px;
+}
+.red {
+    color: red;
+}
+.blue {
+    color: blue;
+}
+.langs{
+    display: flex;
+    &>span{
+        flex: 1;
+        margin: 20px 0;
+        height: 40px;
+        line-height: 40px;
+        border: 1px solid #eee;
+    }
+}
+
+.on{
+    color: orange;
+}
+
+.modelBox{
+    width: 400px;
+    height: 200px;
+    margin: 30px auto 0;
+    font-size: 24px;
+    font-weight: normal;
+    color: #333;
+    background: rgb(245, 241, 241);
+    border-radius: 20px;
+    position: relative;
+    >.model-top{
+        position: relative;
+        font-size: 20px;
+        >span:nth-child(1),>span:nth-child(2){
+            position: absolute;
+            left: 20px;
+            top: 26px;
+        }
+        >span:nth-child(2){
+            text-align: right;
+            right: 20px;
+        }
+    }
+    >.model-con{
+        position: absolute;
+        top: 70px;
+        left: 60px;
+    }
+    >.model-fot{
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        color: #fff;
+        >.btn{
+            display: inline-block;
+            font-size: 20px;
+            width: 50px;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+    }
+}
