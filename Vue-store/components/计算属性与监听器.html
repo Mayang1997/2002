@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app">
+    <span>First：</span>
+    <input type="text" v-model='first'><br>
+
+    <span>Last：</span>
+    <input type="text" v-model='last'>
+    <h1>全名：<span v-text='full'></span></h1>
+
+    <hr>
+    <!-- 使用计算属性实现 -->
+    <div>
+      <span>单价：</span><input type="text" v-model.number='price'>
+    </div>
+    <div>
+      <span>数据：</span><input type="text" v-model.number='num'>
+    </div>
+    <h1>总计：<span v-text='total'></span></h1>
+
+    <hr>
+
+    <!-- 使用监听器实现 -->
+    <div>
+      <span>单价：</span><input type="text" v-model.number='price1'>
+    </div>
+    <div>
+      <span>数据：</span><input type="text" v-model.number='num1'>
+    </div>
+    <h1>总计：<span v-text='total1'></span></h1>
+
+
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script type="text/javascript">
+    // 计算属性：依靠Vue响应式系统，且具有缓存效应，每天重新计算是取声明式变量的最新值
+    // 监听器
+    var app = new Vue({
+      el: '#app',
+      data: {
+        first: '',
+        last: '',
+        price: 0,  // 100
+        num: 0,   // 2
+        price1: 0,
+        num1: 0,
+        total1: 0
+      },
+      // 计算属性会与一个或多个声明式数据进行关联，如果这些被关联的声明式数据发生变化，计算属性会自动计算
+      computed: {
+        full: function() {
+          var fullname = this.last + ' ' + this.first
+          // 在这里做复杂的运算
+          return fullname
+        },
+        total: function() {
+          return this.price * this.num
+        }
+      },
+      // 监听器可以监听data声明式变量和计算属性的变化
+      watch: {
+        price1: function(newVal, oldVal) {
+          this.total1 = newVal * this.num1
+        },
+        num1: function(newVal, oldVal) {
+          this.total1 = newVal * this.price1
+        },
+        full: function(newVal, oldVal) {
+          console.log('我监听了full的变化，我们准备做点事')
+        }
+      }
+    })
+  </script>
+</body>
+</html>

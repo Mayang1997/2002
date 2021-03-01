@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app">
+
+    <input ref='input' type="text">
+    <button @click='getInputVal'>获取表单值</button>
+    <div ref='box'>box</div>
+    <my-child ref='child' text='2002'></my-child>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // ref
+    Vue.component('my-child', {
+      props: {
+        text: {
+          type: String,
+          required: false,
+          default: ''
+        }
+      },
+      template: `<div><h1 v-text='text' @click='clickHandle'></h1></div>`,
+      methods: {
+        clickHandle: function() {
+          var aa = Math.random()
+          this.$emit('change', 1, 2, 3, 4, aa)
+        },
+        getText: function() {
+          console.log('child',this.text)
+        }
+      }
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        count: 0
+      },
+      methods: {
+        getInputVal: function() {
+          // var val = document.getElementById('input').value
+          // console.log(val)
+          console.log(this.$refs.input.value)
+          this.$refs.box.style.color = 'red'
+          // 使用ref操作子组件
+          this.$refs.child.getText()
+        }
+      }
+    })
+  </script>
+
+</body>
+</html>

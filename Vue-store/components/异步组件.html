@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app">
+    <sync-child></sync-child>
+    <async-child></async-child>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+
+    // 同步组件
+    Vue.component('sync-child', {
+      template: `<div>同步的组件</div>`
+    })
+
+    // 异步组件
+    Vue.component('async-child', function(resolve, reject) {
+      setTimeout(function() {
+        resolve({
+          template: `<div>异步的组件</div>`
+        })
+      }, 5000)
+    })
+
+
+    var app = new Vue({
+      el: '#app'
+    })
+
+  </script>
+
+</body>
+</html>
